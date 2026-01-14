@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import Navbar from './components/Navbar';
@@ -28,6 +28,7 @@ function App() {
                     <Route path="/gallery" element={<Gallery />} />
                     <Route path="/booking" element={<Booking />} />
 
+                    <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
                     <Route path="/admin/login" element={<AdminLogin />} />
                     <Route path="/admin/dashboard" element={<AdminDashboard />} />
                     <Route path="/admin/appointments" element={<div className="container" style={{ padding: '5rem' }}><h1>Manage Appointments</h1></div>} />

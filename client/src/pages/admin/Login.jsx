@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const AdminLogin = () => {
     const [credentials, setCredentials] = useState({ username: '', password: '' });
@@ -23,10 +23,10 @@ const AdminLogin = () => {
     };
 
     return (
-        <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
-            <form onSubmit={handleLogin} style={{ background: '#2a2a2a', padding: '2rem', borderRadius: '10px', width: '100%', maxWidth: '400px' }}>
-                <h2 style={{ color: 'var(--primary)', textAlign: 'center' }}>Admin Login</h2>
-                {error && <div className="alert error" style={{ color: 'red', borderColor: 'red', background: 'rgba(255,0,0,0.1)' }}>{error}</div>}
+        <div className="admin-login-container">
+            <form onSubmit={handleLogin} className="login-form">
+                <h2>Admin Login</h2>
+                {error && <div className="alert error">{error}</div>}
                 <div className="form-group">
                     <label>Username</label>
                     <input type="text" name="username" onChange={handleChange} required />
@@ -36,6 +36,9 @@ const AdminLogin = () => {
                     <input type="password" name="password" onChange={handleChange} required />
                 </div>
                 <button type="submit" className="btn-primary btn-block">Login</button>
+                <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+                    <Link to="/" style={{ color: 'var(--secondary)', textDecoration: 'none', fontSize: '0.9rem' }}>Back to Home</Link>
+                </div>
             </form>
         </div>
     );

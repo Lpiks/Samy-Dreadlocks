@@ -2,16 +2,23 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
+import heroImage from '../assets/hero-main.png';
+
 const Home = () => {
     const { t } = useTranslation();
 
     return (
         <div className="home-page">
             <header className="hero">
-                <div className="hero-content container">
-                    <h1>{t('home.heroTitle')}</h1>
-                    <p>{t('home.heroSubtitle')}</p>
-                    <Link to="/booking" className="btn-primary">{t('home.heroBtn')}</Link>
+                <div className="hero-container container">
+                    <div className="hero-content">
+                        <h1>{t('home.heroTitle')}</h1>
+                        <p>{t('home.heroSubtitle')}</p>
+                        <Link to="/booking" className="btn-primary">{t('home.heroBtn')}</Link>
+                    </div>
+                    <div className="hero-image">
+                        <img src={heroImage} alt="Professional Dreadlocks Styling" />
+                    </div>
                 </div>
             </header>
 

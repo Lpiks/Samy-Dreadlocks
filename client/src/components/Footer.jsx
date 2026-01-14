@@ -1,6 +1,7 @@
 import React from 'react';
 import { Facebook, Instagram, Twitter } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
     const { t } = useTranslation();
@@ -29,7 +30,10 @@ const Footer = () => {
                 </div>
             </div>
             <div className="copyright">
-                <p>&copy; 2024 Samy Locks. {t('footer.copyright')}</p>
+                <p>&copy; {new Date().getFullYear()} Dreadlocks Salon. All rights reserved.</p>
+                <div style={{ marginTop: '0.5rem' }}>
+                    <Link to="/admin/login" style={{ color: '#333', fontSize: '0.8rem', textDecoration: 'none' }}>Admin</Link>
+                </div>
             </div>
         </footer>
     );
