@@ -22,18 +22,18 @@ const Home = () => {
                 </div>
             </header>
 
-            <section className="features container">
-                <h2 style={{ textAlign: 'center', marginBottom: '3rem', color: 'var(--primary)' }}>{t('home.whyChooseUs')}</h2>
-                <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-                    <div className="feature-card" style={{ background: '#222', padding: '2rem', borderRadius: '10px', flex: '1 1 300px' }}>
+            <section className="features-section container">
+                <h2>{t('home.whyChooseUs')}</h2>
+                <div className="features-grid">
+                    <div className="feature-card">
                         <h3>{t('home.expertStylists')}</h3>
                         <p>{t('home.expertStylistsDesc')}</p>
                     </div>
-                    <div className="feature-card" style={{ background: '#222', padding: '2rem', borderRadius: '10px', flex: '1 1 300px' }}>
+                    <div className="feature-card">
                         <h3>{t('home.premiumProducts')}</h3>
                         <p>{t('home.premiumProductsDesc')}</p>
                     </div>
-                    <div className="feature-card" style={{ background: '#222', padding: '2rem', borderRadius: '10px', flex: '1 1 300px' }}>
+                    <div className="feature-card">
                         <h3>{t('home.relaxingVibe')}</h3>
                         <p>{t('home.relaxingVibeDesc')}</p>
                     </div>

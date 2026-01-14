@@ -1,16 +1,23 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import gallery1 from '../assets/gallery-1.png';
+import gallery2 from '../assets/gallery-2.png';
+import gallery3 from '../assets/gallery-3.png';
+import gallery4 from '../assets/gallery-4.png';
+import gallery5 from '../assets/gallery-5.png';
+import gallery6 from '../assets/gallery-6.png';
+
 const Gallery = () => {
     const { t } = useTranslation();
 
     const images = [
-        'https://images.unsplash.com/photo-1595181270273-0f49c5409a45?auto=format&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1519699047748-40baea614fee?auto=format&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1631737487185-513d2588c599?auto=format&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1582095133179-bfd08d2c9ccf?auto=format&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1521590832169-d3c16ccb2bf7?auto=format&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1500517484804-b5b63fc49488?auto=format&fit=crop&q=80',
+        { src: gallery1, alt: 'Intricate Cornrows & Dreads' },
+        { src: gallery2, alt: 'Dyed Dreadlocks Styled' },
+        { src: gallery3, alt: 'Long Flowing Locs' },
+        { src: gallery4, alt: 'Elegant High Bun' },
+        { src: gallery5, alt: 'Fresh Starter Locs' },
+        { src: gallery6, alt: 'Artistic Dreadlocks Motion' },
     ];
 
     return (
@@ -23,7 +30,10 @@ const Gallery = () => {
             <div className="gallery-grid">
                 {images.map((img, index) => (
                     <div key={index} className="gallery-item">
-                        <img src={img} alt={`Gallery ${index + 1}`} />
+                        <img src={img.src} alt={img.alt} />
+                        <div className="gallery-overlay">
+                            <p>{img.alt}</p>
+                        </div>
                     </div>
                 ))}
             </div>

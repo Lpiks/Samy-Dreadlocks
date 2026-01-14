@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 
 const Booking = () => {
     const { t } = useTranslation();
@@ -9,7 +11,7 @@ const Booking = () => {
         email: '',
         phone: '',
         serviceId: '',
-        date: '',
+        date: null,
         notes: ''
     });
     const [status, setStatus] = useState('');
@@ -26,6 +28,10 @@ const Booking = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const handleDateChange = (date) => {
+        setFormData({ ...formData, date: date });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -40,54 +46,85 @@ const Booking = () => {
 
     return (
         <div className="page-container container">
-            <div className="booking-wrapper">
-                <header className="page-header">
-                    <h1>{t('booking.title')}</h1>
-                    <p>{t('booking.subtitle')}</p>
-                </header>
+            <div className="booking-layout">
+                <div className="booking-info">
+                    <div className="info-content">
+                        <h1>{t('booking.title')}</h1>
+                        <p className="subtitle">{t('booking.subtitle')}</p>
 
-                {status === 'success' ? (
-                    <div className="alert success">{t('booking.success')}</div>
-                ) : (
-                    <form className="booking-form" onSubmit={handleSubmit}>
-                        <div className="form-group">
-                            <label>{t('booking.name')}</label>
-                            <input type="text" name="name" required onChange={handleChange} />
+                        <div className="info-details">
+                            <div className="detail-item">
+                                <h3>Expert Stylists</h3>
+                                <p>Our team of professionals are dedicated to giving you the best look.</p>
+                            </div>
+                            <div className="detail-item">
+                                <h3>Premium Products</h3>
+                                <p>We only use high-quality, natural products for your hair.</p>
+                            </div>
                         </div>
+                    </div>
+                </div>
 
-                        <div className="form-group">
-                            <label>{t('booking.email')}</label>
-                            <input type="email" name="email" required onChange={handleChange} />
+                <div className="booking-form-container">
+                    {status === 'success' ? (
+                        <div className="alert success">
+                            <h3>Booking Confirmed!</h3>
+                            <p>{t('booking.success')}</p>
+                            <button className="btn-primary" onClick={() => setStatus('')}>Book Another</button>
                         </div>
+                    ) : (
+                        <form className="booking-form" onSubmit={handleSubmit}>
+                            <h2>Book Appointment</h2>
+                            <div className="form-group floating-group">
+                                <input type="text" name="name" required onChange={handleChange} placeholder=" " />
+                                <label>{t('booking.name')}</label>
+                            </div>
 
-                        <div className="form-group">
-                            <label>{t('booking.phone')}</label>
-                            <input type="tel" name="phone" required onChange={handleChange} />
-                        </div>
+                            <div className="form-group floating-group">
+                                <input type="email" name="email" required onChange={handleChange} placeholder=" " />
+                                <label>{t('booking.email')}</label>
+                            </div>
 
-                        <div className="form-group">
-                            <label>{t('booking.service')}</label>
-                            <select name="serviceId" required onChange={handleChange}>
-                                <option value="">Select a service</option>
-                                {services.map(s => (
-                                    <option key={s.id} value={s.id}>{s.name}</option>
-                                ))}
-                            </select>
-                        </div>
+                            <div className="form-group floating-group">
+                                <input type="tel" name="phone" required onChange={handleChange} placeholder=" " />
+                                <label>{t('booking.phone')}</label>
+                            </div>
 
-                        <div className="form-group">
-                            <label>{t('booking.date')}</label>
-                            <input type="datetime-local" name="date" required onChange={handleChange} />
-                        </div>
+                            <div className="form-group floating-group">
+                                <select name="serviceId" required onChange={handleChange}>
+                                    <option value="">Select a service</option>
+                                    {services.map(s => (
+                                        <option key={s.id} value={s.id}>{s.name}</option>
+                                    ))}
+                                </select>
+                                <label className="static-label">{t('booking.service')}</label>
+                            </div>
 
-                        <div className="form-group">
-                            <label>{t('booking.notes')}</label>
-                            <textarea name="notes" rows="4" onChange={handleChange}></textarea>
-                        </div>
+                            <div className="form-group floating-group">
+                                <DatePicker
+                                    selected={formData.date}
+                                    onChange={handleDateChange}
+                                    showTimeSelect
+                                    dateFormat="MMMM d, yyyy h:mm aa"
+                                    placeholderText=" "
+                                    className="date-picker-input"
+                                    wrapperClassName="date-picker-wrapper"
+                                    minTime={new Date(new Date().setHours(8, 0, 0, 0))}
+                                    maxTime={new Date(new Date().setHours(23, 0, 0, 0))}
+                                    required
+                                />
+                                <label className="static-label date-label">{t('booking.date')}</label>
+                            </div>
 
-                        <button type="submit" className="btn-primary btn-block">{t('booking.submit')}</button>
-                    </form>
-                )}
+                            <div className="form-group floating-group">
+                                <textarea name="notes" rows="3" onChange={handleChange} placeholder=" "></textarea>
+                                <label>{t('booking.notes')}</label>
+                            </div>
+
+                            <button type="submit" className="btn-primary btn-block">{t('booking.submit')}</button>
+                        </form>
+                    )}
+                </div>
             </div>
         </div>
     );

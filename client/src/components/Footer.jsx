@@ -31,9 +31,7 @@ const Footer = () => {
             </div>
             <div className="copyright">
                 <p>&copy; {new Date().getFullYear()} Dreadlocks Salon. All rights reserved.</p>
-                <div style={{ marginTop: '0.5rem' }}>
-                    <Link to="/admin/login" style={{ color: '#333', fontSize: '0.8rem', textDecoration: 'none' }}>Admin</Link>
-                </div>
+
             </div>
         </footer>
     );

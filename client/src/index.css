@@ -473,50 +473,244 @@ body {
 }
 
 /* Booking Page */
-.booking-wrapper {
-    max-width: 650px;
-    margin: 0 auto;
-    padding-bottom: 6rem;
+.page-container {
+    padding-top: 80px;
+    min-height: 100vh;
+}
+
+.booking-layout {
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 80vh;
+    margin: 2rem 0 4rem;
+    background: #1a1a1a;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.booking-info {
+    flex: 1;
+    min-width: 300px;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('./assets/booking-bg.png');
+    background-size: cover;
+    background-position: center;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--light);
+}
+
+.booking-info h1 {
+    font-size: 3.5rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+}
+
+.booking-info .subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 3rem;
+}
+
+.info-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.detail-item h3 {
+    color: var(--secondary);
+    margin-bottom: 0.5rem;
+}
+
+.detail-item p {
+    font-size: 0.95rem;
+    color: #ccc;
+    line-height: 1.5;
+}
+
+.booking-form-container {
+    flex: 1;
+    min-width: 350px;
+    padding: 3rem;
+    background: #222;
+    display: flex;
+    align-items: center;
 }
 
 .booking-form {
-    background: #252525;
-    padding: 2.5rem;
-    border-radius: 20px;
-    border: 1px solid #333;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    width: 100%;
 }
 
-.form-group {
-    margin-bottom: 1.8rem;
+.booking-form h2 {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    color: var(--secondary);
+    font-size: 1.8rem;
 }
 
 .form-group label {
+    margin-bottom: 0.5rem;
     display: block;
-    margin-bottom: 0.8rem;
-    color: var(--secondary);
+    color: #bbb;
+    font-size: 0.9rem;
     font-weight: 500;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
-    width: 100%;
-    padding: 1rem;
     background: #1a1a1a;
-    border: 1px solid #444;
-    color: #fff;
+    border: 1px solid #333;
     border-radius: 8px;
-    font-family: inherit;
+    padding: 0.8rem 1rem;
+    color: #fff;
+    width: 100%;
     transition: var(--transition);
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-    outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.2);
+    box-shadow: 0 0 0 2px rgba(212, 163, 115, 0.1);
+    outline: none;
+    background: #151515;
+}
+
+@media (max-width: 768px) {
+    .booking-layout {
+        flex-direction: column;
+    }
+
+    .booking-info {
+        padding: 4rem 2rem;
+        text-align: center;
+    }
+
+    .booking-form-container {
+        padding: 2rem;
+    }
+}
+
+.form-group {
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.floating-group input,
+.floating-group select,
+.floating-group textarea {
+    background: transparent;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 1.2rem 1rem 0.6rem;
+    color: #fff;
+    width: 100%;
+    transition: var(--transition);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.floating-group label {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    color: #888;
+    pointer-events: none;
+    transition: all 0.2s ease-out;
+    background: transparent;
+    padding: 0 0.2rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Floating logic for Textarea (top aligned) */
+.floating-group textarea+label {
+    top: 1.2rem;
+    transform: none;
+}
+
+.floating-group input:focus,
+.floating-group select:focus,
+.floating-group textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(212, 163, 115, 0.15);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Float label when focused or has content */
+.floating-group input:focus+label,
+.floating-group input:not(:placeholder-shown)+label,
+.floating-group textarea:focus+label,
+.floating-group textarea:not(:placeholder-shown)+label,
+.floating-group select:focus+label,
+.floating-group select:valid+label,
+.floating-group .static-label {
+    top: 0;
+    transform: translateY(-50%) scale(0.85);
+    background: #222;
+    /* Matches container bg */
+    color: var(--primary);
+    left: 0.8rem;
+}
+
+.floating-group select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: transparent;
+    padding-right: 2.5rem;
+    /* Space for custom arrow */
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23d4a373%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem top 50%;
+    background-size: 0.65rem auto;
+}
+
+/* Options styling (limited support but dark bg helps) */
+.floating-group select option {
+    background: #222;
+    color: #fff;
+    padding: 10px;
+}
+
+.floating-group input::placeholder,
+.floating-group textarea::placeholder {
+    opacity: 0;
+    /* Hide placeholder to use label */
+}
+
+.btn-primary.btn-block {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Date Input adjustments */
+.floating-group input[type="datetime-local"] {
+    color-scheme: dark;
+    /* Ensures default calendar popup is dark mode friendly */
+    cursor: pointer;
+}
+
+.floating-group input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    filter: invert(1);
+    /* Ensures icon is white on dark background */
+    opacity: 0.6;
+    transition: opacity 0.3s;
+}
+
+.floating-group input[type="datetime-local"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
 }
 
 
@@ -572,4 +766,388 @@ body {
     border-radius: 8px;
     margin-bottom: 1.5rem;
     text-align: center;
+}
+
+/* React DatePicker Customization */
+.date-picker-wrapper {
+    width: 100%;
+}
+
+.date-picker-input {
+    background: transparent !important;
+    border: 1px solid #444 !important;
+    border-radius: 8px !important;
+    padding: 1.2rem 1rem 0.6rem !important;
+    color: #fff !important;
+    width: 100% !important;
+    font-size: 1rem !important;
+    transition: var(--transition) !important;
+    font-family: var(--font-main) !important;
+}
+
+.date-picker-input:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 15px rgba(212, 163, 115, 0.15) !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    outline: none !important;
+}
+
+/* Calendar Container */
+.react-datepicker {
+    font-family: var(--font-main) !important;
+    background-color: #222 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    color: #fff !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+.react-datepicker__header {
+    background-color: #2a2a2a !important;
+    border-bottom: 1px solid #333 !important;
+    border-top-left-radius: 12px !important;
+    border-top-right-radius: 12px !important;
+}
+
+.react-datepicker__current-month,
+.react-datepicker-time__header,
+.react-datepicker-year-header {
+    color: var(--primary) !important;
+    font-weight: 600 !important;
+}
+
+.react-datepicker__day-name {
+    color: #888 !important;
+}
+
+.react-datepicker__day {
+    color: #eee !important;
+}
+
+.react-datepicker__day:hover {
+    background-color: #333 !important;
+    color: var(--primary) !important;
+    border-radius: 50% !important;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+    background-color: var(--primary) !important;
+    color: #222 !important;
+    font-weight: bold !important;
+    border-radius: 50% !important;
+}
+
+.react-datepicker__time-container {
+    border-left: 1px solid #333 !important;
+}
+
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box {
+    background-color: #222 !important;
+    color: #fff !important;
+}
+
+.react-datepicker__time-list-item:hover {
+    background-color: #333 !important;
+    color: var(--primary) !important;
+}
+
+.react-datepicker__time-list-item--selected {
+    background-color: var(--primary) !important;
+    color: #222 !important;
+    font-weight: bold !important;
+}
+
+/* Ensure label floats correctly for DatePicker */
+.floating-group .date-picker-input:focus+label,
+.floating-group .react-datepicker-wrapper+label {
+    /* Logic handled by static-label date-label overrides or JS state if needed, 
+        but usually simpler to keep it static or rely on value presence */
+}
+
+/* Force static label position for date picker for now as it handles placeholder differently */
+.floating-group .date-label {
+    top: 0 !important;
+    transform: translateY(-50%) scale(0.85) !important;
+    background: #222 !important;
+    color: var(--primary) !important;
+    left: 0.8rem !important;
+    z-index: 10;
+}
+
+/* Navigation Arrows */
+.react-datepicker__navigation {
+    top: 10px !important;
+}
+
+.react-datepicker__navigation-icon::before {
+    border-color: var(--secondary) !important;
+    border-width: 2px 2px 0 0 !important;
+    width: 8px !important;
+    height: 8px !important;
+    top: 10px !important;
+}
+
+.react-datepicker__navigation:hover .react-datepicker__navigation-icon::before {
+    border-color: var(--primary) !important;
+}
+
+/* Time list scrollbar customization (optional but good for dark theme) */
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box::-webkit-scrollbar-thumb {
+    background-color: #444;
+    border-radius: 4px;
+}
+
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box::-webkit-scrollbar-track {
+    background-color: #222;
+}
+
+
+/* Gallery Page Styles */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    padding-bottom: 4rem;
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+.gallery-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+    padding: 2rem 1rem 1rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    display: flex;
+    justify-content: center;
+}
+
+.gallery-item:hover .gallery-overlay {
+    transform: translateY(0);
+}
+
+.gallery-overlay p {
+    color: var(--primary);
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+}
+
+/* Page Header - Premium Style */
+.page-header {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('./assets/hero-main.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    /* Parallax effect */
+    padding: 6rem 1rem 4rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(212, 163, 115, 0.2);
+    margin-bottom: 3rem;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.page-header h1 {
+    font-size: 3.5rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+}
+
+.page-header p {
+    font-size: 1.2rem;
+    color: #ccc;
+    max-width: 600px;
+    margin: 0 auto;
+    font-weight: 300;
+}
+
+@media (max-width: 768px) {
+    .page-header {
+        padding: 4rem 1rem 3rem;
+    }
+
+    .page-header h1 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Premium Footer */
+.footer {
+    background: linear-gradient(to bottom, #1f1f1f, #151515);
+    /* Lighter/Rich Charcoal */
+    border-top: 1px solid rgba(212, 163, 115, 0.2);
+    padding: 2rem 0 1rem;
+    /* Drastic reduction: 4rem -> 2rem */
+    color: #aeaeae;
+    margin-top: auto;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.footer-section h3 {
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.footer-section h4 {
+    color: #fff;
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.footer-section h4::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 2px;
+    background-color: var(--primary);
+}
+
+.footer-section p {
+    line-height: 1.8;
+    margin-bottom: 0.5rem;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.social-icons svg {
+    color: var(--light);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.social-icons svg:hover {
+    color: var(--primary);
+    transform: translateY(-3px);
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 1rem;
+    /* Reduced from 2rem */
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* Home Features Section - Glassmorphism */
+.features-section {
+    padding: 6rem 1rem;
+    text-align: center;
+}
+
+.features-section h2 {
+    color: var(--primary);
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 2.5rem;
+    border-radius: 16px;
+    transition: all 0.4s ease;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 0;
+    background: var(--primary);
+    transition: height 0.4s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    border-color: rgba(212, 163, 115, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.feature-card:hover::before {
+    height: 100%;
+}
+
+.feature-card h3 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.feature-card p {
+    color: #aaa;
+    line-height: 1.6;
 }
