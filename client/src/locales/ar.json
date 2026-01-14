@@ -1,0 +1,53 @@
+{
+    "navbar": {
+        "home": "الرئيسية",
+        "services": "خدمات",
+        "gallery": "المعرض",
+        "bookBtn": "احجز الآن"
+    },
+    "home": {
+        "heroTitle": "Samy Locks",
+        "heroSubtitle": "ارتقِ بأسلوبك مع العناية الاحترافية بالجدائل.",
+        "heroBtn": "احجز موعداً",
+        "whyChooseUs": "لماذا تختارنا؟",
+        "expertStylists": "مصففون خبراء",
+        "expertStylistsDesc": "سنوات من الخبرة في جميع أنماط الجدائل وصيانتها.",
+        "premiumProducts": "منتجات مميزة",
+        "premiumProductsDesc": "نستخدم فقط أفضل المنتجات العضوية لصحة شعرك.",
+        "relaxingVibe": "أجواء مريحة",
+        "relaxingVibeDesc": "استمتع بجو مريح وفني."
+    },
+    "footer": {
+        "desc": "خدمات وعناية احترافية بالجدائل",
+        "contact": "اتصل بنا",
+        "phone": "هاتف",
+        "email": "بريد إلكتروني",
+        "followUs": "تابعنا",
+        "copyright": "جميع الحقوق محفوظة."
+    },
+    "services": {
+        "title": "خدماتنا",
+        "subtitle": "اختر الأسلوب الأمثل لك",
+        "price": "سعر",
+        "duration": "مدة"
+    },
+    "gallery": {
+        "title": "أعمالنا",
+        "subtitle": "تصفح أحدث تحولاتنا",
+        "price": "سعر",
+        "duration": "مدة"
+    },
+    "booking": {
+        "title": "احجز موعدك",
+        "subtitle": "اختر خدمة وتاريخاً",
+        "name": "الاسم الكامل",
+        "email": "البريد الإلكتروني",
+        "phone": "رقم الهاتف",
+        "service": "الخدمة",
+        "date": "التاريخ والوقت",
+        "notes": "ملاحظات إضافية",
+        "submit": "تأكيد الحجز",
+        "success": "تم إرسال طلب الحجز بنجاح!",
+        "error": "خطأ في إرسال طلب الحجز."
+    }
+}

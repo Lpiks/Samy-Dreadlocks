@@ -1,0 +1,51 @@
+{
+    "navbar": {
+        "home": "Home",
+        "services": "Services",
+        "gallery": "Gallery",
+        "bookBtn": "Book Now"
+    },
+    "home": {
+        "heroTitle": "Samy Locks",
+        "heroSubtitle": "Elevate your style with professional dreadlocks care.",
+        "heroBtn": "Book an Appointment",
+        "whyChooseUs": "Why Choose Us?",
+        "expertStylists": "Expert Stylists",
+        "expertStylistsDesc": "Years of experience in all dreadlock styles and maintenance.",
+        "premiumProducts": "Premium Products",
+        "premiumProductsDesc": "We use only the best organic products for your hair health.",
+        "relaxingVibe": "Relaxing Vibe",
+        "relaxingVibeDesc": "Enjoy a comfortable and artistic atmosphere."
+    },
+    "footer": {
+        "desc": "Professional Dreadlocks Services & Care",
+        "contact": "Contact",
+        "phone": "Phone",
+        "email": "Email",
+        "followUs": "Follow Us",
+        "copyright": "All rights reserved."
+    },
+    "services": {
+        "title": "Our Services",
+        "subtitle": "Choose the perfect style for you",
+        "price": "Price",
+        "duration": "Duration"
+    },
+    "gallery": {
+        "title": "Our Work",
+        "subtitle": "Browse our latest transformations"
+    },
+    "booking": {
+        "title": "Book Your Appointment",
+        "subtitle": "Select a service and date",
+        "name": "Full Name",
+        "email": "Email Address",
+        "phone": "Phone Number",
+        "service": "Service",
+        "date": "Date & Time",
+        "notes": "Additional Notes",
+        "submit": "Confirm Booking",
+        "success": "Booking request sent successfully!",
+        "error": "Error sending booking request."
+    }
+}

@@ -1,0 +1,51 @@
+{
+    "navbar": {
+        "home": "Accueil",
+        "services": "Services",
+        "gallery": "Galerie",
+        "bookBtn": "Réserver"
+    },
+    "home": {
+        "heroTitle": "Samy Locks",
+        "heroSubtitle": "Élevez votre style avec des soins professionnels pour dreadlocks.",
+        "heroBtn": "Prendre rendez-vous",
+        "whyChooseUs": "Pourquoi nous choisir ?",
+        "expertStylists": "Stylistes Experts",
+        "expertStylistsDesc": "Des années d'expérience dans tous les styles et l'entretien des dreadlocks.",
+        "premiumProducts": "Produits Premium",
+        "premiumProductsDesc": "Nous utilisons uniquement les meilleurs produits biologiques pour la santé de vos cheveux.",
+        "relaxingVibe": "Ambiance Détente",
+        "relaxingVibeDesc": "Profitez d'une atmosphère confortable et artistique."
+    },
+    "footer": {
+        "desc": "Services et soins professionnels pour dreadlocks",
+        "contact": "Contact",
+        "phone": "Téléphone",
+        "email": "Email",
+        "followUs": "Suivez-nous",
+        "copyright": "Tous droits réservés."
+    },
+    "services": {
+        "title": "Nos Services",
+        "subtitle": "Choisissez le style parfait pour vous",
+        "price": "Prix",
+        "duration": "Durée"
+    },
+    "gallery": {
+        "title": "Notre Travail",
+        "subtitle": "Parcourez nos dernières transformations"
+    },
+    "booking": {
+        "title": "Réservez Votre Rendez-vous",
+        "subtitle": "Sélectionnez un service et une date",
+        "name": "Nom Complet",
+        "email": "Adresse Email",
+        "phone": "Numéro de Téléphone",
+        "service": "Service",
+        "date": "Date et Heure",
+        "notes": "Notes Supplémentaires",
+        "submit": "Confirmer la Réservation",
+        "success": "Demande de réservation envoyée avec succès !",
+        "error": "Erreur lors de l'envoi de la réservation."
+    }
+}
