@@ -11,6 +11,7 @@ import Booking from './pages/Booking';
 import AdminLogin from './pages/admin/Login';
 import AdminDashboard from './pages/admin/Dashboard';
 import AdminNavbar from './components/AdminNavbar';
+import AdminAppointments from './pages/admin/Appointments';
 
 function AppContent() {
     const { i18n } = useTranslation();
@@ -35,7 +36,7 @@ function AppContent() {
                 <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
                 <Route path="/admin/login" element={<AdminLogin />} />
                 <Route path="/admin/dashboard" element={<AdminDashboard />} />
-                <Route path="/admin/appointments" element={<div className="container" style={{ padding: '5rem' }}><h1>Manage Appointments</h1></div>} />
+                <Route path="/admin/appointments" element={<AdminAppointments />} />
                 <Route path="/admin/services" element={<div className="container" style={{ padding: '5rem' }}><h1>Manage Services</h1></div>} />
                 <Route path="/admin/gallery" element={<div className="container" style={{ padding: '5rem' }}><h1>Manage Gallery</h1></div>} />
             </Routes>

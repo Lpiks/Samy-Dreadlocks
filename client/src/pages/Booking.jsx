@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import DatePicker from 'react-datepicker';
@@ -16,13 +16,22 @@ const Booking = () => {
     });
     const [status, setStatus] = useState('');
 
-    // Mock services list (normally strictly fetched)
-    const services = [
-        { id: '1', name: 'Traditional Locs' },
-        { id: '2', name: 'Loc Retwist' },
-        { id: '3', name: 'Interlocking' },
-        { id: '4', name: 'Loc Extensions' },
-    ];
+    const [services, setServices] = useState([]);
+    const [loadingServices, setLoadingServices] = useState(true);
+
+    useEffect(() => {
+        const fetchServices = async () => {
+            try {
+                const res = await axios.get('http://localhost:5000/api/services');
+                setServices(res.data);
+                setLoadingServices(false);
+            } catch (err) {
+                console.error('Failed to fetch services', err);
+                setLoadingServices(false);
+            }
+        };
+        fetchServices();
+    }, []);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -35,9 +44,19 @@ const Booking = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Logic to actually create appointment
-            // await axios.post('http://localhost:5000/api/appointments', formData);
+            const token = localStorage.getItem('auth-token');
+            const config = token ? { headers: { 'auth-token': token } } : {};
+
+            await axios.post('http://localhost:5000/api/appointments', formData, config);
             setStatus('success');
+            setFormData({
+                name: '',
+                email: '',
+                phone: '',
+                serviceId: '',
+                date: null,
+                notes: ''
+            });
         } catch (err) {
             console.error(err);
             setStatus('error');
@@ -94,7 +113,7 @@ const Booking = () => {
                                 <select name="serviceId" required onChange={handleChange}>
                                     <option value="">Select a service</option>
                                     {services.map(s => (
-                                        <option key={s.id} value={s.id}>{s.name}</option>
+                                        <option key={s._id} value={s._id}>{s.name}</option>
                                     ))}
                                 </select>
                                 <label className="static-label">{t('booking.service')}</label>
