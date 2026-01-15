@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import Navbar from './components/Navbar';
@@ -10,32 +10,44 @@ import Gallery from './pages/Gallery';
 import Booking from './pages/Booking';
 import AdminLogin from './pages/admin/Login';
 import AdminDashboard from './pages/admin/Dashboard';
+import AdminNavbar from './components/AdminNavbar';
 
-function App() {
+function AppContent() {
     const { i18n } = useTranslation();
+    const location = useLocation();
+    const isAdminRoute = location.pathname.startsWith('/admin');
+    const isLoginPage = location.pathname === '/admin/login';
 
     useEffect(() => {
         document.body.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
     }, [i18n.language]);
 
     return (
-        <Router>
-            <div className={`app-container ${i18n.language === 'ar' ? 'rtl' : ''}`}>
-                <Navbar />
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/services" element={<Services />} />
-                    <Route path="/gallery" element={<Gallery />} />
-                    <Route path="/booking" element={<Booking />} />
+        <div className={`app-container ${i18n.language === 'ar' ? 'rtl' : ''}`}>
+            {!isAdminRoute && <Navbar />}
+            {isAdminRoute && !isLoginPage && <AdminNavbar />}
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/gallery" element={<Gallery />} />
+                <Route path="/booking" element={<Booking />} />
 
-                    <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
-                    <Route path="/admin/login" element={<AdminLogin />} />
-                    <Route path="/admin/dashboard" element={<AdminDashboard />} />
-                    <Route path="/admin/appointments" element={<div className="container" style={{ padding: '5rem' }}><h1>Manage Appointments</h1></div>} />
-                    <Route path="/admin/services" element={<div className="container" style={{ padding: '5rem' }}><h1>Manage Services</h1></div>} />
-                </Routes>
-                <Footer />
-            </div>
+                <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
+                <Route path="/admin/login" element={<AdminLogin />} />
+                <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                <Route path="/admin/appointments" element={<div className="container" style={{ padding: '5rem' }}><h1>Manage Appointments</h1></div>} />
+                <Route path="/admin/services" element={<div className="container" style={{ padding: '5rem' }}><h1>Manage Services</h1></div>} />
+                <Route path="/admin/gallery" element={<div className="container" style={{ padding: '5rem' }}><h1>Manage Gallery</h1></div>} />
+            </Routes>
+            {!isAdminRoute && <Footer />}
+        </div>
+    );
+}
+
+function App() {
+    return (
+        <Router>
+            <AppContent />
         </Router>
     );
 }
