@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap');
+
 :root {
     --primary: #d4a373;
     --secondary: #faedcd;
@@ -23,7 +25,7 @@ body {
 
 /* Navbar & Glassmorphism */
 .navbar {
-    background: rgba(31, 31, 31, 0.7);
+    background: rgba(31, 31, 31, 0.95);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     padding: 1rem 0;
@@ -40,8 +42,9 @@ body {
 }
 
 .logo {
-    font-size: 1.8rem;
-    font-weight: 800;
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 2rem;
+    font-weight: 700;
     color: var(--primary);
     text-decoration: none;
     text-transform: uppercase;
@@ -1029,6 +1032,7 @@ body {
 }
 
 .footer-section h3 {
+    font-family: 'Cinzel Decorative', cursive;
     color: var(--primary);
     font-size: 1.8rem;
     margin-bottom: 1rem;
@@ -1150,4 +1154,184 @@ body {
 .feature-card p {
     color: #aaa;
     line-height: 1.6;
+}
+
+/* --- RESPONSIVE OPTIMIZATION --- */
+
+/* Booking Page Mobile/Tablet Stack */
+@media (max-width: 968px) {
+    .booking-layout {
+        flex-direction: column;
+    }
+
+    .booking-info {
+        flex: 0 0 300px;
+        /* Reduced height for header image part on mobile */
+        padding: 2rem;
+    }
+
+    .booking-form-container {
+        padding: 2rem 1.5rem;
+    }
+}
+
+/* General Mobile adjustments (< 768px) */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    /* Reduce huge headers */
+    .page-header h1,
+    .features-section h2 {
+        font-size: 2rem;
+        letter-spacing: 1px;
+    }
+
+    .page-header {
+        padding: 3rem 1rem 2rem;
+    }
+
+    .page-header p {
+        font-size: 1rem;
+    }
+
+    /* Stack features grid gaps tighter */
+    .features-grid {
+        gap: 1.5rem;
+    }
+
+    .feature-card {
+        padding: 1.5rem;
+    }
+
+    /* Footer adjustments */
+    .footer {
+        padding: 2rem 0 1rem;
+        background: linear-gradient(to bottom, #1f1f1f, #151515);
+        /* Ensure it stays reduced */
+    }
+
+    .footer-container {
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .footer-section h3 {
+        font-size: 1.5rem;
+    }
+
+    /* Navbar items spacing */
+    .logo {
+        font-size: 1.5rem;
+    }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+    .booking-info h2 {
+        font-size: 2rem;
+    }
+
+    .booking-form-container h2 {
+        font-size: 1.8rem;
+    }
+}
+
+/* --- MOBILE NAVBAR STYLES --- */
+@media (max-width: 768px) {
+    .nav-links-desktop {
+        display: none;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+        color: var(--primary);
+        cursor: pointer;
+        z-index: 1002;
+    }
+
+    .mobile-menu {
+        position: fixed;
+        top: 60px;
+        /* Match navbar height approx */
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(10, 10, 10, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 4rem;
+        gap: 2rem;
+        border-top: 1px solid rgba(212, 163, 115, 0.2);
+        z-index: 1001;
+        animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    .mobile-menu a {
+        color: #fff;
+        font-size: 1.8rem;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 2px;
+        transition: color 0.3s;
+        width: 100%;
+        text-align: center;
+        padding: 1rem;
+        font-family: 'Cinzel Decorative', cursive;
+        /* Match logo for premium feel */
+    }
+
+    .mobile-menu a:hover {
+        color: var(--primary);
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .mobile-lang-switcher {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        width: 80%;
+        justify-content: center;
+    }
+
+    /* Blue Button Styling for Mobile */
+    .mobile-lang-switcher span {
+        color: #00f2ff;
+        /* Bright Blue */
+        font-size: 1rem;
+        cursor: pointer;
+        text-transform: uppercase;
+        border: 1px solid #00f2ff;
+        /* Blue Line */
+        padding: 0.6rem 1.2rem;
+        border-radius: 30px;
+        transition: all 0.3s;
+        box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
+    }
+
+    .mobile-lang-switcher span:hover {
+        color: #000;
+        background: #00f2ff;
+        box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+    }
 }
