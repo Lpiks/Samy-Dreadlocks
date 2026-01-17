@@ -15,7 +15,7 @@ const Footer = () => {
                 </div>
 
                 <div className="footer-section">
-                    <h4>{t('footer.contact')}</h4>
+                    <h4><Link to="/contact" style={{ color: 'inherit', textDecoration: 'none' }}>{t('footer.contact')}</Link></h4>
                     <p>{t('footer.phone')}: +1 234 567 890</p>
                     <p>{t('footer.email')}: info@samylocks.com</p>
                 </div>

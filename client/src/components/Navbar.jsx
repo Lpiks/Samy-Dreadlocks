@@ -21,6 +21,7 @@ const Navbar = () => {
                     <Link to="/">{t('navbar.home')}</Link>
                     <Link to="/services">{t('navbar.services')}</Link>
                     <Link to="/gallery">{t('navbar.gallery')}</Link>
+                    <Link to="/contact">{t('navbar.contact')}</Link>
                     <Link to="/booking" className="btn-primary">{t('navbar.bookBtn')}</Link>
 
                     <div className="lang-switcher">
@@ -46,6 +47,7 @@ const Navbar = () => {
                     <Link to="/" onClick={() => setIsOpen(false)}>{t('navbar.home')}</Link>
                     <Link to="/services" onClick={() => setIsOpen(false)}>{t('navbar.services')}</Link>
                     <Link to="/gallery" onClick={() => setIsOpen(false)}>{t('navbar.gallery')}</Link>
+                    <Link to="/contact" onClick={() => setIsOpen(false)}>{t('navbar.contact')}</Link>
                     <Link to="/booking" onClick={() => setIsOpen(false)}>{t('navbar.bookBtn')}</Link>
                     <div className="mobile-lang-switcher">
                         <span onClick={() => changeLanguage('en')}>English</span>

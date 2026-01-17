@@ -12,6 +12,7 @@ import AdminLogin from './pages/admin/Login';
 import AdminDashboard from './pages/admin/Dashboard';
 import AdminNavbar from './components/AdminNavbar';
 import AdminAppointments from './pages/admin/Appointments';
+import Contact from './pages/Contact';
 
 function AppContent() {
     const { i18n } = useTranslation();
@@ -31,6 +32,7 @@ function AppContent() {
                 <Route path="/" element={<Home />} />
                 <Route path="/services" element={<Services />} />
                 <Route path="/gallery" element={<Gallery />} />
+                <Route path="/contact" element={<Contact />} />
                 <Route path="/booking" element={<Booking />} />
 
                 <Route path="/admin" element={<Navigate to="/admin/login" replace />} />

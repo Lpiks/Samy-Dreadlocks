@@ -3,6 +3,7 @@
         "home": "Home",
         "services": "Services",
         "gallery": "Gallery",
+        "contact": "Contact",
         "bookBtn": "Book Now"
     },
     "home": {
@@ -47,5 +48,28 @@
         "submit": "Confirm Booking",
         "success": "Booking request sent successfully!",
         "error": "Error sending booking request."
+    },
+    "contact": {
+        "title": "Contact Us",
+        "subtitle": "Get in touch with us",
+        "form": {
+            "name": "Name",
+            "email": "Email",
+            "subject": "Subject",
+            "message": "Message",
+            "submit": "Send Message",
+            "success": "Message sent successfully!",
+            "error": "Failed to send message."
+        },
+        "map": "Find Us",
+        "hours": {
+            "title": "Opening Hours",
+            "weekdays": "Monday - Friday",
+            "weekdaysTime": "9:00 AM - 8:00 PM",
+            "saturday": "Saturday",
+            "saturdayTime": "10:00 AM - 6:00 PM",
+            "sunday": "Sunday",
+            "sundayTime": "Closed"
+        }
     }
 }

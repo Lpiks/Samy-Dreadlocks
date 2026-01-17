@@ -3,6 +3,7 @@
         "home": "Accueil",
         "services": "Services",
         "gallery": "Galerie",
+        "contact": "Contact",
         "bookBtn": "Réserver"
     },
     "home": {
@@ -47,5 +48,28 @@
         "submit": "Confirmer la Réservation",
         "success": "Demande de réservation envoyée avec succès !",
         "error": "Erreur lors de l'envoi de la réservation."
+    },
+    "contact": {
+        "title": "Contactez-nous",
+        "subtitle": "Prenez contact avec nous",
+        "form": {
+            "name": "Nom",
+            "email": "Email",
+            "subject": "Sujet",
+            "message": "Message",
+            "submit": "Envoyer le message",
+            "success": "Message envoyé avec succès !",
+            "error": "Échec de l'envoi du message."
+        },
+        "map": "Trouvez-nous",
+        "hours": {
+            "title": "Heures d'ouverture",
+            "weekdays": "Lundi - Vendredi",
+            "weekdaysTime": "09h00 - 20h00",
+            "saturday": "Samedi",
+            "saturdayTime": "10h00 - 18h00",
+            "sunday": "Dimanche",
+            "sundayTime": "Fermé"
+        }
     }
 }
