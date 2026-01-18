@@ -3,6 +3,12 @@ import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { Clock, Tag } from 'lucide-react';
 
+
+import serviceTraditional from '../assets/service-traditional.png';
+import serviceRetwist from '../assets/service-retwist.png';
+import serviceInterlocking from '../assets/service-interlocking.png';
+import serviceExtensions from '../assets/service-extensions.png';
+
 const Services = () => {
     const { t } = useTranslation();
     const [services, setServices] = useState([]);
@@ -10,18 +16,31 @@ const Services = () => {
 
     // Fallback data if API is empty (for demo "wow" factor)
     const demoServices = [
-        { _id: '1', name: 'Traditional Locs', description: 'Classic starter locs using comb coil or palm roll method.', price: 150, duration: '3-4 hours', imageUrl: 'https://images.unsplash.com/photo-1519699047748-40baea614fee?auto=format&fit=crop&q=80' },
-        { _id: '2', name: 'Loc Retwist', description: 'Clean up new growth and maintain neat parts.', price: 85, duration: '2 hours', imageUrl: 'https://images.unsplash.com/photo-1631737487185-513d2588c599?auto=format&fit=crop&q=80' },
-        { _id: '3', name: 'Interlocking', description: 'Maintenance method using a tool for longer lasting results.', price: 120, duration: '3 hours', imageUrl: 'https://images.unsplash.com/photo-1582095133179-bfd08d2c9ccf?auto=format&fit=crop&q=80' },
-        { _id: '4', name: 'Loc Extensions', description: 'Instant length using 100% human hair.', price: 500, duration: '6-8 hours', imageUrl: 'https://images.unsplash.com/photo-1595181270273-0f49c5409a45?auto=format&fit=crop&q=80' },
+        { _id: '1', name: 'Traditional Locs', description: 'Classic starter locs using comb coil or palm roll method.', price: 150, duration: '3-4 hours', imageUrl: serviceTraditional },
+        { _id: '2', name: 'Loc Retwist', description: 'Clean up new growth and maintain neat parts.', price: 85, duration: '2 hours', imageUrl: serviceRetwist },
+        { _id: '3', name: 'Interlocking', description: 'Maintenance method using a tool for longer lasting results.', price: 120, duration: '3 hours', imageUrl: serviceInterlocking },
+        { _id: '4', name: 'Loc Extensions', description: 'Instant length using 100% human hair.', price: 500, duration: '6-8 hours', imageUrl: serviceExtensions },
     ];
+
 
     useEffect(() => {
         const fetchServices = async () => {
             try {
                 const res = await axios.get('http://localhost:5000/api/services');
                 if (res.data.length > 0) {
-                    setServices(res.data);
+                    // Merge backend data with local high-quality images
+                    const localImages = {
+                        'Traditional Locs': serviceTraditional,
+                        'Loc Retwist': serviceRetwist,
+                        'Interlocking': serviceInterlocking,
+                        'Loc Extensions': serviceExtensions
+                    };
+
+                    const updatedServices = res.data.map(service => ({
+                        ...service,
+                        imageUrl: localImages[service.name] || service.imageUrl
+                    }));
+                    setServices(updatedServices);
                 } else {
                     setServices(demoServices);
                 }

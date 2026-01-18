@@ -10,7 +10,7 @@ const Footer = () => {
         <footer className="footer">
             <div className="container footer-container">
                 <div className="footer-section">
-                    <h3>Samy Locks</h3>
+                    <Link to="/">Samy Locks</Link>
                     <p>{t('footer.desc')}</p>
                 </div>
 

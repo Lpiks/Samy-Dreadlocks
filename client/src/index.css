@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Sankofa+Display&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Sankofa+Display&display=swap'); */
+/* @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Calistoga&display=swap');
 
 :root {
     --primary: #d4a373;
@@ -6,7 +8,7 @@
     --dark: #1f1f1f;
     --light: #fefae0;
     --accent: #e9edc9;
-    --font-main: 'Inter', sans-serif;
+    --font-main: 'Calistoga', cursive;
     --transition: all 0.3s ease;
 }
 
@@ -15,6 +17,8 @@ body {
     color: var(--light);
     margin: 0;
     font-family: var(--font-main);
+    font-weight: 400;
+    font-style: normal;
 }
 
 button {
@@ -46,7 +50,7 @@ button {
 }
 
 .logo {
-    /* font-family: var(--font-main); */
+    font-family: var(--font-main);
     font-size: 2rem;
     font-weight: 700;
     color: var(--primary);
@@ -227,9 +231,11 @@ button {
     margin-bottom: 3rem;
 }
 
-.footer-section h3 {
+.footer-section a {
     color: var(--primary);
+    font-family: var(--font-main);
     margin-top: 0;
+    text-decoration: none;
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
 }
