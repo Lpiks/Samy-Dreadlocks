@@ -44,6 +44,7 @@ const AdminDashboard = () => {
                 <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
                     <button className="btn-primary" onClick={() => navigate('/admin/appointments')}>Manage Appointments</button>
                     <button className="btn-primary" onClick={() => navigate('/admin/services')}>Manage Services</button>
+                    <button className="btn-primary" onClick={() => navigate('/admin/gallery')}>Manage Gallery</button>
                 </div>
             </div>
         </div>

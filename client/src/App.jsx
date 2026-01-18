@@ -12,6 +12,8 @@ import AdminLogin from './pages/admin/Login';
 import AdminDashboard from './pages/admin/Dashboard';
 import AdminNavbar from './components/AdminNavbar';
 import AdminAppointments from './pages/admin/Appointments';
+import AdminServices from './pages/admin/Services';
+import AdminGallery from './pages/admin/Gallery';
 import Contact from './pages/Contact';
 
 function AppContent() {
@@ -39,8 +41,8 @@ function AppContent() {
                 <Route path="/admin/login" element={<AdminLogin />} />
                 <Route path="/admin/dashboard" element={<AdminDashboard />} />
                 <Route path="/admin/appointments" element={<AdminAppointments />} />
-                <Route path="/admin/services" element={<div className="container" style={{ padding: '5rem' }}><h1>Manage Services</h1></div>} />
-                <Route path="/admin/gallery" element={<div className="container" style={{ padding: '5rem' }}><h1>Manage Gallery</h1></div>} />
+                <Route path="/admin/services" element={<AdminServices />} />
+                <Route path="/admin/gallery" element={<AdminGallery />} />
             </Routes>
             {!isAdminRoute && <Footer />}
         </div>
