@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import Navbar from './components/Navbar';
@@ -28,6 +29,7 @@ function AppContent() {
 
     return (
         <div className={`app-container ${i18n.language === 'ar' ? 'rtl' : ''}`}>
+            <Toaster position="top-center" toastOptions={{ style: { background: '#333', color: '#fff' } }} />
             {!isAdminRoute && <Navbar />}
             {isAdminRoute && !isLoginPage && <AdminNavbar />}
             <Routes>

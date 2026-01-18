@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Plus, Trash, Edit } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 const AdminServices = () => {
     const [services, setServices] = useState([]);
@@ -22,7 +23,14 @@ const AdminServices = () => {
     };
 
     const handleAddService = () => {
-        alert("Add Service functionality coming soon!");
+        toast.promise(
+            new Promise((resolve) => setTimeout(resolve, 2000)),
+            {
+                loading: 'Initating...',
+                success: 'Add Service functionality coming soon!',
+                error: 'Error',
+            }
+        );
     };
 
     return (

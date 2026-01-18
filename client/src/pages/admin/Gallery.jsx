@@ -1,9 +1,10 @@
 import React from 'react';
 import { Plus } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 const AdminGallery = () => {
     const handleAddImage = () => {
-        alert("Add Gallery Image functionality coming soon!");
+        toast.error("Add Gallery Image functionality coming soon!");
     };
 
     return (

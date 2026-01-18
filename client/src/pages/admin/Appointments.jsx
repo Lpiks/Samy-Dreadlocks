@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const AdminAppointments = () => {
     const [appointments, setAppointments] = useState([]);
@@ -48,9 +49,10 @@ const AdminAppointments = () => {
                 { headers: { 'auth-token': token } }
             );
             fetchAppointments(); // Refresh list
+            toast.success(`Appoinment status updated to ${status}`);
         } catch (err) {
             console.error('Failed to update status', err);
-            alert('Failed to update status');
+            toast.error('Failed to update status');
         }
     };
 
