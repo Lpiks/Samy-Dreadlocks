@@ -50,6 +50,8 @@ const AdminAppointments = () => {
             );
             fetchAppointments(); // Refresh list
             toast.success(`Appoinment status updated to ${status}`);
+            // Dispatch event to update navbar badge immediately
+            window.dispatchEvent(new Event('appointmentStatusChanged'));
         } catch (err) {
             console.error('Failed to update status', err);
             toast.error('Failed to update status');

@@ -1,10 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './AdminNavbar.css';
 
 const AdminNavbar = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const [pendingCount, setPendingCount] = useState(0);
+
+    useEffect(() => {
+        const fetchPendingCount = async () => {
+            try {
+                const token = localStorage.getItem('auth-token');
+                if (!token) return;
+
+                const response = await fetch('http://localhost:5000/api/appointments/pending-count', {
+                    headers: { 'auth-token': token }
+                });
+                const data = await response.json();
+                if (data.count) setPendingCount(data.count);
+            } catch (err) {
+                console.error("Error fetching pending count:", err);
+            }
+        };
+
+        fetchPendingCount();
+        // Poll every 30 seconds to keep it updated
+        const interval = setInterval(fetchPendingCount, 30000);
+
+        // Listen for updates from other components
+        window.addEventListener('appointmentStatusChanged', fetchPendingCount);
+
+        return () => {
+            clearInterval(interval);
+            window.removeEventListener('appointmentStatusChanged', fetchPendingCount);
+        };
+    }, []);
 
     const handleLogout = () => {
         localStorage.removeItem('auth-token');
@@ -22,7 +52,10 @@ const AdminNavbar = () => {
             </div>
             <div className="admin-nav-links">
                 <Link to="/admin/dashboard" className={`admin-nav-link ${isActive('/admin/dashboard')}`}>Dashboard</Link>
-                <Link to="/admin/appointments" className={`admin-nav-link ${isActive('/admin/appointments')}`}>Appointments</Link>
+                <Link to="/admin/appointments" className={`admin-nav-link ${isActive('/admin/appointments')}`}>
+                    Appointments
+                    {pendingCount > 0 && <span className="notification-badge">{pendingCount}</span>}
+                </Link>
                 <Link to="/admin/services" className={`admin-nav-link ${isActive('/admin/services')}`}>Services</Link>
                 <Link to="/admin/gallery" className={`admin-nav-link ${isActive('/admin/gallery')}`}>Gallery</Link>
                 <button onClick={handleLogout} className="logout-btn">

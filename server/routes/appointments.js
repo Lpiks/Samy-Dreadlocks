@@ -18,6 +18,17 @@ router.get('/', verify, async (req, res) => {
     }
 });
 
+// Get pending appointment count (Admin)
+router.get('/pending-count', verify, async (req, res) => {
+    if (req.user.role !== 'admin') return res.status(403).json({ message: 'Access Denied' });
+    try {
+        const count = await Appointment.countDocuments({ status: 'pending' });
+        res.json({ count });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // Update appointment status (Admin only)
 router.patch('/:id/status', verify, async (req, res) => {
     if (req.user.role !== 'admin') return res.status(403).json({ message: 'Access Denied' });
