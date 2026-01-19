@@ -6,6 +6,15 @@ const AdminNavbar = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [pendingCount, setPendingCount] = useState(0);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
+    const closeMenu = () => {
+        setIsMenuOpen(false);
+    };
 
     useEffect(() => {
         const fetchPendingCount = async () => {
@@ -45,20 +54,25 @@ const AdminNavbar = () => {
 
     return (
         <nav className="admin-navbar">
-            <div className="admin-logo">
-                <Link to="/admin/dashboard" className="logo-link">
-                    Samy Locks <span>Admin</span>
-                </Link>
+            <div className="admin-nav-header">
+                <div className="admin-logo">
+                    <Link to="/admin/dashboard" className="logo-link" onClick={closeMenu}>
+                        Samy Locks <span>Admin</span>
+                    </Link>
+                </div>
+                <button className="mobile-menu-btn" onClick={toggleMenu} aria-label="Toggle Menu">
+                    <span className={`hamburger ${isMenuOpen ? 'open' : ''}`}></span>
+                </button>
             </div>
-            <div className="admin-nav-links">
-                <Link to="/admin/dashboard" className={`admin-nav-link ${isActive('/admin/dashboard')}`}>Dashboard</Link>
-                <Link to="/admin/appointments" className={`admin-nav-link ${isActive('/admin/appointments')}`}>
+            <div className={`admin-nav-links ${isMenuOpen ? 'active' : ''}`}>
+                <Link to="/admin/dashboard" className={`admin-nav-link ${isActive('/admin/dashboard')}`} onClick={closeMenu}>Dashboard</Link>
+                <Link to="/admin/appointments" className={`admin-nav-link ${isActive('/admin/appointments')}`} onClick={closeMenu}>
                     Appointments
                     {pendingCount > 0 && <span className="notification-badge">{pendingCount}</span>}
                 </Link>
-                <Link to="/admin/services" className={`admin-nav-link ${isActive('/admin/services')}`}>Services</Link>
-                <Link to="/admin/gallery" className={`admin-nav-link ${isActive('/admin/gallery')}`}>Gallery</Link>
-                <button onClick={handleLogout} className="logout-btn">
+                <Link to="/admin/services" className={`admin-nav-link ${isActive('/admin/services')}`} onClick={closeMenu}>Services</Link>
+                <Link to="/admin/gallery" className={`admin-nav-link ${isActive('/admin/gallery')}`} onClick={closeMenu}>Gallery</Link>
+                <button onClick={() => { handleLogout(); closeMenu(); }} className="logout-btn">
                     Logout
                 </button>
             </div>

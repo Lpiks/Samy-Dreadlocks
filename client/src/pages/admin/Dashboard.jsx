@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Calendar, Users, List, BarChart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import './Dashboard.css';
 
 const AdminDashboard = () => {
     const [stats, setStats] = useState({ appointments: 0, services: 0 });
@@ -18,30 +19,30 @@ const AdminDashboard = () => {
     }, [navigate]);
 
     return (
-        <div className="container page-container">
-            <h1 style={{ color: 'var(--primary)', marginBottom: '2rem' }}>Admin Dashboard</h1>
+        <div className="container admin-container">
+            <h1 className="dashboard-title">Admin Dashboard</h1>
 
-            <div className="dashboard-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem' }}>
-                <div className="stat-card" style={{ background: '#2a2a2a', padding: '1.5rem', borderRadius: '10px', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <div className="dashboard-grid">
+                <div className="stat-card">
                     <Calendar size={40} color="var(--primary)" />
-                    <div>
+                    <div className="stat-info">
                         <h3>Appointments</h3>
-                        <p style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{stats.appointments}</p>
+                        <p className="stat-number">{stats.appointments}</p>
                     </div>
                 </div>
 
-                <div className="stat-card" style={{ background: '#2a2a2a', padding: '1.5rem', borderRadius: '10px', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <div className="stat-card">
                     <List size={40} color="var(--primary)" />
-                    <div>
+                    <div className="stat-info">
                         <h3>Services</h3>
-                        <p style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{stats.services}</p>
+                        <p className="stat-number">{stats.services}</p>
                     </div>
                 </div>
             </div>
 
-            <div className="admin-actions" style={{ marginTop: '3rem' }}>
+            <div className="quick-actions">
                 <h2>Quick Actions</h2>
-                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+                <div className="actions-container">
                     <button className="btn-primary" onClick={() => navigate('/admin/appointments')}>Manage Appointments</button>
                     <button className="btn-primary" onClick={() => navigate('/admin/services')}>Manage Services</button>
                     <button className="btn-primary" onClick={() => navigate('/admin/gallery')}>Manage Gallery</button>

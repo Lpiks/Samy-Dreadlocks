@@ -13,6 +13,13 @@
     backdrop-filter: blur(10px);
 }
 
+.admin-nav-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: auto;
+}
+
 .admin-logo .logo-link {
     font-family: 'Cinzel Decorative', cursive;
     font-size: 1.5rem;
@@ -61,7 +68,8 @@
     letter-spacing: 1px;
 }
 
-.admin-nav-link:hover, .admin-nav-link.active {
+.admin-nav-link:hover,
+.admin-nav-link.active {
     color: var(--primary);
 }
 
@@ -76,7 +84,8 @@
     transition: var(--transition);
 }
 
-.admin-nav-link:hover::after, .admin-nav-link.active::after {
+.admin-nav-link:hover::after,
+.admin-nav-link.active::after {
     width: 100%;
 }
 
@@ -102,24 +111,7 @@
     transform: translateY(-2px);
 }
 
-@media (max-width: 768px) {
-    .admin-navbar {
-        padding: 1rem;
-    }
-    
-    .admin-nav-links {
-        gap: 1rem;
-    }
-
-    .admin-nav-link {
-        font-size: 0.8rem;
-    }
-
-    .admin-logo span {
-        display: none;
-    }
-}
-
+/* Initial state for notification badge */
 .notification-badge {
     position: absolute;
     top: -5px;
@@ -134,10 +126,158 @@
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 2px solid #111; /* matches navbar background for cut-out effect */
+    border: 2px solid #111;
 }
 
 @keyframes popIn {
-    0% { transform: scale(0); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1002;
+    margin-left: auto;
+}
+
+.hamburger {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--primary);
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 2px;
+    background: var(--primary);
+    transition: all 0.3s ease-in-out;
+    left: 0;
+}
+
+.hamburger::before {
+    top: -8px;
+}
+
+.hamburger::after {
+    bottom: -8px;
+}
+
+.hamburger.open {
+    background: transparent;
+}
+
+.hamburger.open::before {
+    transform: rotate(45deg);
+    top: 0;
+}
+
+.hamburger.open::after {
+    transform: rotate(-45deg);
+    bottom: 0;
+}
+
+@media (max-width: 768px) {
+    .admin-navbar {
+        padding: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .admin-nav-header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .admin-logo span {
+        display: inline;
+        /* Show "ADMIN" on mobile for better branding */
+        font-size: 0.8rem;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .admin-nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        padding-top: 1rem;
+        gap: 1rem;
+        align-items: stretch;
+        /* Full width links */
+    }
+
+    .admin-nav-links.active {
+        display: flex;
+        animation: slideDown 0.3s ease-in-out;
+    }
+
+    .admin-nav-link {
+        font-size: 1rem;
+        padding: 0.8rem 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .admin-nav-link:hover {
+        background: rgba(212, 163, 115, 0.1);
+    }
+
+    .admin-nav-link.active {
+        background: rgba(212, 163, 115, 0.15);
+        color: var(--primary);
+    }
+
+    .admin-nav-link::after {
+        display: none;
+        /* efficient hover line removed for mobile buttons */
+    }
+
+    .logout-btn {
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+        margin-top: 0.5rem;
+    }
+
+    /* Adjust badge position for mobile list view */
+    .notification-badge {
+        position: relative;
+        top: -2px;
+        right: auto;
+        margin-left: 10px;
+        display: inline-block;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

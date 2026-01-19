@@ -1,0 +1,144 @@
+.admin-container {
+    padding-top: 2rem;
+    padding-bottom: 5rem;
+}
+
+.page-title {
+    color: var(--primary);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.loading-container,
+.error-container {
+    padding-top: 5rem;
+    text-align: center;
+}
+
+.error-container {
+    color: #dc3545;
+}
+
+.table-container {
+    overflow-x: auto;
+    background-color: #222;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.appointments-table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+}
+
+.appointments-table th {
+    background-color: #111;
+    color: var(--primary);
+    text-align: left;
+    padding: 1rem;
+    font-weight: 600;
+}
+
+.appointments-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #333;
+    color: #eee;
+}
+
+.appointments-table tr:last-child td {
+    border-bottom: none;
+}
+
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.05);
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-icon {
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-icon:hover {
+    transform: scale(1.1);
+}
+
+.btn-approve {
+    background-color: #28a745;
+}
+
+.btn-decline {
+    background-color: #dc3545;
+}
+
+/* Mobile Card View */
+@media (max-width: 768px) {
+    .table-container {
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .appointments-table thead {
+        display: none;
+        /* Hide table headers */
+    }
+
+    .appointments-table,
+    .appointments-table tbody,
+    .appointments-table tr,
+    .appointments-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .appointments-table tr {
+        background: #222;
+        margin-bottom: 1rem;
+        border-radius: 10px;
+        padding: 1rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        border: 1px solid #333;
+    }
+
+    .appointments-table td {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: right;
+    }
+
+    .appointments-table td:last-child {
+        border-bottom: none;
+        padding-top: 1rem;
+        justify-content: flex-end;
+    }
+
+    .appointments-table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: var(--primary);
+        text-align: left;
+        margin-right: 1rem;
+    }
+}
