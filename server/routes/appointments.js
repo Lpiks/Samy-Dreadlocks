@@ -73,6 +73,8 @@ router.post('/', async (req, res) => {
     try {
         // CONFLICT CHECK
         const newDate = new Date(req.body.date);
+        if (isNaN(newDate.getTime())) return res.status(400).json({ message: 'Invalid Date Format' });
+
         const requestedService = await require('../models/Service').findById(req.body.serviceId);
         if (!requestedService) return res.status(400).json({ message: 'Invalid Service' });
 

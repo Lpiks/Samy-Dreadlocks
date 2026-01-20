@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Plus } from 'lucide-react';
+import { Plus, Pencil, Trash2, X } from 'lucide-react';
 import toast from 'react-hot-toast';
+import ImageUpload from '../../components/ImageUpload';
 import './Services.css';
 
 const AdminServices = () => {
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [showModal, setShowModal] = useState(false);
+    const [editingService, setEditingService] = useState(null);
+    const [formData, setFormData] = useState({
+        name: '',
+        description: '',
+        price: '',
+        duration: '',
+        imageUrl: '' // Optional
+    });
 
     useEffect(() => {
         fetchServices();
@@ -19,19 +29,85 @@ const AdminServices = () => {
             setLoading(false);
         } catch (err) {
             console.error(err);
+            toast.error('Failed to load services');
             setLoading(false);
         }
     };
 
-    const handleAddService = () => {
-        toast.promise(
-            new Promise((resolve) => setTimeout(resolve, 2000)),
-            {
-                loading: 'Initating...',
-                success: 'Add Service functionality coming soon!',
-                error: 'Error',
+    const handleInputChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const resetForm = () => {
+        setFormData({
+            name: '',
+            description: '',
+            price: '',
+            duration: '',
+            imageUrl: ''
+        });
+        setEditingService(null);
+        setShowModal(false);
+    };
+
+    const handleAddClick = () => {
+        resetForm();
+        setShowModal(true);
+    };
+
+    const handleEditClick = (service) => {
+        setEditingService(service);
+        setFormData({
+            name: service.name,
+            description: service.description,
+            price: service.price,
+            duration: service.duration,
+            imageUrl: service.imageUrl || ''
+        });
+        setShowModal(true);
+    };
+
+    const handleDeleteClick = async (id) => {
+        if (!window.confirm('Are you sure you want to delete this service?')) return;
+
+        try {
+            const token = localStorage.getItem('auth-token');
+            await axios.delete(`http://localhost:5000/api/services/${id}`, {
+                headers: { 'auth-token': token }
+            });
+            setServices(services.filter(s => s._id !== id));
+            toast.success('Service deleted successfully');
+        } catch (err) {
+            console.error(err);
+            toast.error('Failed to delete service');
+        }
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const token = localStorage.getItem('auth-token');
+
+        try {
+            if (editingService) {
+                // Update
+                const res = await axios.put(`http://localhost:5000/api/services/${editingService._id}`, formData, {
+                    headers: { 'auth-token': token }
+                });
+                setServices(services.map(s => s._id === editingService._id ? res.data : s));
+                toast.success('Service updated!');
+            } else {
+                // Create
+                const res = await axios.post('http://localhost:5000/api/services', formData, {
+                    headers: { 'auth-token': token }
+                });
+                setServices([...services, res.data]);
+                toast.success('Service created!');
             }
-        );
+            resetForm();
+        } catch (err) {
+            console.error(err);
+            toast.error(err.response?.data?.message || 'Operation failed');
+        }
     };
 
     return (
@@ -40,7 +116,7 @@ const AdminServices = () => {
                 <h1 className="title-no-margin">Manage Services</h1>
                 <button
                     className="btn-primary btn-add-service"
-                    onClick={handleAddService}
+                    onClick={handleAddClick}
                 >
                     <Plus size={20} /> Add Service
                 </button>
@@ -59,9 +135,82 @@ const AdminServices = () => {
                                     <span>${service.price}</span>
                                     <span>{service.duration}</span>
                                 </div>
+                                <div className="service-actions">
+                                    <button className="btn-icon btn-edit" onClick={() => handleEditClick(service)}>
+                                        <Pencil size={18} />
+                                    </button>
+                                    <button className="btn-icon btn-delete" onClick={() => handleDeleteClick(service._id)}>
+                                        <Trash2 size={18} />
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     ))}
+                </div>
+            )}
+
+            {showModal && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h2>{editingService ? 'Edit Service' : 'Add New Service'}</h2>
+                            <button className="btn-close" onClick={resetForm}><X size={24} /></button>
+                        </div>
+                        <form onSubmit={handleSubmit} className="service-form">
+                            <div className="form-group">
+                                <label>Service Name</label>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Description</label>
+                                <textarea
+                                    name="description"
+                                    value={formData.description}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Service Image</label>
+                                <ImageUpload
+                                    imageUrl={formData.imageUrl}
+                                    onImageUpload={(url) => setFormData({ ...formData, imageUrl: url })}
+                                />
+                            </div>
+                            <div className="form-row">
+                                <div className="form-group">
+                                    <label>Price ($)</label>
+                                    <input
+                                        type="number"
+                                        name="price"
+                                        value={formData.price}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Duration (e.g. "2 hours")</label>
+                                    <input
+                                        type="text"
+                                        name="duration"
+                                        value={formData.duration}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn-secondary" onClick={resetForm}>Cancel</button>
+                                <button type="submit" className="btn-primary">Save Service</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             )}
         </div>

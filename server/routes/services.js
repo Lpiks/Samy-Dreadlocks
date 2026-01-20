@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Create service (Admin only - TODO: Add admin check)
+// Create service (Admin only)
 router.post('/', verify, async (req, res) => {
     if (req.user.role !== 'admin') return res.status(403).json({ message: 'Access Denied' });
 
@@ -29,6 +29,36 @@ router.post('/', verify, async (req, res) => {
         res.status(201).json(savedService);
     } catch (error) {
         res.status(400).json({ message: error.message });
+    }
+});
+
+// Update service (Admin only)
+router.put('/:id', verify, async (req, res) => {
+    if (req.user.role !== 'admin') return res.status(403).json({ message: 'Access Denied' });
+
+    try {
+        const updatedService = await Service.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true } // Return the updated document
+        );
+        if (!updatedService) return res.status(404).json({ message: 'Service not found' });
+        res.json(updatedService);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+// Delete service (Admin only)
+router.delete('/:id', verify, async (req, res) => {
+    if (req.user.role !== 'admin') return res.status(403).json({ message: 'Access Denied' });
+
+    try {
+        const deletedService = await Service.findByIdAndDelete(req.params.id);
+        if (!deletedService) return res.status(404).json({ message: 'Service not found' });
+        res.json({ message: 'Service deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
 });
 

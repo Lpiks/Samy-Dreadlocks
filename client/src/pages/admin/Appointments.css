@@ -107,7 +107,7 @@
     .appointments-table tr,
     .appointments-table td {
         display: block;
-        width: 100%;
+        width: 96.5%;
     }
 
     .appointments-table tr {
@@ -140,5 +140,17 @@
         color: var(--primary);
         text-align: left;
         margin-right: 1rem;
+    }
+
+    /* Special handling for Notes to prevent overflow and improve readability */
+    .appointments-table td[data-label="Notes"] {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        gap: 0.5rem;
+    }
+
+    .appointments-table td[data-label="Notes"]::before {
+        margin-bottom: 0.2rem;
     }
 }
