@@ -39,6 +39,7 @@ const appointmentsRoute = require('./routes/appointments');
 app.use('/api/user', authRoute);
 app.use('/api/services', servicesRoute);
 app.use('/api/appointments', appointmentsRoute);
+app.use('/api/messages', require('./routes/messages'));
 app.use('/api/upload', require('./routes/upload'));
 app.use('/api/gallery', require('./routes/gallery'));
 

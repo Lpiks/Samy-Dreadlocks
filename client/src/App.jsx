@@ -15,6 +15,7 @@ import AdminNavbar from './components/AdminNavbar';
 import AdminAppointments from './pages/admin/Appointments';
 import AdminServices from './pages/admin/Services';
 import AdminGallery from './pages/admin/Gallery';
+import AdminMessages from './pages/admin/Messages';
 import Contact from './pages/Contact';
 
 function AppContent() {
@@ -45,6 +46,7 @@ function AppContent() {
                 <Route path="/admin/appointments" element={<AdminAppointments />} />
                 <Route path="/admin/services" element={<AdminServices />} />
                 <Route path="/admin/gallery" element={<AdminGallery />} />
+                <Route path="/admin/messages" element={<AdminMessages />} />
             </Routes>
             {!isAdminRoute && <Footer />}
         </div>

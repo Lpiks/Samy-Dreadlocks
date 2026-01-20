@@ -6,7 +6,7 @@ const Contact = () => {
     const { t } = useTranslation();
     const [formData, setFormData] = useState({
         name: '',
-        email: '',
+        phone: '',
         subject: '',
         message: ''
     });
@@ -16,12 +16,29 @@ const Contact = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form submitted:', formData);
-        setStatus('success');
-        setFormData({ name: '', email: '', subject: '', message: '' });
-        setTimeout(() => setStatus(null), 3000);
+        try {
+            const response = await fetch('http://localhost:5000/api/messages', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (response.ok) {
+                setStatus('success');
+                setFormData({ name: '', phone: '', subject: '', message: '' });
+                setTimeout(() => setStatus(null), 3000);
+            } else {
+                setStatus('error');
+                console.error('Failed to send message');
+            }
+        } catch (error) {
+            setStatus('error');
+            console.error('Error sending message:', error);
+        }
     };
 
     return (
@@ -56,14 +73,14 @@ const Contact = () => {
 
                                 <div className="form-group floating-group">
                                     <input
-                                        type="email"
-                                        name="email"
-                                        value={formData.email}
+                                        type="tel"
+                                        name="phone"
+                                        value={formData.phone}
                                         onChange={handleChange}
                                         placeholder=" "
                                         required
                                     />
-                                    <label>{t('contact.form.email')}</label>
+                                    <label>Phone Number</label>
                                 </div>
 
                                 <div className="form-group floating-group">
@@ -96,6 +113,7 @@ const Contact = () => {
                                 </button>
 
                                 {status === 'success' && <div className="success-message">{t('contact.form.success')}</div>}
+                                {status === 'error' && <div className="error-message" style={{ color: 'red', marginTop: '10px' }}>Failed to send message. Please try again.</div>}
                             </form>
                         </div>
 

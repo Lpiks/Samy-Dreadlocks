@@ -72,6 +72,7 @@ const AdminNavbar = () => {
                 </Link>
                 <Link to="/admin/services" className={`admin-nav-link ${isActive('/admin/services')}`} onClick={closeMenu}>Services</Link>
                 <Link to="/admin/gallery" className={`admin-nav-link ${isActive('/admin/gallery')}`} onClick={closeMenu}>Gallery</Link>
+                <Link to="/admin/messages" className={`admin-nav-link ${isActive('/admin/messages')}`} onClick={closeMenu}>Messages</Link>
                 <button onClick={() => { handleLogout(); closeMenu(); }} className="logout-btn">
                     Logout
                 </button>

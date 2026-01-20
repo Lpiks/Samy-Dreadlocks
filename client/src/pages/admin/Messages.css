@@ -1,0 +1,195 @@
+.messages-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.05);
+    /* Glass effect background */
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.messages-table th,
+.messages-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+}
+
+.messages-table th {
+    background-color: rgba(0, 0, 0, 0.3);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    color: var(--primary-color, #d4af37);
+    /* Fallback gold */
+}
+
+.messages-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.messages-table tr:last-child td {
+    border-bottom: none;
+}
+
+.message-content-cell {
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.message-content-cell:hover {
+    white-space: normal;
+    overflow: visible;
+    position: relative;
+    background: #222;
+    z-index: 10;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    padding: 1rem;
+}
+
+.btn-delete {
+    background: none;
+    border: 1px solid #dc3545;
+    color: #dc3545;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-delete:hover {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-check {
+    background: none;
+    border: 1px solid #28a745;
+    color: #28a745;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-right: 8px;
+}
+
+.btn-check:hover,
+.btn-check.active {
+    background: #28a745;
+    color: white;
+}
+
+.status-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: inline-block;
+    border: 1px solid currentColor;
+}
+
+.status-pending {
+    color: #ffc107;
+    border-color: #ffc107;
+}
+
+.status-responded {
+    color: #28a745;
+    border-color: #28a745;
+}
+
+.message-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+    .messages-table thead {
+        display: none !important;
+    }
+
+    .messages-table,
+    .messages-table tbody,
+    .messages-table tr,
+    .messages-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .messages-table tr {
+        margin-bottom: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        padding: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .messages-table td {
+        text-align: left;
+        /* Changed from right */
+        padding: 0.5rem 0;
+        /* Removing large left padding */
+        position: relative;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        /* Separator between rows */
+        display: flex;
+        flex-direction: column;
+        /* Stack label and value */
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+
+    .messages-table td:last-child {
+        border-bottom: none;
+        margin-top: 0.5rem;
+        flex-direction: row;
+        /* Keep actions in a row */
+        justify-content: flex-end;
+    }
+
+    .messages-table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: var(--primary-color, #d4af37);
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        margin-bottom: 2px;
+    }
+
+    .message-content-cell {
+        max-width: 100%;
+        white-space: normal;
+        /* Allow text wrapping */
+        background: rgba(0, 0, 0, 0.2);
+        padding: 0.75rem;
+        border-radius: 4px;
+        margin-top: 0.25rem;
+        color: #ddd;
+    }
+
+    .message-actions {
+        width: 100%;
+        justify-content: flex-end;
+        padding-right: 3rem;
+        /* Move buttons more to the left */
+    }
+}
