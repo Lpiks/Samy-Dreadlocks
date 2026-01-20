@@ -13,10 +13,30 @@ const AdminDashboard = () => {
         if (!token) {
             navigate('/admin/login');
         } else {
-            // Mock Stats for now, or fetch real stats
-            setStats({ appointments: 12, services: 5 });
+            fetchStats(token);
         }
     }, [navigate]);
+
+    const fetchStats = async (token) => {
+        try {
+            const config = { headers: { 'auth-token': token } };
+
+            // Parallel requests for better performance
+            const [apptRes, serviceRes] = await Promise.all([
+                axios.get('http://localhost:5000/api/appointments/pending-count', config),
+                axios.get('http://localhost:5000/api/services', config)
+                // Future: Add Gallery count fetch here
+            ]);
+
+            setStats({
+                appointments: apptRes.data.count,
+                services: serviceRes.data.length
+            });
+        } catch (error) {
+            console.error('Error fetching dashboard stats:', error);
+            // Fallback to 0 if fails, or keep loading state
+        }
+    };
 
     return (
         <div className="container admin-container">
