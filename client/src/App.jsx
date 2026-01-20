@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Services from './pages/Services';
 import Gallery from './pages/Gallery';
+import Products from './pages/Products';
 import Booking from './pages/Booking';
 import AdminLogin from './pages/admin/Login';
 import AdminDashboard from './pages/admin/Dashboard';
@@ -15,14 +16,18 @@ import AdminNavbar from './components/AdminNavbar';
 import AdminAppointments from './pages/admin/Appointments';
 import AdminServices from './pages/admin/Services';
 import AdminGallery from './pages/admin/Gallery';
+import AdminProducts from './pages/admin/Products';
+import AdminCategories from './pages/admin/Categories';
 import AdminMessages from './pages/admin/Messages';
 import Contact from './pages/Contact';
+import ScrollToTop from './components/ScrollToTop';
 
 function AppContent() {
+    const ADMIN_PATH = import.meta.env.VITE_ADMIN_PATH;
     const { i18n } = useTranslation();
     const location = useLocation();
-    const isAdminRoute = location.pathname.startsWith('/admin');
-    const isLoginPage = location.pathname === '/admin/login';
+    const isAdminRoute = location.pathname.startsWith(ADMIN_PATH);
+    const isLoginPage = location.pathname === `${ADMIN_PATH}/login`;
 
     useEffect(() => {
         document.body.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
@@ -30,6 +35,7 @@ function AppContent() {
 
     return (
         <div className={`app-container ${i18n.language === 'ar' ? 'rtl' : ''}`}>
+            <ScrollToTop />
             <Toaster position="top-center" toastOptions={{ style: { background: '#333', color: '#fff' } }} />
             {!isAdminRoute && <Navbar />}
             {isAdminRoute && !isLoginPage && <AdminNavbar />}
@@ -37,16 +43,19 @@ function AppContent() {
                 <Route path="/" element={<Home />} />
                 <Route path="/services" element={<Services />} />
                 <Route path="/gallery" element={<Gallery />} />
+                <Route path="/products" element={<Products />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/booking" element={<Booking />} />
 
-                <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
-                <Route path="/admin/login" element={<AdminLogin />} />
-                <Route path="/admin/dashboard" element={<AdminDashboard />} />
-                <Route path="/admin/appointments" element={<AdminAppointments />} />
-                <Route path="/admin/services" element={<AdminServices />} />
-                <Route path="/admin/gallery" element={<AdminGallery />} />
-                <Route path="/admin/messages" element={<AdminMessages />} />
+                <Route path={ADMIN_PATH} element={<Navigate to={`${ADMIN_PATH}/login`} replace />} />
+                <Route path={`${ADMIN_PATH}/login`} element={<AdminLogin />} />
+                <Route path={`${ADMIN_PATH}/dashboard`} element={<AdminDashboard />} />
+                <Route path={`${ADMIN_PATH}/appointments`} element={<AdminAppointments />} />
+                <Route path={`${ADMIN_PATH}/services`} element={<AdminServices />} />
+                <Route path={`${ADMIN_PATH}/gallery`} element={<AdminGallery />} />
+                <Route path={`${ADMIN_PATH}/products`} element={<AdminProducts />} />
+                <Route path={`${ADMIN_PATH}/categories`} element={<AdminCategories />} />
+                <Route path={`${ADMIN_PATH}/messages`} element={<AdminMessages />} />
             </Routes>
             {!isAdminRoute && <Footer />}
         </div>

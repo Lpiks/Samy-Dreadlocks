@@ -27,7 +27,7 @@ const ImageUpload = ({ imageUrl, onImageUpload }) => {
 
         try {
             const token = localStorage.getItem('auth-token');
-            const res = await axios.post('http://localhost:5000/api/upload', formData, {
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/upload`, formData, {
                 headers: {
                     'auth-token': token,
                     'Content-Type': 'multipart/form-data'

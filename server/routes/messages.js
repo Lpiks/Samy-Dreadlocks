@@ -35,6 +35,16 @@ router.post('/', async (req, res) => {
     }
 });
 
+// GET - Get pending message count (Admin only)
+router.get('/pending-count', verify, async (req, res) => {
+    try {
+        const count = await Message.countDocuments({ status: 'pending' });
+        res.json({ count });
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+});
+
 // GET - Get all messages (Admin only)
 router.get('/', verify, async (req, res) => {
     try {

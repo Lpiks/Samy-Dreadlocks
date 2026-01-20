@@ -1,14 +1,25 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Globe } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { t, i18n } = useTranslation();
+    const location = useLocation();
 
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
+        setIsOpen(false);
+    };
+
+    // Helper function to determine if a link is active
+    const isActive = (path) => {
+        return location.pathname === path ? 'active' : '';
+    };
+
+    // Function to close the mobile menu
+    const closeMenu = () => {
         setIsOpen(false);
     };
 
@@ -18,11 +29,12 @@ const Navbar = () => {
                 <Link to="/" className="logo">Samy Locks</Link>
 
                 <div className="nav-links-desktop">
-                    <Link to="/">{t('navbar.home')}</Link>
-                    <Link to="/services">{t('navbar.services')}</Link>
-                    <Link to="/gallery">{t('navbar.gallery')}</Link>
-                    <Link to="/contact">{t('navbar.contact')}</Link>
-                    <Link to="/booking" className="btn-primary">{t('navbar.bookBtn')}</Link>
+                    <Link to="/" className={`nav-link ${isActive('/')}`} onClick={closeMenu}>{t('navbar.home')}</Link>
+                    <Link to="/services" className={`nav-link ${isActive('/services')}`} onClick={closeMenu}>{t('navbar.services')}</Link>
+                    <Link to="/gallery" className={`nav-link ${isActive('/gallery')}`} onClick={closeMenu}>{t('navbar.gallery')}</Link>
+                    <Link to="/products" className={`nav-link ${isActive('/products')}`} onClick={closeMenu}>Products</Link>
+                    <Link to="/contact" className={`nav-link ${isActive('/contact')}`} onClick={closeMenu}>{t('navbar.contact')}</Link>
+                    <Link to="/booking" className="btn-primary" onClick={closeMenu}>{t('navbar.bookBtn')}</Link>
 
                     <div className="lang-switcher">
                         <button className="lang-btn">
@@ -41,12 +53,12 @@ const Navbar = () => {
                     {isOpen ? <X /> : <Menu />}
                 </div>
             </div>
-
             {isOpen && (
                 <div className="mobile-menu">
                     <Link to="/" onClick={() => setIsOpen(false)}>{t('navbar.home')}</Link>
                     <Link to="/services" onClick={() => setIsOpen(false)}>{t('navbar.services')}</Link>
                     <Link to="/gallery" onClick={() => setIsOpen(false)}>{t('navbar.gallery')}</Link>
+                    <Link to="/products" onClick={() => setIsOpen(false)}>Products</Link>
                     <Link to="/contact" onClick={() => setIsOpen(false)}>{t('navbar.contact')}</Link>
                     <Link to="/booking" onClick={() => setIsOpen(false)}>{t('navbar.bookBtn')}</Link>
                     <div className="mobile-lang-switcher">
