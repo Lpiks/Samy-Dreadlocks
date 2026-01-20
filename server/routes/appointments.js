@@ -108,17 +108,16 @@ router.post('/', async (req, res) => {
         const appointmentData = {
             service: req.body.serviceId,
             date: req.body.date,
-            notes: req.body.notes
+            notes: req.body.notes,
+            guest: {
+                name: req.body.name,
+                email: req.body.email,
+                phone: req.body.phone
+            }
         };
 
         if (userId) {
             appointmentData.user = userId;
-        } else {
-            appointmentData.guest = {
-                name: req.body.name,
-                email: req.body.email,
-                phone: req.body.phone
-            };
         }
 
         const appointment = new Appointment(appointmentData);

@@ -40,6 +40,7 @@ app.use('/api/user', authRoute);
 app.use('/api/services', servicesRoute);
 app.use('/api/appointments', appointmentsRoute);
 app.use('/api/upload', require('./routes/upload'));
+app.use('/api/gallery', require('./routes/gallery'));
 
 app.get('/', (req, res) => {
   res.send('Samy Locks API is running');

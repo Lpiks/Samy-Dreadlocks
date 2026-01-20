@@ -73,7 +73,8 @@ const AdminAppointments = () => {
                     <table className="appointments-table">
                         <thead>
                             <tr>
-                                <th>Client</th>
+                                <th>Client Name</th>
+                                <th>Phone</th>
                                 <th>Service</th>
                                 <th>Date & Time</th>
                                 <th>Status</th>
@@ -84,8 +85,12 @@ const AdminAppointments = () => {
                         <tbody>
                             {appointments.map(apt => (
                                 <tr key={apt._id}>
-                                    <td data-label="Client">
-                                        {apt.user ? (apt.user.username || 'Unknown User') : (apt.guest ? `${apt.guest.name} (Guest)` : 'User Deleted')}
+                                    <td data-label="Client Name">
+                                        {/* Show name from the booking form (guest.name), fallback to username */}
+                                        {apt.guest?.name || (apt.user ? apt.user.username : 'Unknown')}
+                                    </td>
+                                    <td data-label="Phone">
+                                        {apt.guest?.phone || 'N/A'}
                                     </td>
                                     <td data-label="Service">
                                         {apt.service ? (apt.service.name || 'Unknown Service') : 'Service Deleted'}
@@ -131,6 +136,7 @@ const AdminAppointments = () => {
                                                 onClick={() => updateStatus(apt._id, 'cancelled')}
                                                 className="btn-icon btn-decline"
                                                 style={{ width: '100%' }}
+                                                title="Cancel Appointment"
                                             >
                                                 Cancel
                                             </button>

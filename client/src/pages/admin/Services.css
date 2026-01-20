@@ -3,19 +3,54 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
+    margin-top: 2rem;
+    /* Added spacing from top */
     flex-wrap: wrap;
     gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .title-no-margin {
     color: var(--primary);
     margin: 0;
+    font-size: 2rem;
+    letter-spacing: -0.5px;
 }
 
 .btn-add-service {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 50px !important;
+    /* Fixed width */
+    height: 50px !important;
+    /* Fixed height */
+    background: var(--primary);
+    color: #000;
+    font-weight: 700;
+    padding: 0 !important;
+    /* Remove padding */
+    border-radius: 50% !important;
+    /* Circle */
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb, 212, 175, 55), 0.3);
+}
+
+.btn-add-service:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(var(--primary-rgb, 212, 175, 55), 0.5);
+    filter: brightness(1.1);
+}
+
+.btn-add-service svg {
+    transition: transform 0.3s ease;
+}
+
+.btn-add-service:hover svg {
+    transform: rotate(90deg);
 }
 
 .services-grid {

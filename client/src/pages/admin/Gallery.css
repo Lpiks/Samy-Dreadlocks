@@ -1,0 +1,77 @@
+/* Reuse grid and modal styles from Services where possible, adding specific gallery tweaks */
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    /* Smaller cards for images */
+    gap: 1.5rem;
+}
+
+.gallery-card {
+    background: #222;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #333;
+    aspect-ratio: 1;
+    /* Square images */
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.gallery-card:hover {
+    transform: scale(1.02);
+    border-color: var(--primary);
+}
+
+.gallery-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery-actions {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-card:hover .gallery-actions {
+    opacity: 1;
+}
+
+.btn-delete-image {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.gallery-card:hover .btn-delete-image {
+    transform: translateY(0);
+}
+
+.btn-delete-image:hover {
+    background: #bd2130;
+    transform: scale(1.1);
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem;
+    color: #666;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}

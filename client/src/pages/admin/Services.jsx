@@ -117,8 +117,9 @@ const AdminServices = () => {
                 <button
                     className="btn-primary btn-add-service"
                     onClick={handleAddClick}
+                    title="Add Service"
                 >
-                    <Plus size={20} /> Add Service
+                    <Plus size={24} />
                 </button>
             </div>
 
