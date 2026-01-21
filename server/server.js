@@ -58,8 +58,8 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start Server (Only if not in Vercel environment)
-if (require.main === module) {
+// Replace your start block with this:
+if (process.env.NODE_ENV !== 'production') {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
