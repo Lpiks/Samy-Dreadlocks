@@ -14,7 +14,12 @@ app.set('trust proxy', 1);
 // Security Middleware
 app.use(helmet()); // Adds security headers
 app.use(cors({
-  origin: [process.env.CLIENT_URL, 'http://localhost:5173', 'http://localhost:3000'], // Allow env var + local dev defaults
+  origin: [
+    process.env.CLIENT_URL,
+    'https://samylock.netlify.app',
+    'http://localhost:5173',
+    'http://localhost:3000'
+  ], // Allow env var + deployed client + local dev
   credentials: true
 }));
 app.use(express.json());
