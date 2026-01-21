@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { Plus, Trash2, X } from 'lucide-react';
 import toast from 'react-hot-toast';
+import confirmToast from '../../utils/confirmToast';
 import './Categories.css';
 
 const AdminCategories = () => {
@@ -16,7 +17,7 @@ const AdminCategories = () => {
 
     const fetchCategories = async () => {
         try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/categories`);
+            const res = await api.get('/api/categories');
             setCategories(res.data);
             setLoading(false);
         } catch (err) {
@@ -28,12 +29,8 @@ const AdminCategories = () => {
 
     const handleAddCategory = async (e) => {
         e.preventDefault();
-        const token = localStorage.getItem('auth-token');
         try {
-            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/categories`,
-                { name: newCategory },
-                { headers: { 'auth-token': token } }
-            );
+            const res = await api.post('/api/categories', { name: newCategory });
             setCategories([...categories, res.data]);
             toast.success('Category added successfully');
             setNewCategory('');
@@ -44,19 +41,17 @@ const AdminCategories = () => {
         }
     };
 
-    const handleDeleteCategory = async (id) => {
-        if (!window.confirm('Are you sure? This might affect products using this category.')) return;
-        const token = localStorage.getItem('auth-token');
-        try {
-            await axios.delete(`${import.meta.env.VITE_API_URL}/api/categories/${id}`, {
-                headers: { 'auth-token': token }
-            });
-            setCategories(categories.filter(c => c._id !== id));
-            toast.success('Category deleted');
-        } catch (err) {
-            console.error(err);
-            toast.error('Failed to delete category');
-        }
+    const handleDeleteCategory = (id) => {
+        confirmToast('Are you sure? This might affect products using this category.', async () => {
+            try {
+                await api.delete(`/api/categories/${id}`);
+                setCategories(categories.filter(c => c._id !== id));
+                toast.success('Category deleted');
+            } catch (err) {
+                console.error(err);
+                toast.error('Failed to delete category');
+            }
+        });
     };
 
     return (

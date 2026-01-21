@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import { useTranslation } from 'react-i18next';
 import { Clock, Tag } from 'lucide-react';
 
@@ -26,7 +26,7 @@ const Services = () => {
     useEffect(() => {
         const fetchServices = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/services');
+                const res = await api.get('/api/services');
                 if (res.data.length > 0) {
                     // Merge backend data with local high-quality images
                     const localImages = {

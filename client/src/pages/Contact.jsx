@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Mail, Phone, MapPin, Send, Clock, Calendar } from 'lucide-react';
+import api from '../utils/api';
 
 const Contact = () => {
     const { t } = useTranslation();
@@ -19,25 +20,16 @@ const Contact = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:5000/api/messages', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
+            await api.post('/api/messages', formData);
 
-            if (response.ok) {
-                setStatus('success');
-                setFormData({ name: '', phone: '', subject: '', message: '' });
-                setTimeout(() => setStatus(null), 3000);
-            } else {
-                setStatus('error');
-                console.error('Failed to send message');
-            }
+            // Success response simulation if needed, but api.post throws on error
+            setStatus('success');
+            setFormData({ name: '', phone: '', subject: '', message: '' });
+            setTimeout(() => setStatus(null), 3000);
+
         } catch (error) {
-            setStatus('error');
             console.error('Error sending message:', error);
+            setStatus('error');
         }
     };
 

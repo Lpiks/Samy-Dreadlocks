@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import toast from 'react-hot-toast';
 import { Trash2, Check, Mail } from 'lucide-react';
+import confirmToast from '../../utils/confirmToast';
 import './Messages.css';
 
 const AdminMessages = () => {
@@ -15,10 +16,7 @@ const AdminMessages = () => {
 
     const fetchMessages = async () => {
         try {
-            const token = localStorage.getItem('auth-token');
-            const res = await axios.get('http://localhost:5000/api/messages', {
-                headers: { 'auth-token': token }
-            });
+            const res = await api.get('/api/messages');
             setMessages(res.data);
             setLoading(false);
         } catch (err) {
@@ -29,30 +27,23 @@ const AdminMessages = () => {
         }
     };
 
-    const deleteMessage = async (id) => {
-        if (!window.confirm("Are you sure you want to delete this message?")) return;
-
-        try {
-            const token = localStorage.getItem('auth-token');
-            await axios.delete(`http://localhost:5000/api/messages/${id}`, {
-                headers: { 'auth-token': token }
-            });
-            setMessages(messages.filter(msg => msg._id !== id));
-            toast.success('Message deleted successfully');
-        } catch (err) {
-            console.error('Failed to delete message', err);
-            toast.error('Failed to delete message');
-        }
+    const deleteMessage = (id) => {
+        confirmToast("Are you sure you want to delete this message?", async () => {
+            try {
+                await api.delete(`/api/messages/${id}`);
+                setMessages(messages.filter(msg => msg._id !== id));
+                toast.success('Message deleted successfully');
+            } catch (err) {
+                console.error('Failed to delete message', err);
+                toast.error('Failed to delete message');
+            }
+        });
     };
 
     const toggleStatus = async (id, currentStatus) => {
         const newStatus = currentStatus === 'responded' ? 'pending' : 'responded';
         try {
-            const token = localStorage.getItem('auth-token');
-            await axios.patch(`http://localhost:5000/api/messages/${id}/status`,
-                { status: newStatus },
-                { headers: { 'auth-token': token } }
-            );
+            await api.patch(`/api/messages/${id}/status`, { status: newStatus });
 
             setMessages(messages.map(msg =>
                 msg._id === id ? { ...msg, status: newStatus } : msg

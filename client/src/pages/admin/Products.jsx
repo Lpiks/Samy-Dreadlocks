@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { Plus, Edit2, Trash2, X, Save, Search, Filter } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import ImageUpload from '../../components/ImageUpload';
+import confirmToast from '../../utils/confirmToast';
 import './Products.css';
 
 const AdminProducts = () => {
@@ -29,7 +30,7 @@ const AdminProducts = () => {
 
     const fetchCategories = async () => {
         try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/categories`);
+            const res = await api.get('/api/categories');
             setCategories(res.data);
         } catch (err) {
             console.error('Failed to fetch categories', err);
@@ -38,7 +39,7 @@ const AdminProducts = () => {
 
     const fetchProducts = async () => {
         try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/products`);
+            const res = await api.get('/api/products');
             setProducts(res.data);
             setLoading(false);
         } catch (err) {
@@ -67,18 +68,13 @@ const AdminProducts = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = localStorage.getItem('auth-token');
 
         try {
             if (isEditing) {
-                await axios.put(`${import.meta.env.VITE_API_URL}/api/products/${currentProduct._id}`, formData, {
-                    headers: { 'auth-token': token }
-                });
+                await api.put(`/api/products/${currentProduct._id}`, formData);
                 toast.success('Product updated successfully');
             } else {
-                await axios.post(`${import.meta.env.VITE_API_URL}/api/products`, formData, {
-                    headers: { 'auth-token': token }
-                });
+                await api.post('/api/products', formData);
                 toast.success('Product created successfully');
             }
 
@@ -104,20 +100,17 @@ const AdminProducts = () => {
         setShowModal(true);
     };
 
-    const handleDelete = async (id) => {
-        if (!window.confirm('Are you sure you want to delete this product?')) return;
-
-        try {
-            const token = localStorage.getItem('auth-token');
-            await axios.delete(`${import.meta.env.VITE_API_URL}/api/products/${id}`, {
-                headers: { 'auth-token': token }
-            });
-            toast.success('Product deleted successfully');
-            setProducts(products.filter(p => p._id !== id));
-        } catch (err) {
-            console.error(err);
-            toast.error('Failed to delete product');
-        }
+    const handleDelete = (id) => {
+        confirmToast('Are you sure you want to delete this product?', async () => {
+            try {
+                await api.delete(`/api/products/${id}`);
+                toast.success('Product deleted successfully');
+                setProducts(products.filter(p => p._id !== id));
+            } catch (err) {
+                console.error(err);
+                toast.error('Failed to delete product');
+            }
+        });
     };
 
     const handleCloseModal = () => {

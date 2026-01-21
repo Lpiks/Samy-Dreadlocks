@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import { useTranslation } from 'react-i18next';
 import './Products.css';
 
@@ -11,7 +11,7 @@ const Products = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/products');
+                const res = await api.get('/api/products');
                 setProducts(res.data);
                 setLoading(false);
             } catch (err) {

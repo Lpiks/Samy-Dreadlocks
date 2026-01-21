@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import toast from 'react-hot-toast';
 import './Appointments.css';
 
@@ -14,10 +14,7 @@ const AdminAppointments = () => {
 
     const fetchAppointments = async () => {
         try {
-            const token = localStorage.getItem('auth-token');
-            const res = await axios.get('http://localhost:5000/api/appointments', {
-                headers: { 'auth-token': token }
-            });
+            const res = await api.get('/api/appointments');
             setAppointments(res.data);
             setLoading(false);
         } catch (err) {
@@ -44,11 +41,7 @@ const AdminAppointments = () => {
 
     const updateStatus = async (id, status) => {
         try {
-            const token = localStorage.getItem('auth-token');
-            await axios.patch(`http://localhost:5000/api/appointments/${id}/status`,
-                { status },
-                { headers: { 'auth-token': token } }
-            );
+            await api.patch(`/api/appointments/${id}/status`, { status });
             fetchAppointments(); // Refresh list
             toast.success(`Appoinment status updated to ${status}`);
             // Dispatch event to update navbar badge immediately

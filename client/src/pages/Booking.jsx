@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import { useTranslation } from 'react-i18next';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
@@ -22,7 +22,7 @@ const Booking = () => {
     useEffect(() => {
         const fetchServices = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/services');
+                const res = await api.get('/api/services');
                 setServices(res.data);
                 setLoadingServices(false);
             } catch (err) {
@@ -44,10 +44,7 @@ const Booking = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const token = localStorage.getItem('auth-token');
-            const config = token ? { headers: { 'auth-token': token } } : {};
-
-            await axios.post('http://localhost:5000/api/appointments', formData, config);
+            await api.post('/api/appointments', formData);
             setStatus('success');
             setFormData({
                 name: '',

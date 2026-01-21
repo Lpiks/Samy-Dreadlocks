@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { Plus, Pencil, Trash2, X } from 'lucide-react';
 import toast from 'react-hot-toast';
 import ImageUpload from '../../components/ImageUpload';
+import confirmToast from '../../utils/confirmToast';
 import './Services.css';
 
 const AdminServices = () => {
@@ -24,7 +25,7 @@ const AdminServices = () => {
 
     const fetchServices = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/services');
+            const res = await api.get('/api/services');
             setServices(res.data);
             setLoading(false);
         } catch (err) {
@@ -67,39 +68,31 @@ const AdminServices = () => {
         setShowModal(true);
     };
 
-    const handleDeleteClick = async (id) => {
-        if (!window.confirm('Are you sure you want to delete this service?')) return;
-
-        try {
-            const token = localStorage.getItem('auth-token');
-            await axios.delete(`http://localhost:5000/api/services/${id}`, {
-                headers: { 'auth-token': token }
-            });
-            setServices(services.filter(s => s._id !== id));
-            toast.success('Service deleted successfully');
-        } catch (err) {
-            console.error(err);
-            toast.error('Failed to delete service');
-        }
+    const handleDeleteClick = (id) => {
+        confirmToast('Are you sure you want to delete this service?', async () => {
+            try {
+                await api.delete(`/api/services/${id}`);
+                setServices(services.filter(s => s._id !== id));
+                toast.success('Service deleted successfully');
+            } catch (err) {
+                console.error(err);
+                toast.error('Failed to delete service');
+            }
+        });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = localStorage.getItem('auth-token');
 
         try {
             if (editingService) {
                 // Update
-                const res = await axios.put(`http://localhost:5000/api/services/${editingService._id}`, formData, {
-                    headers: { 'auth-token': token }
-                });
+                const res = await api.put(`/api/services/${editingService._id}`, formData);
                 setServices(services.map(s => s._id === editingService._id ? res.data : s));
                 toast.success('Service updated!');
             } else {
                 // Create
-                const res = await axios.post('http://localhost:5000/api/services', formData, {
-                    headers: { 'auth-token': token }
-                });
+                const res = await api.post('/api/services', formData);
                 setServices([...services, res.data]);
                 toast.success('Service created!');
             }

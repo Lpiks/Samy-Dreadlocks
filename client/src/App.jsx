@@ -21,6 +21,7 @@ import AdminCategories from './pages/admin/Categories';
 import AdminMessages from './pages/admin/Messages';
 import Contact from './pages/Contact';
 import ScrollToTop from './components/ScrollToTop';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function AppContent() {
     const ADMIN_PATH = import.meta.env.VITE_ADMIN_PATH;
@@ -49,13 +50,13 @@ function AppContent() {
 
                 <Route path={ADMIN_PATH} element={<Navigate to={`${ADMIN_PATH}/login`} replace />} />
                 <Route path={`${ADMIN_PATH}/login`} element={<AdminLogin />} />
-                <Route path={`${ADMIN_PATH}/dashboard`} element={<AdminDashboard />} />
-                <Route path={`${ADMIN_PATH}/appointments`} element={<AdminAppointments />} />
-                <Route path={`${ADMIN_PATH}/services`} element={<AdminServices />} />
-                <Route path={`${ADMIN_PATH}/gallery`} element={<AdminGallery />} />
-                <Route path={`${ADMIN_PATH}/products`} element={<AdminProducts />} />
-                <Route path={`${ADMIN_PATH}/categories`} element={<AdminCategories />} />
-                <Route path={`${ADMIN_PATH}/messages`} element={<AdminMessages />} />
+                <Route path={`${ADMIN_PATH}/dashboard`} element={<ProtectedRoute adminPath={ADMIN_PATH}><AdminDashboard /></ProtectedRoute>} />
+                <Route path={`${ADMIN_PATH}/appointments`} element={<ProtectedRoute adminPath={ADMIN_PATH}><AdminAppointments /></ProtectedRoute>} />
+                <Route path={`${ADMIN_PATH}/services`} element={<ProtectedRoute adminPath={ADMIN_PATH}><AdminServices /></ProtectedRoute>} />
+                <Route path={`${ADMIN_PATH}/gallery`} element={<ProtectedRoute adminPath={ADMIN_PATH}><AdminGallery /></ProtectedRoute>} />
+                <Route path={`${ADMIN_PATH}/products`} element={<ProtectedRoute adminPath={ADMIN_PATH}><AdminProducts /></ProtectedRoute>} />
+                <Route path={`${ADMIN_PATH}/categories`} element={<ProtectedRoute adminPath={ADMIN_PATH}><AdminCategories /></ProtectedRoute>} />
+                <Route path={`${ADMIN_PATH}/messages`} element={<ProtectedRoute adminPath={ADMIN_PATH}><AdminMessages /></ProtectedRoute>} />
             </Routes>
             {!isAdminRoute && <Footer />}
         </div>

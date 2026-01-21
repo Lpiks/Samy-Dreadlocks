@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { Plus, Trash2, X, Image as ImageIcon } from 'lucide-react';
 import toast from 'react-hot-toast';
 import ImageUpload from '../../components/ImageUpload';
+import confirmToast from '../../utils/confirmToast';
 import './Gallery.css';
 import './Services.css'; // Reuse modal styles
 
@@ -18,7 +19,7 @@ const AdminGallery = () => {
 
     const fetchImages = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/gallery');
+            const res = await api.get('/api/gallery');
             setImages(res.data);
             setLoading(false);
         } catch (err) {
@@ -28,20 +29,17 @@ const AdminGallery = () => {
         }
     };
 
-    const handleDelete = async (id) => {
-        if (!window.confirm('Are you sure you want to delete this image?')) return;
-
-        try {
-            const token = localStorage.getItem('auth-token');
-            await axios.delete(`http://localhost:5000/api/gallery/${id}`, {
-                headers: { 'auth-token': token }
-            });
-            setImages(images.filter(img => img._id !== id));
-            toast.success('Image deleted');
-        } catch (err) {
-            console.error(err);
-            toast.error('Failed to delete image');
-        }
+    const handleDelete = (id) => {
+        confirmToast('Are you sure you want to delete this image?', async () => {
+            try {
+                await api.delete(`/api/gallery/${id}`);
+                setImages(images.filter(img => img._id !== id));
+                toast.success('Image deleted');
+            } catch (err) {
+                console.error(err);
+                toast.error('Failed to delete image');
+            }
+        });
     };
 
     const handleAddImage = async (e) => {
@@ -51,12 +49,8 @@ const AdminGallery = () => {
             return;
         }
 
-        const token = localStorage.getItem('auth-token');
         try {
-            const res = await axios.post('http://localhost:5000/api/gallery',
-                { imageUrl: newImageUrl },
-                { headers: { 'auth-token': token } }
-            );
+            const res = await api.post('/api/gallery', { imageUrl: newImageUrl });
             setImages([res.data, ...images]);
             toast.success('Image added to gallery');
             handleCloseModal();
