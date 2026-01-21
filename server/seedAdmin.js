@@ -11,8 +11,8 @@ const seedAdmin = async () => {
         // Check if admin already exists
         let adminUser = await User.findOne({ role: 'admin' });
 
-        const username = process.env.ADMIN_USERNAME || 'admin';
-        const password = process.env.ADMIN_PASSWORD || 'admin123';
+        const username = process.env.ADMIN_USERNAME;
+        const password = process.env.ADMIN_PASSWORD;
 
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
