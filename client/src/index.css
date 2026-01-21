@@ -898,7 +898,7 @@ button {
     border-radius: 8px !important;
     padding: 1.2rem 1rem 0.6rem !important;
     color: #fff !important;
-    width: 93% !important;
+    width: 95% !important;
     font-size: 1rem !important;
     transition: var(--transition) !important;
     font-family: var(--font-main) !important;
@@ -1457,6 +1457,19 @@ button {
 @media (max-width: 768px) {
     .container {
         padding: 0 15px;
+    }
+
+    /* booking form date picker */
+    .date-picker-input {
+        background: transparent !important;
+        border: 1px solid #444 !important;
+        border-radius: 8px !important;
+        padding: 1.2rem 1rem 0.6rem !important;
+        color: #fff !important;
+        width: 93% !important;
+        font-size: 1rem !important;
+        transition: var(--transition) !important;
+        font-family: var(--font-main) !important;
     }
 
     /* Reduce huge headers */
