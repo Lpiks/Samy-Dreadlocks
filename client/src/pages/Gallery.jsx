@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import api from '../utils/api';
 
 import gallery1 from '../assets/gallery-1.png';
 import gallery2 from '../assets/gallery-2.png';
@@ -10,15 +11,36 @@ import gallery6 from '../assets/gallery-6.png';
 
 const Gallery = () => {
     const { t } = useTranslation();
+    const [images, setImages] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    const images = [
-        { src: gallery1, alt: 'Intricate Cornrows & Dreads' },
-        { src: gallery2, alt: 'Dyed Dreadlocks Styled' },
-        { src: gallery3, alt: 'Long Flowing Locs' },
-        { src: gallery4, alt: 'Elegant High Bun' },
-        { src: gallery5, alt: 'Fresh Starter Locs' },
-        { src: gallery6, alt: 'Artistic Dreadlocks Motion' },
+    const demoImages = [
+        { imageUrl: gallery1, alt: 'Intricate Cornrows & Dreads' },
+        { imageUrl: gallery2, alt: 'Dyed Dreadlocks Styled' },
+        { imageUrl: gallery3, alt: 'Long Flowing Locs' },
+        { imageUrl: gallery4, alt: 'Elegant High Bun' },
+        { imageUrl: gallery5, alt: 'Fresh Starter Locs' },
+        { imageUrl: gallery6, alt: 'Artistic Dreadlocks Motion' },
     ];
+
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+                const res = await api.get('/api/gallery');
+                if (res.data.length > 0) {
+                    setImages(res.data);
+                } else {
+                    setImages(demoImages);
+                }
+            } catch (err) {
+                console.error("Failed to fetch gallery", err);
+                setImages(demoImages);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchImages();
+    }, []);
 
     return (
         <div className="page-container container">
@@ -27,16 +49,20 @@ const Gallery = () => {
                 <p>{t('gallery.subtitle')}</p>
             </header>
 
-            <div className="gallery-grid">
-                {images.map((img, index) => (
-                    <div key={index} className="gallery-item">
-                        <img src={img.src} alt={img.alt} />
-                        <div className="gallery-overlay">
-                            <p>{img.alt}</p>
+            {loading ? (
+                <div className="loader"></div>
+            ) : (
+                <div className="gallery-grid">
+                    {images.map((img, index) => (
+                        <div key={img._id || index} className="gallery-item">
+                            <img src={img.imageUrl || img.src} alt="Gallery item" />
+                            <div className="gallery-overlay">
+                                <p>Samy Locks</p>
+                            </div>
                         </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 };
