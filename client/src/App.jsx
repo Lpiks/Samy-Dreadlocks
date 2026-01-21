@@ -22,6 +22,7 @@ import AdminMessages from './pages/admin/Messages';
 import Contact from './pages/Contact';
 import ScrollToTop from './components/ScrollToTop';
 import ProtectedRoute from './components/ProtectedRoute';
+import NotFound from './pages/NotFound';
 
 function AppContent() {
     const ADMIN_PATH = import.meta.env.VITE_ADMIN_PATH;
@@ -57,6 +58,9 @@ function AppContent() {
                 <Route path={`${ADMIN_PATH}/products`} element={<ProtectedRoute adminPath={ADMIN_PATH}><AdminProducts /></ProtectedRoute>} />
                 <Route path={`${ADMIN_PATH}/categories`} element={<ProtectedRoute adminPath={ADMIN_PATH}><AdminCategories /></ProtectedRoute>} />
                 <Route path={`${ADMIN_PATH}/messages`} element={<ProtectedRoute adminPath={ADMIN_PATH}><AdminMessages /></ProtectedRoute>} />
+
+                {/* 404 Route - Must be last */}
+                <Route path="*" element={<NotFound />} />
             </Routes>
             {!isAdminRoute && <Footer />}
         </div>
