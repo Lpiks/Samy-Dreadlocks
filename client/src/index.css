@@ -1519,6 +1519,28 @@ button {
 }
 
 /* Very small screens */
+@media (max-width: 393px) {
+    .booking-info h2 {
+        font-size: 2rem;
+    }
+
+    .booking-form-container h2 {
+        font-size: 1.8rem;
+    }
+
+    .date-picker-input {
+        background: transparent !important;
+        border: 1px solid #444 !important;
+        border-radius: 8px !important;
+        padding: 1.2rem 1rem 0.6rem !important;
+        color: #fff !important;
+        width: 93% !important;
+        font-size: 1rem !important;
+        transition: var(--transition) !important;
+        font-family: var(--font-main) !important;
+    }
+}
+
 @media (max-width: 480px) {
     .booking-info h2 {
         font-size: 2rem;
