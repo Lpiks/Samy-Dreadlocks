@@ -199,12 +199,49 @@ button {
     color: var(--light);
 }
 
+/* Ensure nav-container stays on top of the menu overlay so close button works */
+.nav-container {
+    position: relative;
+    z-index: 1002;
+}
+
 .mobile-menu {
     display: flex;
     flex-direction: column;
-    padding: 1rem;
-    background: var(--dark);
-    border-top: 1px solid #333;
+    padding: 2rem;
+    padding-top: 100px;
+    background-color: #1f1f1f !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1001;
+    align-items: center;
+    gap: 1.5rem;
+    overflow-y: auto;
+    border-top: none;
+    box-shadow: none;
+}
+
+.mobile-menu a {
+    color: var(--light);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.mobile-menu .mobile-lang-switcher {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.mobile-menu .mobile-lang-switcher span {
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
 }
 
 @media (max-width: 768px) {
@@ -375,12 +412,15 @@ button {
 /* Page Headers */
 .page-header {
     text-align: center;
-    padding: 6rem 0 3rem;
+    padding: 11rem 0 3rem;
+    /* Increased padding to compensate for negative margin (6rem + 5rem) */
     background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1631737487185-513d2588c599?auto=format&fit=crop&q=80');
     background-size: cover;
     background-position: center;
     margin-bottom: 4rem;
     border-bottom: 1px solid var(--primary);
+    margin-top: -80px;
+    /* Pull behind navbar */
 }
 
 .page-header h1 {
@@ -599,6 +639,72 @@ button {
         flex-direction: column;
     }
 
+    .booking-form-container {
+        padding: 2rem 1rem;
+        display: flex;
+        width: 90%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .booking-form {
+        width: 100%;
+        max-width: 320px;
+        /* Limit width for larger mobile screens */
+        background: #222;
+        /* Ensure consistent background */
+        padding: 1.5rem;
+        border-radius: 12px;
+        /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); */
+    }
+
+    .booking-form h2 {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    /* Reset inputs to standard left alignment for readability */
+    .booking-form input,
+    .booking-form select,
+    .booking-form textarea,
+    .booking-form .date-picker-input {
+        text-align: left !important;
+        text-align-last: auto !important;
+        padding-left: 1rem !important;
+        /* Standard padding since no icons are used */
+    }
+
+    /* Reset floating labels to standard position */
+    .floating-group label {
+        left: 1rem !important;
+        width: auto !important;
+        text-align: left !important;
+        transform-origin: left !important;
+    }
+
+    .floating-group input:focus+label,
+    .floating-group input:not(:placeholder-shown)+label,
+    .floating-group textarea:focus+label,
+    .floating-group textarea:not(:placeholder-shown)+label,
+    .floating-group select:focus+label,
+    .floating-group select:valid+label,
+    .floating-group .static-label {
+        left: 0.8rem !important;
+        transform: translateY(-50%) scale(0.85);
+    }
+
+    /* Force DatePicker full width */
+    .booking-form .date-picker-wrapper,
+    .booking-form .react-datepicker-wrapper,
+    .booking-form .react-datepicker__input-container {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    .btn-primary.btn-block {
+        width: 100%;
+    }
+
     .booking-info {
         padding: 4rem 2rem;
         text-align: center;
@@ -792,7 +898,7 @@ button {
     border-radius: 8px !important;
     padding: 1.2rem 1rem 0.6rem !important;
     color: #fff !important;
-    width: 100% !important;
+    width: 93% !important;
     font-size: 1rem !important;
     transition: var(--transition) !important;
     font-family: var(--font-main) !important;

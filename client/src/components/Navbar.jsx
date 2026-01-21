@@ -13,9 +13,32 @@ const Navbar = () => {
         setIsOpen(false);
     };
 
+    // Lock body scroll when mobile menu is open
+    React.useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+            document.documentElement.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+            document.documentElement.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+            document.documentElement.style.overflow = 'unset';
+        };
+    }, [isOpen]);
+
     // Helper function to determine if a link is active
     const isActive = (path) => {
         return location.pathname === path ? 'active' : '';
+    };
+
+    // Function to toggle mobile menu with scroll-to-top
+    const toggleMenu = () => {
+        if (!isOpen) {
+            window.scrollTo(0, 0); // Scroll to top when opening
+        }
+        setIsOpen(!isOpen);
     };
 
     // Function to close the mobile menu
@@ -49,7 +72,7 @@ const Navbar = () => {
                     </div>
                 </div>
 
-                <div className="mobile-menu-btn" onClick={() => setIsOpen(!isOpen)}>
+                <div className="mobile-menu-btn" onClick={toggleMenu}>
                     {isOpen ? <X /> : <Menu />}
                 </div>
             </div>
