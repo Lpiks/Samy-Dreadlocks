@@ -21,6 +21,12 @@ body {
     font-style: normal;
 }
 
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 button {
     cursor: pointer;
 }
@@ -715,82 +721,203 @@ button {
     }
 }
 
-.form-group {
-    margin-bottom: 2rem;
+/* --- MODERN BOOKING FORM --- */
+/* --- MODERN BOOKING FORM (Premium Luxury) --- */
+.modern-form {
+    display: block !important;
+    /* Override any legacy flex display */
+    text-align: left;
+    background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+    padding: 3rem 2rem;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(212, 163, 115, 0.1);
+    border: 1px solid rgba(212, 163, 115, 0.2);
+    /* Subtle Gold Border */
     position: relative;
-}
-
-.floating-group input,
-.floating-group select,
-.floating-group textarea {
-    background: transparent;
-    border: 1px solid #444;
-    border-radius: 8px;
-    padding: 1.2rem 1rem 0.6rem;
-    color: #fff;
+    overflow: hidden;
     width: 100%;
-    transition: var(--transition);
-    font-size: 1rem;
-    line-height: 1.5;
 }
 
-.floating-group label {
+/* Decorative Gold Shine Effect on Card */
+.modern-form::before {
+    content: '';
     position: absolute;
-    top: 50%;
-    left: 1rem;
-    transform: translateY(-50%);
-    color: #888;
-    pointer-events: none;
-    transition: all 0.2s ease-out;
-    background: transparent;
-    padding: 0 0.2rem;
-    font-size: 1rem;
-    font-weight: 500;
-}
-
-/* Floating logic for Textarea (top aligned) */
-.floating-group textarea+label {
-    top: 1.2rem;
-    transform: none;
-}
-
-.floating-group input:focus,
-.floating-group select:focus,
-.floating-group textarea:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 15px rgba(212, 163, 115, 0.15);
-    background: rgba(255, 255, 255, 0.02);
-}
-
-/* Float label when focused or has content */
-.floating-group input:focus+label,
-.floating-group input:not(:placeholder-shown)+label,
-.floating-group textarea:focus+label,
-.floating-group textarea:not(:placeholder-shown)+label,
-.floating-group select:focus+label,
-.floating-group select:valid+label,
-.floating-group .static-label {
     top: 0;
-    transform: translateY(-50%) scale(0.85);
-    background: #222;
-    /* Matches container bg */
-    color: var(--primary);
-    left: 0.8rem;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    opacity: 0.8;
 }
 
-.floating-group select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background: transparent;
-    padding-right: 2.5rem;
-    /* Space for custom arrow */
-    cursor: pointer;
-    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23d4a373%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1rem top 50%;
-    background-size: 0.65rem auto;
+.modern-form h2 {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 2.5rem;
+    font-size: 2.2rem;
+    font-family: 'Cinzel Decorative', cursive;
+    /* Premium Font */
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 0 4px 15px rgba(212, 163, 115, 0.3);
 }
+
+.modern-form .form-group {
+    margin-bottom: 1.5rem;
+    width: 100%;
+    /* Ensure full width */
+}
+
+.modern-form label {
+    display: block;
+    margin-bottom: 0.8rem;
+    color: var(--primary);
+    /* Gold Label */
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-left: 0.5rem;
+    opacity: 0.9;
+    text-align: left;
+    /* Ensure labels align with inputs */
+}
+
+.input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    /* Ensure container fills form-group */
+}
+
+.input-with-icon .icon {
+    position: absolute;
+    left: 1.2rem;
+    color: #666;
+    transition: all 0.3s ease;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.input-with-icon input,
+.input-with-icon select,
+.input-with-icon textarea,
+.input-with-icon .date-picker-input {
+    width: 100%;
+    padding: 1.2rem 1rem 1.2rem 3.5rem;
+    background: #0a0a0a;
+    /* Deep Black/Velvet */
+    border: 1px solid #333;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+    /* Inner Depth */
+}
+
+/* Active State - Glow */
+.input-with-icon input:focus,
+.input-with-icon select:focus,
+.input-with-icon textarea:focus,
+.input-with-icon .date-picker-input:focus {
+    border-color: var(--primary);
+    background: #111;
+    box-shadow: 0 0 0 2px rgba(212, 163, 115, 0.2), inset 0 2px 4px rgba(0, 0, 0, 0.5);
+    transform: translateY(-2px);
+}
+
+/* Active Icon Color */
+.input-with-icon input:focus~.icon,
+.input-with-icon select:focus~.icon,
+.input-with-icon input:not(:placeholder-shown)~.icon,
+.input-with-icon textarea:focus~.icon {
+    color: var(--primary);
+    filter: drop-shadow(0 0 8px rgba(212, 163, 115, 0.6));
+}
+
+/* Select specific styling */
+.modern-form select {
+    cursor: pointer;
+    appearance: none;
+    /* Hide default arrow to potentially add custom one if needed, but keeping simple for compatibility */
+}
+
+/* DatePicker specific fixes for modern form */
+.modern-form .react-datepicker-wrapper,
+.modern-form .react-datepicker__input-container {
+    width: 100%;
+    display: block;
+}
+
+/* Customize DatePicker Header (Month/Year) */
+.react-datepicker__header {
+    background-color: #1a1a1a !important;
+    border-bottom: 1px solid #333 !important;
+}
+
+.react-datepicker__current-month {
+    font-size: 0.9rem !important;
+    /* Smaller size as requested */
+    color: var(--primary) !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-bottom: 0.5rem;
+}
+
+.react-datepicker__day-name {
+    color: #888 !important;
+}
+
+.react-datepicker__day {
+    color: #fff !important;
+}
+
+.react-datepicker__day:hover {
+    background-color: #333 !important;
+    border-radius: 50%;
+}
+
+.react-datepicker__day--selected {
+    background-color: var(--primary) !important;
+    color: #000 !important;
+    border-radius: 50%;
+}
+
+.textarea-container .icon {
+    top: 1.2rem;
+}
+
+/* Premium Button */
+.btn-primary.btn-block {
+    margin-top: 2rem;
+    width: 100%;
+    padding: 1.2rem;
+    font-size: 1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border-radius: 50px;
+    /* Pill shape for modern luxury */
+    background: linear-gradient(90deg, #d4a373, #a97c50);
+    border: none;
+    color: #000;
+    /* Contrast text on gold */
+    box-shadow: 0 10px 30px rgba(212, 163, 115, 0.2);
+    transition: all 0.4s ease;
+}
+
+.btn-primary.btn-block:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(212, 163, 115, 0.4);
+    background: linear-gradient(90deg, #e5b484, #be9060);
+}
+
+
 
 /* Options styling (limited support but dark bg helps) */
 .floating-group select option {
@@ -1460,17 +1587,7 @@ button {
     }
 
     /* booking form date picker */
-    .date-picker-input {
-        background: transparent !important;
-        border: 1px solid #444 !important;
-        border-radius: 8px !important;
-        padding: 1.2rem 1rem 0.6rem !important;
-        color: #fff !important;
-        width: 93% !important;
-        font-size: 1rem !important;
-        transition: var(--transition) !important;
-        font-family: var(--font-main) !important;
-    }
+
 
     /* Reduce huge headers */
     .page-header h1,
@@ -1518,26 +1635,69 @@ button {
     }
 }
 
-/* Very small screens */
-@media (max-width: 393px) {
+
+/* Very small screens (User's device) */
+/* Very small screens (User's device) */
+/* Small Mobile Screens (Covers 393px, 414px, 480px) */
+@media (max-width: 480px) {
+    .booking-form-container {
+        padding: 1rem 0.5rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .modern-form {
+        max-width: 95%;
+        width: 95%;
+        padding: 1.5rem 1rem;
+        margin: 0 auto;
+    }
+
+    .modern-form h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .input-with-icon input,
+    .input-with-icon select,
+    .input-with-icon textarea,
+    .input-with-icon .date-picker-input {
+        padding: 1rem 1rem 1rem 3.5rem !important;
+        /* Force padding to prevent overlap */
+        font-size: 0.95rem !important;
+    }
+
+    .input-with-icon .icon {
+        left: 1.2rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 18px;
+        height: 18px;
+    }
+
+    .btn-primary.btn-block {
+        font-size: 1rem;
+        padding: 1.1rem;
+    }
+
+    /* Robust full-width for DatePicker */
+    .modern-form .react-datepicker-wrapper,
+    .modern-form .react-datepicker__input-container,
+    .modern-form .react-datepicker__input-container input,
+    .modern-form .date-picker-input {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
     .booking-info h2 {
         font-size: 2rem;
     }
 
     .booking-form-container h2 {
-        font-size: 1.8rem;
-    }
-
-    .date-picker-input {
-        background: transparent !important;
-        border: 1px solid #444 !important;
-        border-radius: 8px !important;
-        padding: 1.2rem 1rem 0.6rem !important;
-        color: #fff !important;
-        width: 93% !important;
-        font-size: 1rem !important;
-        transition: var(--transition) !important;
-        font-family: var(--font-main) !important;
+        font-size: 1.6rem;
     }
 }
 

@@ -10,6 +10,12 @@ const AdminAppointments = () => {
 
     useEffect(() => {
         fetchAppointments();
+        // Auto-refresh every 10 seconds
+        const interval = setInterval(() => {
+            fetchAppointments();
+        }, 10000);
+
+        return () => clearInterval(interval);
     }, []);
 
     const fetchAppointments = async () => {
@@ -124,16 +130,7 @@ const AdminAppointments = () => {
                                                 </button>
                                             </div>
                                         )}
-                                        {apt.status === 'confirmed' && (
-                                            <button
-                                                onClick={() => updateStatus(apt._id, 'cancelled')}
-                                                className="btn-icon btn-decline"
-                                                style={{ width: '100%' }}
-                                                title="Cancel Appointment"
-                                            >
-                                                Cancel
-                                            </button>
-                                        )}
+
                                     </td>
                                 </tr>
                             ))}

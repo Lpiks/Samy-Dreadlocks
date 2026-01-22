@@ -12,6 +12,12 @@ const AdminMessages = () => {
 
     useEffect(() => {
         fetchMessages();
+        // Poll for new messages every 10 seconds
+        const interval = setInterval(() => {
+            fetchMessages();
+        }, 10000);
+
+        return () => clearInterval(interval);
     }, []);
 
     const fetchMessages = async () => {

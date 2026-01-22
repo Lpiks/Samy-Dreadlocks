@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
 import { useTranslation } from 'react-i18next';
+import { User, Mail, Phone, Calendar, Scissors, MessageSquare } from 'lucide-react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -89,55 +90,74 @@ const Booking = () => {
                             <button className="btn-primary" onClick={() => setStatus('')}>Book Another</button>
                         </div>
                     ) : (
-                        <form className="booking-form" onSubmit={handleSubmit}>
-                            <h2>Book Appointment</h2>
-                            <div className="form-group floating-group">
-                                <input type="text" name="name" required onChange={handleChange} placeholder=" " />
+                        <form className="booking-form modern-form" onSubmit={handleSubmit}>
+                            <h2>Book Your Session</h2>
+
+                            <div className="form-group">
                                 <label>{t('booking.name')}</label>
+                                <div className="input-with-icon">
+                                    <User className="icon" size={20} />
+                                    <input type="text" name="name" required onChange={handleChange} placeholder="John Doe" />
+                                </div>
                             </div>
 
-                            <div className="form-group floating-group">
-                                <input type="email" name="email" required onChange={handleChange} placeholder=" " />
+                            <div className="form-group">
                                 <label>{t('booking.email')}</label>
+                                <div className="input-with-icon">
+                                    <Mail className="icon" size={20} />
+                                    <input type="email" name="email" required onChange={handleChange} placeholder="john@example.com" />
+                                </div>
                             </div>
 
-                            <div className="form-group floating-group">
-                                <input type="tel" name="phone" required onChange={handleChange} placeholder=" " />
+                            <div className="form-group">
                                 <label>{t('booking.phone')}</label>
+                                <div className="input-with-icon">
+                                    <Phone className="icon" size={20} />
+                                    <input type="tel" name="phone" required onChange={handleChange} placeholder="+1 234 567 890" />
+                                </div>
                             </div>
 
-                            <div className="form-group floating-group">
-                                <select name="serviceId" required onChange={handleChange}>
-                                    <option value="">Select a service</option>
-                                    {services.map(s => (
-                                        <option key={s._id} value={s._id}>{s.name}</option>
-                                    ))}
-                                </select>
-                                <label className="static-label">{t('booking.service')}</label>
+                            <div className="form-group">
+                                <label>{t('booking.service')}</label>
+                                <div className="input-with-icon">
+                                    <Scissors className="icon" size={20} />
+                                    <select name="serviceId" required onChange={handleChange}>
+                                        <option value="">Choose a style...</option>
+                                        {services.map(s => (
+                                            <option key={s._id} value={s._id}>{s.name}</option>
+                                        ))}
+                                    </select>
+                                </div>
                             </div>
 
-                            <div className="form-group floating-group">
-                                <DatePicker
-                                    selected={formData.date}
-                                    onChange={handleDateChange}
-                                    showTimeSelect
-                                    dateFormat="MMMM d, yyyy h:mm aa"
-                                    placeholderText=" "
-                                    className="date-picker-input"
-                                    wrapperClassName="date-picker-wrapper"
-                                    minTime={new Date(new Date().setHours(8, 0, 0, 0))}
-                                    maxTime={new Date(new Date().setHours(23, 0, 0, 0))}
-                                    required
-                                />
-                                <label className="static-label date-label">{t('booking.date')}</label>
+                            <div className="form-group">
+                                <label>{t('booking.date')}</label>
+                                <div className="input-with-icon date-input-container">
+                                    <Calendar className="icon" size={20} />
+                                    <DatePicker
+                                        selected={formData.date}
+                                        onChange={handleDateChange}
+                                        showTimeSelect
+                                        dateFormat="MMMM d, yyyy h:mm aa"
+                                        placeholderText="Select date & time"
+                                        className="date-picker-input"
+                                        wrapperClassName="date-picker-wrapper"
+                                        minTime={new Date(new Date().setHours(8, 0, 0, 0))}
+                                        maxTime={new Date(new Date().setHours(23, 0, 0, 0))}
+                                        required
+                                    />
+                                </div>
                             </div>
 
-                            <div className="form-group floating-group">
-                                <textarea name="notes" rows="3" onChange={handleChange} placeholder=" "></textarea>
+                            <div className="form-group">
                                 <label>{t('booking.notes')}</label>
+                                <div className="input-with-icon textarea-container">
+                                    <MessageSquare className="icon" size={20} />
+                                    <textarea name="notes" rows="3" onChange={handleChange} placeholder="Any specific requirements?"></textarea>
+                                </div>
                             </div>
 
-                            <button type="submit" className="btn-primary btn-block">{t('booking.submit')}</button>
+                            <button type="submit" className="btn-primary btn-block">Confirm Appointment</button>
                         </form>
                     )}
                 </div>
