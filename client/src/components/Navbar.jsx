@@ -62,7 +62,7 @@ const Navbar = () => {
                     <div className="lang-switcher">
                         <button className="lang-btn">
                             <Globe size={18} />
-                            <span>{i18n.language.toUpperCase()}</span>
+                            <span>{i18n.language.substring(0, 2).toUpperCase()}</span>
                         </button>
                         <div className="lang-dropdown">
                             <button onClick={() => changeLanguage('en')}>EN</button>

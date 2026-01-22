@@ -1686,20 +1686,69 @@ button {
     .modern-form .react-datepicker__input-container,
     .modern-form .react-datepicker__input-container input,
     .modern-form .date-picker-input {
-        display: block !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
 
-    .booking-info h2 {
-        font-size: 2rem;
-    }
+        /* DATEPICKER MOBILE FIX - MODAL STYLE */
+        .react-datepicker-popper {
+            position: fixed !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            width: 90% !important;
+            max-width: 350px !important;
+            z-index: 9999 !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
 
-    .booking-form-container h2 {
-        font-size: 1.6rem;
+        .react-datepicker {
+            width: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            font-family: 'Inter', sans-serif !important;
+            box-shadow: 0 0 0 100vh rgba(0, 0, 0, 0.7) !important;
+            /* Dim background */
+            border: 1px solid var(--primary) !important;
+        }
+
+        .react-datepicker__month-container {
+            float: none !important;
+            width: 100% !important;
+        }
+
+        .react-datepicker__time-container {
+            float: none !important;
+            width: 100% !important;
+            border-left: none !important;
+            border-top: 1px solid #333 !important;
+        }
+
+        .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box {
+            width: 100% !important;
+            height: 100px !important;
+            /* Limit height for scrolling */
+            border-radius: 0 !important;
+            text-align: center !important;
+        }
+
+        .react-datepicker__header {
+            padding-top: 15px !important;
+        }
+
+        .react-datepicker__navigation {
+            top: 15px !important;
+        }
+
+        .booking-info h2 {
+            font-size: 2rem;
+        }
+
+        .booking-form-container h2 {
+            font-size: 1.6rem;
+        }
     }
 }
+
+/* Closing 480px media query */
 
 @media (max-width: 480px) {
     .booking-info h2 {
