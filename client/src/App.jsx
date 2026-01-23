@@ -20,6 +20,7 @@ import AdminProducts from './pages/admin/Products';
 import AdminCategories from './pages/admin/Categories';
 import AdminMessages from './pages/admin/Messages';
 import Contact from './pages/Contact';
+import Checkout from './pages/Checkout';
 import ScrollToTop from './components/ScrollToTop';
 import ProtectedRoute from './components/ProtectedRoute';
 import NotFound from './pages/NotFound';
@@ -48,6 +49,7 @@ function AppContent() {
                 <Route path="/products" element={<Products />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/booking" element={<Booking />} />
+                <Route path="/checkout" element={<Checkout />} />
 
                 <Route path={ADMIN_PATH} element={<Navigate to={`${ADMIN_PATH}/login`} replace />} />
                 <Route path={`${ADMIN_PATH}/login`} element={<AdminLogin />} />
