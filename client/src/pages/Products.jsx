@@ -26,7 +26,7 @@ const ProductCard = ({ product, onAddToCart }) => {
             <div className="product-info">
                 <div className="product-category">{product.category}</div>
                 <h3 className="product-title">{product.name}</h3>
-                <div className="product-price">${product.price.toFixed(2)}</div>
+                <div className="product-price">{product.price.toFixed(2)} DZD</div>
                 <p className="product-description">{product.description}</p>
 
                 {product.inStock && (

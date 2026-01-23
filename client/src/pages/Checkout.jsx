@@ -94,10 +94,10 @@ const Checkout = () => {
                                 <img src={item.image} alt={item.name} className="item-image" />
                                 <div className="item-details">
                                     <h3>{item.name}</h3>
-                                    <p>${item.price.toFixed(2)} x {item.quantity}</p>
+                                    <p>{item.price.toFixed(2)} DZD x {item.quantity}</p>
                                 </div>
                                 <div className="item-total">
-                                    ${(item.price * item.quantity).toFixed(2)}
+                                    {(item.price * item.quantity).toFixed(2)} DZD
                                 </div>
                                 <button className="btn-remove" onClick={() => removeItem(item.product)}>×</button>
                             </div>
@@ -105,7 +105,7 @@ const Checkout = () => {
                     </div>
                     <div className="checkout-total">
                         <span>Total:</span>
-                        <span>${calculateTotal().toFixed(2)}</span>
+                        <span>{calculateTotal().toFixed(2)} DZD</span>
                     </div>
                 </div>
 

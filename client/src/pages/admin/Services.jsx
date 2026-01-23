@@ -126,7 +126,7 @@ const AdminServices = () => {
                                 <h3>{service.name}</h3>
                                 <p className="service-access">{service.description}</p>
                                 <div className="service-meta">
-                                    <span>${service.price}</span>
+                                    <span>{service.price} DZD</span>
                                     <span>{service.duration}</span>
                                 </div>
                                 <div className="service-actions">
@@ -179,7 +179,7 @@ const AdminServices = () => {
                             </div>
                             <div className="form-row">
                                 <div className="form-group">
-                                    <label>Price ($)</label>
+                                    <label>Price (DZD)</label>
                                     <input
                                         type="number"
                                         name="price"

@@ -72,7 +72,7 @@ const Services = () => {
                                 <h3>{service.name}</h3>
                                 <p>{service.description}</p>
                                 <div className="service-meta">
-                                    <span><Tag size={16} /> ${service.price}</span>
+                                    <span><Tag size={16} /> {service.price} DZD</span>
                                     <span><Clock size={16} /> {service.duration}</span>
                                 </div>
                             </div>

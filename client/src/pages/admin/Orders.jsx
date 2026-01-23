@@ -103,7 +103,7 @@ const AdminOrders = () => {
                                             {order.items.length > 2 && <span className="item-more">+{order.items.length - 2} more</span>}
                                         </div>
                                     </td>
-                                    <td>${(order.totalAmount || 0).toFixed(2)}</td>
+                                    <td>{(order.totalAmount || 0).toFixed(2)} DZD</td>
                                     <td>
                                         <span className={`status-badge ${order.status}`}>
                                             {order.status}
@@ -183,17 +183,17 @@ const AdminOrders = () => {
                                             )}
                                             <div className="modal-item-details">
                                                 <h4>{item.product?.name || 'Product unavailable'}</h4>
-                                                <p>${item.product?.price.toFixed(2)} x {item.quantity}</p>
+                                                <p>{item.product?.price.toFixed(2)} DZD x {item.quantity}</p>
                                             </div>
                                             <div className="modal-item-total">
-                                                ${((item.product?.price || 0) * item.quantity).toFixed(2)}
+                                                {((item.product?.price || 0) * item.quantity).toFixed(2)} DZD
                                             </div>
                                         </div>
                                     ))}
                                 </div>
                                 <div className="modal-total">
                                     <span>Total Amount:</span>
-                                    <span>${(selectedOrder.totalAmount || 0).toFixed(2)}</span>
+                                    <span>{(selectedOrder.totalAmount || 0).toFixed(2)} DZD</span>
                                 </div>
                             </div>
                         </div>

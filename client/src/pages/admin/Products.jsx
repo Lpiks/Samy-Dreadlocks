@@ -203,7 +203,7 @@ const AdminProducts = () => {
                                     </div>
                                 </td>
                                 <td data-label="Category"><span className="category-tag">{product.category}</span></td>
-                                <td data-label="Price" className="price-cell">${Number(product.price).toFixed(2)}</td>
+                                <td data-label="Price" className="price-cell">{Number(product.price).toFixed(2)} DZD</td>
                                 <td data-label="Status">
                                     <span className={`stock-badge ${product.inStock ? 'in-stock' : 'out-of-stock'}`}>
                                         {product.inStock ? 'In Stock' : 'Out of Stock'}
@@ -267,7 +267,7 @@ const AdminProducts = () => {
                                     </select>
                                 </div>
                                 <div className="form-group">
-                                    <label>Price ($)</label>
+                                    <label>Price (DZD)</label>
                                     <input
                                         type="number"
                                         name="price"
