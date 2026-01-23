@@ -73,6 +73,7 @@ const AdminNavbar = () => {
                 </Link>
                 <Link to={`${ADMIN_PATH}/services`} className={`admin-nav-link ${isActive(`${ADMIN_PATH}/services`)}`} onClick={closeMenu}>Services</Link>
                 <Link to={`${ADMIN_PATH}/products`} className={`admin-nav-link ${isActive(`${ADMIN_PATH}/products`)}`} onClick={closeMenu}>Products</Link>
+                <Link to={`${ADMIN_PATH}/orders`} className={`admin-nav-link ${isActive(`${ADMIN_PATH}/orders`)}`} onClick={closeMenu}>Orders</Link>
                 <Link to={`${ADMIN_PATH}/gallery`} className={`admin-nav-link ${isActive(`${ADMIN_PATH}/gallery`)}`} onClick={closeMenu}>Gallery</Link>
                 <Link to={`${ADMIN_PATH}/messages`} className={`admin-nav-link ${isActive(`${ADMIN_PATH}/messages`)}`} onClick={closeMenu}>Messages</Link>
                 <button onClick={() => { handleLogout(); closeMenu(); }} className="logout-btn">

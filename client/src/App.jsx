@@ -17,6 +17,7 @@ import AdminAppointments from './pages/admin/Appointments';
 import AdminServices from './pages/admin/Services';
 import AdminGallery from './pages/admin/Gallery';
 import AdminProducts from './pages/admin/Products';
+import AdminOrders from './pages/admin/Orders';
 import AdminCategories from './pages/admin/Categories';
 import AdminMessages from './pages/admin/Messages';
 import Contact from './pages/Contact';
@@ -58,6 +59,7 @@ function AppContent() {
                 <Route path={`${ADMIN_PATH}/services`} element={<ProtectedRoute adminPath={ADMIN_PATH}><AdminServices /></ProtectedRoute>} />
                 <Route path={`${ADMIN_PATH}/gallery`} element={<ProtectedRoute adminPath={ADMIN_PATH}><AdminGallery /></ProtectedRoute>} />
                 <Route path={`${ADMIN_PATH}/products`} element={<ProtectedRoute adminPath={ADMIN_PATH}><AdminProducts /></ProtectedRoute>} />
+                <Route path={`${ADMIN_PATH}/orders`} element={<ProtectedRoute adminPath={ADMIN_PATH}><AdminOrders /></ProtectedRoute>} />
                 <Route path={`${ADMIN_PATH}/categories`} element={<ProtectedRoute adminPath={ADMIN_PATH}><AdminCategories /></ProtectedRoute>} />
                 <Route path={`${ADMIN_PATH}/messages`} element={<ProtectedRoute adminPath={ADMIN_PATH}><AdminMessages /></ProtectedRoute>} />
 

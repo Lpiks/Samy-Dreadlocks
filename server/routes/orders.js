@@ -26,6 +26,8 @@ const orderSchema = Joi.object({
     totalAmount: Joi.number().min(0).required()
 });
 
+const verifyToken = require('../middleware/verifyToken');
+
 // POST /api/orders - Create a new order
 router.post('/', orderLimiter, async (req, res) => {
     try {
@@ -42,6 +44,44 @@ router.post('/', orderLimiter, async (req, res) => {
     } catch (err) {
         console.error('Error creating order:', err);
         res.status(500).json({ message: 'Server error while creating order' });
+    }
+});
+
+// GET /api/orders - Get all orders (Admin only)
+router.get('/', verifyToken, async (req, res) => {
+    try {
+        const orders = await Order.find()
+            .populate('items.product', 'name image price')
+            .sort({ createdAt: -1 });
+        res.json(orders);
+    } catch (err) {
+        console.error('Error fetching orders:', err);
+        res.status(500).json({ message: 'Server error fetching orders' });
+    }
+});
+
+// PUT /api/orders/:id/status - Update order status (Admin only)
+router.put('/:id/status', verifyToken, async (req, res) => {
+    try {
+        const { status } = req.body;
+        if (!['pending', 'confirmed', 'shipped', 'delivered', 'cancelled'].includes(status)) {
+            return res.status(400).json({ message: 'Invalid status' });
+        }
+
+        const order = await Order.findByIdAndUpdate(
+            req.params.id,
+            { status },
+            { new: true }
+        );
+
+        if (!order) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+
+        res.json(order);
+    } catch (err) {
+        console.error('Error updating order status:', err);
+        res.status(500).json({ message: 'Server error updating order' });
     }
 });
 

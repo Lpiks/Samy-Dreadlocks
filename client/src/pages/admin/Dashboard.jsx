@@ -77,6 +77,7 @@ const AdminDashboard = () => {
                     <button className="btn-primary" onClick={() => navigate(`${ADMIN_PATH}/services`)}>Manage Services</button>
                     <button className="btn-primary" onClick={() => navigate(`${ADMIN_PATH}/gallery`)}>Manage Gallery</button>
                     <button className="btn-primary" onClick={() => navigate(`${ADMIN_PATH}/products`)}>Manage Products</button>
+                    <button className="btn-primary" onClick={() => navigate(`${ADMIN_PATH}/orders`)}>Manage Orders</button>
                     <button className="btn-primary" onClick={() => navigate(`${ADMIN_PATH}/categories`)}>Manage Categories</button>
                     <button className="btn-primary" onClick={() => navigate(`${ADMIN_PATH}/messages`)}>Manage Messages</button>
                 </div>
