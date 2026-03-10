@@ -81,13 +81,15 @@ const Navbar = () => {
             <div className="container nav-container">
                 <Link to="/" className="logo">Samy Locks</Link>
 
-                <div className="nav-links-desktop">
-                    <Link to="/" className={`nav-link ${isActive('/')}`} onClick={closeMenu}>{t('navbar.home')}</Link>
-                    <Link to="/services" className={`nav-link ${isActive('/services')}`} onClick={closeMenu}>{t('navbar.services')}</Link>
-                    <Link to="/gallery" className={`nav-link ${isActive('/gallery')}`} onClick={closeMenu}>{t('navbar.gallery')}</Link>
-                    <Link to="/products" className={`nav-link ${isActive('/products')}`} onClick={closeMenu}>{t('navbar.products')}</Link>
-                    <Link to="/contact" className={`nav-link ${isActive('/contact')}`} onClick={closeMenu}>{t('navbar.contact')}</Link>
-                    <Link to="/booking" className="btn-primary" onClick={closeMenu}>{t('navbar.bookBtn')}</Link>
+                <div className="nav-right">
+                    <div className="nav-links-desktop">
+                        <Link to="/" className={`nav-link ${isActive('/')}`} onClick={closeMenu}>{t('navbar.home')}</Link>
+                        <Link to="/services" className={`nav-link ${isActive('/services')}`} onClick={closeMenu}>{t('navbar.services')}</Link>
+                        <Link to="/gallery" className={`nav-link ${isActive('/gallery')}`} onClick={closeMenu}>{t('navbar.gallery')}</Link>
+                        <Link to="/products" className={`nav-link ${isActive('/products')}`} onClick={closeMenu}>{t('navbar.products')}</Link>
+                        <Link to="/contact" className={`nav-link ${isActive('/contact')}`} onClick={closeMenu}>{t('navbar.contact')}</Link>
+                        <Link to="/booking" className="btn-primary" onClick={closeMenu}>{t('navbar.bookBtn')}</Link>
+                    </div>
 
                     <div className="nav-actions">
                         <Link to="/checkout" className="nav-cart-link">
@@ -110,10 +112,10 @@ const Navbar = () => {
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="mobile-menu-btn" onClick={toggleMenu}>
-                    {isOpen ? <X /> : <Menu />}
+                    <div className="mobile-menu-btn" onClick={toggleMenu}>
+                        {isOpen ? <X /> : <Menu />}
+                    </div>
                 </div>
             </div>
             {isOpen && (
@@ -124,11 +126,6 @@ const Navbar = () => {
                     <Link to="/products" onClick={() => setIsOpen(false)}>{t('navbar.products')}</Link>
                     <Link to="/contact" onClick={() => setIsOpen(false)}>{t('navbar.contact')}</Link>
                     <Link to="/booking" onClick={() => setIsOpen(false)}>{t('navbar.bookBtn')}</Link>
-                    <div className="mobile-lang-switcher">
-                        <span onClick={() => changeLanguage('en')}>English</span>
-                        <span onClick={() => changeLanguage('fr')}>Français</span>
-                        <span onClick={() => changeLanguage('ar')}>العربية</span>
-                    </div>
                 </div>
             )}
         </nav>

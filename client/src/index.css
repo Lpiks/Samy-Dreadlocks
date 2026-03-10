@@ -53,6 +53,12 @@ button {
     align-items: center;
 }
 
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
 .logo {
     font-family: var(--font-main);
     font-size: 2rem;
@@ -1159,12 +1165,10 @@ button {
     }
 }
 
-/* Navbar Cart Integration */
 .nav-actions {
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    margin-left: 1.5rem;
 }
 
 .nav-cart-link {
@@ -1199,7 +1203,18 @@ button {
 @media (max-width: 768px) {
     .nav-actions {
         gap: 1rem;
-        margin-left: 0;
+    }
+    
+    .nav-right {
+        gap: 1rem;
+    }
+
+    /* Keep lang switcher in menu only for cleaner mobile view, 
+       but keeping the globe icon can be premium if it fits. 
+       Let's keep it but slightly smaller. */
+    .lang-btn {
+        padding: 6px 10px;
+        font-size: 0.8rem;
     }
 }
 
@@ -2256,36 +2271,5 @@ button {
     .mobile-menu a:hover {
         color: var(--primary);
         background: rgba(255, 255, 255, 0.05);
-    }
-
-    .mobile-lang-switcher {
-        display: flex;
-        gap: 1rem;
-        margin-top: 2rem;
-        padding-top: 2rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        width: 80%;
-        justify-content: center;
-    }
-
-    /* Blue Button Styling for Mobile */
-    .mobile-lang-switcher span {
-        color: #00f2ff;
-        /* Bright Blue */
-        font-size: 1rem;
-        cursor: pointer;
-        text-transform: uppercase;
-        border: 1px solid #00f2ff;
-        /* Blue Line */
-        padding: 0.6rem 1.2rem;
-        border-radius: 30px;
-        transition: all 0.3s;
-        box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
-    }
-
-    .mobile-lang-switcher span:hover {
-        color: #000;
-        background: #00f2ff;
-        box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
     }
 }
