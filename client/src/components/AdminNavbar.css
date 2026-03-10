@@ -21,7 +21,7 @@
 }
 
 .admin-logo .logo-link {
-    font-family: 'Cinzel Decorative', cursive;
+    font-family: var(--font-main);
     font-size: 1.5rem;
     color: var(--primary);
     text-decoration: none;
