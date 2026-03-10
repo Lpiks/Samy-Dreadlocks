@@ -107,25 +107,26 @@
     .appointments-table tr,
     .appointments-table td {
         display: block;
-        width: 96.5%;
+        width: 100%;
     }
 
     .appointments-table tr {
         background: #222;
-        margin-bottom: 1rem;
-        border-radius: 10px;
-        padding: 1rem;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        border: 1px solid #333;
+        margin-bottom: 1.5rem;
+        border-radius: 12px;
+        padding: 1.25rem;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(212, 163, 115, 0.1);
     }
 
     .appointments-table td {
-        padding: 0.5rem 0;
+        padding: 0.8rem 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         display: flex;
         justify-content: space-between;
         align-items: center;
         text-align: right;
+        font-size: 0.95rem;
     }
 
     .appointments-table td:last-child {
@@ -136,7 +137,7 @@
 
     .appointments-table td::before {
         content: attr(data-label);
-        font-weight: bold;
+        font-weight: 700;
         color: var(--primary);
         text-align: left;
         margin-right: 1rem;

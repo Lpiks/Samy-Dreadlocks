@@ -21,7 +21,8 @@ const AdminAppointments = () => {
     const fetchAppointments = async () => {
         try {
             const res = await api.get('/api/appointments');
-            setAppointments(res.data);
+            const sorted = res.data.sort((a, b) => new Date(b.date) - new Date(a.date));
+            setAppointments(sorted);
             setLoading(false);
         } catch (err) {
             console.error(err);
@@ -94,7 +95,7 @@ const AdminAppointments = () => {
                                     <td data-label="Service">
                                         {apt.service ? (apt.service.name || 'Unknown Service') : 'Service Deleted'}
                                     </td>
-                                    <td data-label="Date">
+                                    <td data-label="Date & Time">
                                         {formatDate(apt.date)}
                                     </td>
                                     <td data-label="Status">
