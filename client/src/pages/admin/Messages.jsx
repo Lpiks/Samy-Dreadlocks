@@ -110,13 +110,15 @@ const AdminMessages = () => {
                                     </td>
                                     <td data-label="Actions">
                                         <div className="message-actions">
-                                            <button
-                                                onClick={() => toggleStatus(msg._id, msg.status || 'pending')}
-                                                className={`btn-check ${msg.status === 'responded' ? 'active' : ''}`}
-                                                title={msg.status === 'responded' ? "Mark as Pending" : "Mark as Responded"}
-                                            >
-                                                <Check size={16} />
-                                            </button>
+                                            {msg.status !== 'responded' && (
+                                                <button
+                                                    onClick={() => toggleStatus(msg._id, msg.status || 'pending')}
+                                                    className="btn-check"
+                                                    title="Mark as Responded"
+                                                >
+                                                    <Check size={16} />
+                                                </button>
+                                            )}
                                             <button
                                                 onClick={() => deleteMessage(msg._id)}
                                                 className="btn-delete"
