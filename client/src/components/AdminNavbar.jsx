@@ -34,14 +34,11 @@ const AdminNavbar = () => {
         };
 
         fetchPendingCount();
-        // Poll every 30 seconds to keep it updated
-        const interval = setInterval(fetchPendingCount, 30000);
 
-        // Listen for updates from other components
+        // Listen for updates from other components to manually trigger a single fetch
         window.addEventListener('appointmentStatusChanged', fetchPendingCount);
 
         return () => {
-            clearInterval(interval);
             window.removeEventListener('appointmentStatusChanged', fetchPendingCount);
         };
     }, []);
