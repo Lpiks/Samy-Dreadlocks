@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
 import { useTranslation } from 'react-i18next';
 import { ShoppingCart } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import './Products.css';
 
 const ProductCard = ({ product, onAddToCart }) => {
+    const { t } = useTranslation();
     const [quantity, setQuantity] = useState(1);
 
     const handleQuantityChange = (val) => {
