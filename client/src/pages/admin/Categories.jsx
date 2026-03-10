@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../../utils/api';
-import { Plus, Trash2, X } from 'lucide-react';
+import { Plus, Trash2, X, ArrowLeft } from 'lucide-react';
 import toast from 'react-hot-toast';
 import confirmToast from '../../utils/confirmToast';
 import './Categories.css';
@@ -56,6 +57,11 @@ const AdminCategories = () => {
 
     return (
         <div className="container admin-container">
+            <Link to="/samyonesixr/products" className="back-link" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--primary)', textDecoration: 'none', marginBottom: '1.5rem', fontWeight: '600', transition: 'color 0.2s' }}>
+                <ArrowLeft size={18} />
+                Back to Products
+            </Link>
+
             <div className="categories-header">
                 <h1 className="title-no-margin">Manage Categories</h1>
                 <button className="btn-primary btn-add-category" onClick={() => setShowModal(true)}>
