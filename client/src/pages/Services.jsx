@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
 import { useTranslation } from 'react-i18next';
 import { Clock, Tag } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 
 import serviceTraditional from '../assets/service-traditional.png';
@@ -13,6 +14,7 @@ const Services = () => {
     const { t } = useTranslation();
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [selectedService, setSelectedService] = useState(null);
 
     // Fallback data if API is empty (for demo "wow" factor)
     const demoServices = [
@@ -56,6 +58,10 @@ const Services = () => {
 
     return (
         <div className="page-container container">
+            <Helmet>
+                <title>{t('metadata.services.title')}</title>
+                <meta name="description" content={t('metadata.services.description')} />
+            </Helmet>
             <header className="page-header">
                 <h1>{t('services.title')}</h1>
                 <p>{t('services.subtitle')}</p>
@@ -66,7 +72,11 @@ const Services = () => {
             ) : (
                 <div className="services-grid">
                     {services.map(service => (
-                        <div key={service._id} className="service-card">
+                        <div 
+                            key={service._id} 
+                            className="service-card"
+                            onClick={() => setSelectedService(service)}
+                        >
                             <div className="service-image" style={{ backgroundImage: `url(${service.imageUrl})` }}></div>
                             <div className="service-info">
                                 <h3>{service.name}</h3>
@@ -78,6 +88,38 @@ const Services = () => {
                             </div>
                         </div>
                     ))}
+                </div>
+            )}
+
+            {/* Service Detail Modal */}
+            {selectedService && (
+                <div className="modal-overlay" onClick={() => setSelectedService(null)}>
+                    <div className="service-detail-modal" onClick={e => e.stopPropagation()}>
+                        <button className="modal-close" onClick={() => setSelectedService(null)}>&times;</button>
+                        <div className="modal-body">
+                            <div className="modal-image" style={{ backgroundImage: `url(${selectedService.imageUrl})` }}></div>
+                            <div className="modal-content">
+                                <h2>{selectedService.name}</h2>
+                                <p className="modal-description">{selectedService.description}</p>
+                                <div className="modal-info-row">
+                                    <div className="modal-info-item">
+                                        <Tag size={20} />
+                                        <span>{selectedService.price} DZD</span>
+                                    </div>
+                                    <div className="modal-info-item">
+                                        <Clock size={20} />
+                                        <span>{selectedService.duration}</span>
+                                    </div>
+                                </div>
+                                <button 
+                                    className="btn-primary modal-cta" 
+                                    onClick={() => window.location.href=`/booking?serviceId=${selectedService._id}`}
+                                >
+                                    {t('services.bookThisService')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             )}
         </div>

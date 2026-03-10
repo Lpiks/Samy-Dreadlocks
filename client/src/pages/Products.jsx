@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
 import { useTranslation } from 'react-i18next';
+import { ShoppingCart } from 'lucide-react';
 import './Products.css';
 
 const ProductCard = ({ product, onAddToCart }) => {
@@ -20,7 +21,7 @@ const ProductCard = ({ product, onAddToCart }) => {
                     loading="lazy"
                 />
                 {!product.inStock && (
-                    <div className="out-of-stock-badge">Out of Stock</div>
+                    <div className="out-of-stock-badge">{t('products.outOfStock')}</div>
                 )}
             </div>
             <div className="product-info">
@@ -60,7 +61,7 @@ const ProductCard = ({ product, onAddToCart }) => {
                         setQuantity(1); // Reset after adding
                     }}
                 >
-                    {product.inStock ? 'Add to Cart' : 'Out of Stock'}
+                    {product.inStock ? t('products.addToCart') : t('products.outOfStock')}
                 </button>
             </div>
         </div>
@@ -70,22 +71,28 @@ const ProductCard = ({ product, onAddToCart }) => {
 const Products = () => {
     const { t } = useTranslation();
     const [products, setProducts] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
     const [cartCount, setCartCount] = useState(0);
+    const [activeCategory, setActiveCategory] = useState('All');
 
     useEffect(() => {
-        const fetchProducts = async () => {
+        const fetchInitialData = async () => {
             try {
-                const res = await api.get('/api/products');
-                setProducts(res.data);
+                const [productsRes, categoriesRes] = await Promise.all([
+                    api.get('/api/products'),
+                    api.get('/api/categories')
+                ]);
+                setProducts(productsRes.data);
+                setCategories(categoriesRes.data);
                 setLoading(false);
             } catch (err) {
-                console.error('Failed to fetch products', err);
+                console.error('Failed to fetch initial data', err);
                 setLoading(false);
             }
         };
 
-        fetchProducts();
+        fetchInitialData();
     }, []);
 
     useEffect(() => {
@@ -129,7 +136,7 @@ const Products = () => {
         const btn = document.getElementById(`btn-${product._id}`);
         if (btn) {
             const originalText = btn.innerText;
-            btn.innerText = "Added!";
+            btn.innerText = t('products.added');
             btn.style.background = "var(--success-color, #28a745)";
             setTimeout(() => {
                 btn.innerText = originalText;
@@ -138,44 +145,51 @@ const Products = () => {
         }
     };
 
-    if (loading) return <div className="loading-container">Loading...</div>;
+    const filteredProducts = activeCategory === 'All' 
+        ? products 
+        : products.filter(p => p.category === activeCategory);
+
+    if (loading) return <div className="loading-container"><div className="loader"></div></div>;
 
     return (
         <div className="products-page-root">
+            <Helmet>
+                <title>{t('metadata.products.title')}</title>
+                <meta name="description" content={t('metadata.products.description')} />
+            </Helmet>
             <div className="page-header">
-                <h1>Our Products</h1>
-                <p>Explore our premium hair care products and accessories.</p>
-                {cartCount > 0 && (
-                    <div className="header-actions" style={{ marginTop: '20px' }}>
-                        <a href="/checkout" className="btn-checkout-header" style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '10px',
-                            padding: '10px 25px',
-                            background: 'var(--primary-color, #d4af37)',
-                            color: '#111',
-                            textDecoration: 'none',
-                            borderRadius: '30px',
-                            fontWeight: 'bold',
-                            boxShadow: '0 4px 15px rgba(212, 175, 55, 0.4)',
-                            transition: 'transform 0.2s',
-                            fontSize: '1rem',
-                            cursor: 'pointer'
-                        }}>
-                            <span>🛒 Checkout ({cartCount})</span>
-                        </a>
-                    </div>
-                )}
+                <h1>{t('products.title')}</h1>
+                <p>{t('products.subtitle')}</p>
+            </div>
+
+            <div className="container">
+                <div className="category-filters">
+                    <button 
+                        className={`filter-btn ${activeCategory === 'All' ? 'active' : ''}`}
+                        onClick={() => setActiveCategory('All')}
+                    >
+                        {t('products.allCategories')}
+                    </button>
+                    {categories.map(cat => (
+                        <button 
+                            key={cat._id}
+                            className={`filter-btn ${activeCategory === cat.name ? 'active' : ''}`}
+                            onClick={() => setActiveCategory(cat.name)}
+                        >
+                            {cat.name}
+                        </button>
+                    ))}
+                </div>
             </div>
 
             <div className="container">
                 {products.length === 0 ? (
                     <div className="no-products">
-                        <p>No products available at the moment.</p>
+                        <p>{t('products.noProducts')}</p>
                     </div>
                 ) : (
                     <div className="products-grid">
-                        {products.map(product => (
+                        {filteredProducts.map(product => (
                             <ProductCard
                                 key={product._id}
                                 product={product}
@@ -185,6 +199,7 @@ const Products = () => {
                     </div>
                 )}
             </div>
+            
         </div>
     );
 };

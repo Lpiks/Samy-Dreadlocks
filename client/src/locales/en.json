@@ -1,8 +1,27 @@
 {
+    "metadata": {
+        "services": {
+            "title": "Professional Dreadlock Services | Samy Locks",
+            "description": "Explore our premium dreadlock services including traditional locs, retwists, interlocking, and extensions. Expert styling and care for your hair."
+        },
+        "booking": {
+            "title": "Book Your Dreadlock Appointment | Samy Locks",
+            "description": "Schedule your next dreadlock maintenance or styling session online. Easy booking for traditional locs, retwists, and more."
+        },
+        "gallery": {
+            "title": "Dreadlock Styles Gallery | Samy Locks Portfolio",
+            "description": "View our gallery of stunning dreadlock styles, cornrows, and hair artistry. Get inspired by our professional dreadlock stylists' work."
+        },
+        "products": {
+            "title": "Premium Hair Care Products | Samy Locks Shop",
+            "description": "Shop our curated selection of organic hair oils, locking gels, and accessories designed specifically for dreadlock maintenance and health."
+        }
+    },
     "navbar": {
         "home": "Home",
         "services": "Services",
         "gallery": "Gallery",
+        "products": "Products",
         "contact": "Contact",
         "bookBtn": "Book Now"
     },
@@ -24,30 +43,69 @@
         "phone": "Phone",
         "email": "Email",
         "followUs": "Follow Us",
-        "copyright": "All rights reserved."
+        "copyright": "All rights reserved.",
+        "salonName": "Dreadlocks Salon"
     },
     "services": {
         "title": "Our Services",
         "subtitle": "Choose the perfect style for you",
         "price": "Price",
-        "duration": "Duration"
+        "duration": "Duration",
+        "bookThisService": "Book This Service"
+    },
+    "products": {
+        "title": "Our Products",
+        "subtitle": "Explore our premium hair care products and accessories.",
+        "allCategories": "All",
+        "outOfStock": "Out of Stock",
+        "addToCart": "Add to Cart",
+        "added": "Added!",
+        "noProducts": "No products available at the moment."
     },
     "gallery": {
         "title": "Our Work",
-        "subtitle": "Browse our latest transformations"
+        "subtitle": "Browse our latest transformations",
+        "itemAlt": "Gallery item"
     },
     "booking": {
         "title": "Book Your Appointment",
         "subtitle": "Select a service and date",
+        "formTitle": "Book Your Session",
         "name": "Full Name",
         "email": "Email Address",
         "phone": "Phone Number",
         "service": "Service",
+        "selectService": "Select a Service",
         "date": "Date & Time",
+        "selectDateTime": "Select Date & Time",
         "notes": "Additional Notes",
-        "submit": "Confirm Booking",
+        "availableTimes": "Available Times",
+        "noSlots": "No slots available on this day.",
+        "submit": "Confirm Appointment",
         "success": "Booking request sent successfully!",
-        "error": "Error sending booking request."
+        "confirmed": "Booking Confirmed!",
+        "bookAnother": "Book Another",
+        "error": "Error sending booking request.",
+        "expertStylists": "Expert Stylists",
+        "expertStylistsDesc": "Our team of professionals are dedicated to giving you the best look.",
+        "premiumProducts": "Premium Products",
+        "premiumProductsDesc": "We only use high-quality, natural products for your hair."
+    },
+    "checkout": {
+        "title": "Checkout",
+        "emptyCart": "Your Cart is Empty",
+        "continueShopping": "Continue Shopping",
+        "summary": "Order Summary",
+        "total": "Total",
+        "shippingDetails": "Shipping Details",
+        "name": "Full Name",
+        "phone": "Phone Number",
+        "address": "Shipping Address",
+        "placeOrder": "Place Order",
+        "processing": "Processing...",
+        "orderSuccess": "Order placed successfully!",
+        "cartEmptyError": "Your Cart is Empty",
+        "placeOrderError": "Failed to place order"
     },
     "contact": {
         "title": "Contact Us",
@@ -55,21 +113,38 @@
         "form": {
             "name": "Name",
             "email": "Email",
+            "phone": "Phone Number",
             "subject": "Subject",
             "message": "Message",
             "submit": "Send Message",
             "success": "Message sent successfully!",
-            "error": "Failed to send message."
+            "error": "Failed to send message. Please try again."
         },
         "map": "Find Us",
+        "info": {
+            "phone": "Phone",
+            "email": "Email",
+            "address": "Address",
+            "addressValue": "Algiers, Algeria"
+        },
         "hours": {
             "title": "Opening Hours",
-            "weekdays": "Monday - Friday",
-            "weekdaysTime": "9:00 AM - 8:00 PM",
-            "saturday": "Saturday",
-            "saturdayTime": "10:00 AM - 6:00 PM",
-            "sunday": "Sunday",
-            "sundayTime": "Closed"
+            "loading": "Loading hours...",
+            "closed": "Closed",
+            "days": {
+                "0": "Sunday",
+                "1": "Monday",
+                "2": "Tuesday",
+                "3": "Wednesday",
+                "4": "Thursday",
+                "5": "Friday",
+                "6": "Saturday"
+            }
         }
+    },
+    "notFound": {
+        "title": "Page Not Found",
+        "message": "Oops! The page you are looking for might have been removed or is temporarily unavailable.",
+        "backHome": "Back to Home"
     }
 }

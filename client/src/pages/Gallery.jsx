@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import api from '../utils/api';
+import { Helmet } from 'react-helmet-async';
 
 import gallery1 from '../assets/gallery-1.png';
 import gallery2 from '../assets/gallery-2.png';
@@ -44,6 +45,10 @@ const Gallery = () => {
 
     return (
         <div className="page-container container">
+            <Helmet>
+                <title>{t('metadata.gallery.title')}</title>
+                <meta name="description" content={t('metadata.gallery.description')} />
+            </Helmet>
             <header className="page-header">
                 <h1>{t('gallery.title')}</h1>
                 <p>{t('gallery.subtitle')}</p>
@@ -55,7 +60,7 @@ const Gallery = () => {
                 <div className="gallery-grid">
                     {images.map((img, index) => (
                         <div key={img._id || index} className="gallery-item">
-                            <img src={img.imageUrl || img.src} alt="Gallery item" />
+                            <img src={img.imageUrl || img.src} alt={t('gallery.itemAlt')} loading="lazy" />
                             <div className="gallery-overlay">
                                 <p>Samy Locks</p>
                             </div>

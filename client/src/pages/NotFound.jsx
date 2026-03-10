@@ -26,19 +26,19 @@ const NotFound = () => {
             <h2 style={{
                 fontSize: '2rem',
                 marginBottom: '1rem',
-                color: '#333'
-            }}>Page Not Found</h2>
+                color: 'var(--text-primary)'
+            }}>{t('notFound.title')}</h2>
             <p style={{
                 fontSize: '1.2rem',
-                color: '#666',
+                color: 'var(--text-secondary)',
                 maxWidth: '500px',
                 marginBottom: '2rem'
             }}>
-                Oops! The page you are looking for might have been removed or is temporarily unavailable.
+                {t('notFound.message')}
             </p>
             <Link to="/" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
                 <Home size={20} />
-                Back to Home
+                {t('notFound.backHome')}
             </Link>
         </div>
     );

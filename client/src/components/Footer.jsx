@@ -30,8 +30,7 @@ const Footer = () => {
                 </div>
             </div>
             <div className="copyright">
-                <p>&copy; {new Date().getFullYear()} Dreadlocks Salon. All rights reserved.</p>
-
+                <p>&copy; {new Date().getFullYear()} {t('footer.salonName')}. {t('footer.copyright')}</p>
             </div>
         </footer>
     );

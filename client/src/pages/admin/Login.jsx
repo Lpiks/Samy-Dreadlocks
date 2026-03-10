@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { useNavigate, Link } from 'react-router-dom';
 
 const AdminLogin = () => {
@@ -14,7 +14,7 @@ const AdminLogin = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/user/login`, credentials);
+            const res = await api.post('/api/user/login', credentials);
             localStorage.setItem('auth-token', res.data.token);
             navigate(`${import.meta.env.VITE_ADMIN_PATH}/dashboard`);
         } catch (err) {

@@ -1,16 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, ShoppingCart } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { t, i18n } = useTranslation();
     const location = useLocation();
+    const [cartCount, setCartCount] = useState(0);
+    const [showLang, setShowLang] = useState(false);
+    const langRef = useRef(null);
+
+    // Sync cart count
+    React.useEffect(() => {
+        const updateCount = () => {
+            const items = JSON.parse(localStorage.getItem('cartItems') || '[]');
+            setCartCount(items.reduce((acc, item) => acc + item.quantity, 0));
+        };
+        updateCount();
+        window.addEventListener('storage', updateCount);
+        window.addEventListener('cartUpdated', updateCount);
+        return () => {
+            window.removeEventListener('storage', updateCount);
+            window.removeEventListener('cartUpdated', updateCount);
+        };
+    }, []);
+
+    // Close language dropdown on click outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (langRef.current && !langRef.current.contains(event.target)) {
+                setShowLang(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
         setIsOpen(false);
+        setShowLang(false);
     };
 
     // Lock body scroll when mobile menu is open
@@ -55,19 +85,29 @@ const Navbar = () => {
                     <Link to="/" className={`nav-link ${isActive('/')}`} onClick={closeMenu}>{t('navbar.home')}</Link>
                     <Link to="/services" className={`nav-link ${isActive('/services')}`} onClick={closeMenu}>{t('navbar.services')}</Link>
                     <Link to="/gallery" className={`nav-link ${isActive('/gallery')}`} onClick={closeMenu}>{t('navbar.gallery')}</Link>
-                    <Link to="/products" className={`nav-link ${isActive('/products')}`} onClick={closeMenu}>Products</Link>
+                    <Link to="/products" className={`nav-link ${isActive('/products')}`} onClick={closeMenu}>{t('navbar.products')}</Link>
                     <Link to="/contact" className={`nav-link ${isActive('/contact')}`} onClick={closeMenu}>{t('navbar.contact')}</Link>
                     <Link to="/booking" className="btn-primary" onClick={closeMenu}>{t('navbar.bookBtn')}</Link>
 
-                    <div className="lang-switcher">
-                        <button className="lang-btn">
-                            <Globe size={18} />
-                            <span>{i18n.language.substring(0, 2).toUpperCase()}</span>
-                        </button>
-                        <div className="lang-dropdown">
-                            <button onClick={() => changeLanguage('en')}>EN</button>
-                            <button onClick={() => changeLanguage('fr')}>FR</button>
-                            <button onClick={() => changeLanguage('ar')}>AR</button>
+                    <div className="nav-actions">
+                        <Link to="/checkout" className="nav-cart-link">
+                            <ShoppingCart size={22} />
+                            {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+                        </Link>
+
+                        <div className="lang-switcher" ref={langRef}>
+                            <button 
+                                className={`lang-btn ${showLang ? 'active' : ''}`}
+                                onClick={() => setShowLang(!showLang)}
+                            >
+                                <Globe size={18} />
+                                <span>{i18n.language.substring(0, 2).toUpperCase()}</span>
+                            </button>
+                            <div className={`lang-dropdown ${showLang ? 'show' : ''}`}>
+                                <button onClick={() => changeLanguage('en')}>EN</button>
+                                <button onClick={() => changeLanguage('fr')}>FR</button>
+                                <button onClick={() => changeLanguage('ar')}>AR</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -81,7 +121,7 @@ const Navbar = () => {
                     <Link to="/" onClick={() => setIsOpen(false)}>{t('navbar.home')}</Link>
                     <Link to="/services" onClick={() => setIsOpen(false)}>{t('navbar.services')}</Link>
                     <Link to="/gallery" onClick={() => setIsOpen(false)}>{t('navbar.gallery')}</Link>
-                    <Link to="/products" onClick={() => setIsOpen(false)}>Products</Link>
+                    <Link to="/products" onClick={() => setIsOpen(false)}>{t('navbar.products')}</Link>
                     <Link to="/contact" onClick={() => setIsOpen(false)}>{t('navbar.contact')}</Link>
                     <Link to="/booking" onClick={() => setIsOpen(false)}>{t('navbar.bookBtn')}</Link>
                     <div className="mobile-lang-switcher">

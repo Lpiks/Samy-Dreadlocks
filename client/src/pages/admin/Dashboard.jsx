@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { Calendar, List, MessageSquare } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
@@ -14,19 +14,17 @@ const AdminDashboard = () => {
         if (!token) {
             navigate(`${ADMIN_PATH}/login`);
         } else {
-            fetchStats(token);
+            fetchStats();
         }
     }, [navigate]);
 
-    const fetchStats = async (token) => {
+    const fetchStats = async () => {
         try {
-            const config = { headers: { 'auth-token': token } };
-
             // Parallel requests for better performance
             const [apptRes, serviceRes, msgRes] = await Promise.all([
-                axios.get(`${import.meta.env.VITE_API_URL}/api/appointments/pending-count`, config),
-                axios.get(`${import.meta.env.VITE_API_URL}/api/services`, config),
-                axios.get(`${import.meta.env.VITE_API_URL}/api/messages/pending-count`, config)
+                api.get('/api/appointments/pending-count'),
+                api.get('/api/services'),
+                api.get('/api/messages/pending-count')
             ]);
 
             setStats({
@@ -80,6 +78,7 @@ const AdminDashboard = () => {
                     <button className="btn-primary" onClick={() => navigate(`${ADMIN_PATH}/orders`)}>Manage Orders</button>
                     <button className="btn-primary" onClick={() => navigate(`${ADMIN_PATH}/categories`)}>Manage Categories</button>
                     <button className="btn-primary" onClick={() => navigate(`${ADMIN_PATH}/messages`)}>Manage Messages</button>
+                    <button className="btn-primary" onClick={() => navigate(`${ADMIN_PATH}/settings`)} style={{ background: '#333', color: '#fff' }}>Manage Schedule</button>
                 </div>
             </div>
         </div>

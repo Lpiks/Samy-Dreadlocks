@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../utils/api';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import './Checkout.css';
 
 const Checkout = () => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const [cartItems, setCartItems] = useState([]);
     const [formData, setFormData] = useState({
@@ -31,7 +33,7 @@ const Checkout = () => {
         e.preventDefault();
 
         if (cartItems.length === 0) {
-            toast.error('Your cart is empty');
+            toast.error(t('checkout.cartEmptyError'));
             return;
         }
 
@@ -48,16 +50,17 @@ const Checkout = () => {
 
             await api.post('/api/orders', orderData);
 
-            toast.success('Order placed successfully!');
+            toast.success(t('checkout.orderSuccess'));
             localStorage.removeItem('cartItems');
             setCartItems([]);
+            window.dispatchEvent(new Event('cartUpdated'));
             // Navigate to success page or home
             setTimeout(() => {
                 navigate('/');
             }, 2000);
         } catch (err) {
             console.error('Checkout error:', err);
-            const message = err.response?.data?.message || 'Failed to place order';
+            const message = err.response?.data?.message || t('checkout.placeOrderError');
             toast.error(message);
         } finally {
             setLoading(false);
@@ -68,14 +71,15 @@ const Checkout = () => {
         const newItems = cartItems.filter(item => item.product !== productId);
         setCartItems(newItems);
         localStorage.setItem('cartItems', JSON.stringify(newItems));
+        window.dispatchEvent(new Event('cartUpdated'));
     };
 
     if (cartItems.length === 0) {
         return (
             <div className="checkout-container empty-cart">
-                <h2>Your Cart is Empty</h2>
+                <h2>{t('checkout.emptyCart')}</h2>
                 <button className="btn-continue" onClick={() => navigate('/products')}>
-                    Continue Shopping
+                    {t('checkout.continueShopping')}
                 </button>
             </div>
         );
@@ -83,11 +87,11 @@ const Checkout = () => {
 
     return (
         <div className="checkout-container">
-            <h1 className="checkout-title">Checkout</h1>
+            <h1 className="checkout-title">{t('checkout.title')}</h1>
 
             <div className="checkout-content">
                 <div className="checkout-summary">
-                    <h2>Order Summary</h2>
+                    <h2>{t('checkout.summary')}</h2>
                     <div className="checkout-items">
                         {cartItems.map((item) => (
                             <div key={item.product} className="checkout-item">
@@ -104,16 +108,16 @@ const Checkout = () => {
                         ))}
                     </div>
                     <div className="checkout-total">
-                        <span>Total:</span>
+                        <span>{t('checkout.total')}:</span>
                         <span>{calculateTotal().toFixed(2)} DZD</span>
                     </div>
                 </div>
 
                 <div className="checkout-form-section">
-                    <h2>Shipping Details</h2>
+                    <h2>{t('checkout.shippingDetails')}</h2>
                     <form onSubmit={handleSubmit} className="checkout-form">
                         <div className="form-group">
-                            <label>Full Name</label>
+                            <label>{t('checkout.name')}</label>
                             <input
                                 type="text"
                                 name="customerName"
@@ -127,7 +131,7 @@ const Checkout = () => {
 
 
                         <div className="form-group">
-                            <label>Phone Number</label>
+                            <label>{t('checkout.phone')}</label>
                             <input
                                 type="tel"
                                 name="phone"
@@ -140,7 +144,7 @@ const Checkout = () => {
                         </div>
 
                         <div className="form-group">
-                            <label>Shipping Address</label>
+                            <label>{t('checkout.address')}</label>
                             <textarea
                                 name="address"
                                 value={formData.address}
@@ -155,7 +159,7 @@ const Checkout = () => {
                             className="btn-place-order"
                             disabled={loading}
                         >
-                            {loading ? 'Processing...' : 'Place Order'}
+                            {loading ? t('checkout.processing') : t('checkout.placeOrder')}
                         </button>
                     </form>
                 </div>

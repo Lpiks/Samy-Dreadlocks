@@ -37,6 +37,40 @@ exports.getPendingCount = async (req, res) => {
     }
 };
 
+// Get availability for a specific date (Public)
+exports.getAvailability = async (req, res) => {
+    try {
+        const dateParam = req.query.date;
+        if (!dateParam) return res.status(400).json({ message: 'Date parameter is required' });
+
+        const requestDate = new Date(dateParam);
+        
+        // Start of day and end of day for the search query
+        const startOfDay = new Date(requestDate.getFullYear(), requestDate.getMonth(), requestDate.getDate());
+        const endOfDay = new Date(requestDate.getFullYear(), requestDate.getMonth(), requestDate.getDate(), 23, 59, 59);
+
+        // Find all confirmed appointments falling on that day
+        const existingAppointments = await Appointment.find({
+            status: 'confirmed',
+            date: { $gte: startOfDay, $lte: endOfDay }
+        }).populate('service');
+
+        const bookedSlots = existingAppointments.map(appt => {
+            const start = new Date(appt.date);
+            const duration = parseDuration(appt.service.duration);
+            const end = new Date(start.getTime() + duration * 60000);
+            return {
+                start: start.toISOString(),
+                end: end.toISOString()
+            };
+        });
+
+        res.json({ bookedSlots });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 // Update appointment status (Admin only)
 exports.updateStatus = async (req, res) => {
     try {

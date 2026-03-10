@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import './Orders.css';
@@ -16,15 +16,13 @@ const AdminOrders = () => {
         if (!token) {
             navigate(`${ADMIN_PATH}/login`);
         } else {
-            fetchOrders(token);
+            fetchOrders();
         }
     }, [navigate, ADMIN_PATH]);
 
-    const fetchOrders = async (token) => {
+    const fetchOrders = async () => {
         try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/orders`, {
-                headers: { 'auth-token': token }
-            });
+            const res = await api.get('/api/orders');
             setOrders(res.data);
             setLoading(false);
         } catch (err) {
@@ -37,11 +35,9 @@ const AdminOrders = () => {
     const updateStatus = async (e, orderId, newStatus) => {
         e.stopPropagation(); // Prevent modal opening
         try {
-            const token = localStorage.getItem('auth-token');
-            await axios.put(
-                `${import.meta.env.VITE_API_URL}/api/orders/${orderId}/status`,
-                { status: newStatus },
-                { headers: { 'auth-token': token } }
+            await api.put(
+                `/api/orders/${orderId}/status`,
+                { status: newStatus }
             );
 
             setOrders(orders.map(order =>

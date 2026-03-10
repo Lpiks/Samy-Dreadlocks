@@ -10,6 +10,9 @@ router.get('/', verify, appointmentController.getAppointments);
 // Get pending appointment count (Admin)
 router.get('/pending-count', verifyAdmin, appointmentController.getPendingCount);
 
+// Get availability for a specific date (Public)
+router.get('/availability', appointmentController.getAvailability);
+
 // Update appointment status (Admin only)
 router.patch('/:id/status', verifyAdmin, appointmentController.updateStatus);
 

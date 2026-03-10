@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Mail, Phone, MapPin, Send, Clock, Calendar } from 'lucide-react';
 import api from '../utils/api';
@@ -12,6 +12,29 @@ const Contact = () => {
         message: ''
     });
     const [status, setStatus] = useState(null);
+    const [schedule, setSchedule] = useState([]);
+    const [loadingSchedule, setLoadingSchedule] = useState(true);
+
+    useEffect(() => {
+        const fetchSchedule = async () => {
+            try {
+                const res = await api.get('/api/settings/schedule');
+                setSchedule(res.data);
+                setLoadingSchedule(false);
+            } catch (error) {
+                console.error('Failed to fetch schedule:', error);
+                setLoadingSchedule(false);
+            }
+        };
+        fetchSchedule();
+    }, []);
+
+    const formatTime = (timeStr) => {
+        if (!timeStr) return '--h--';
+        return timeStr.replace(':', 'h');
+    };
+
+    // Removed hardcoded dayNames array for localized version
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -72,7 +95,7 @@ const Contact = () => {
                                         placeholder=" "
                                         required
                                     />
-                                    <label>Phone Number</label>
+                                    <label>{t('contact.form.phone')}</label>
                                 </div>
 
                                 <div className="form-group floating-group">
@@ -105,7 +128,7 @@ const Contact = () => {
                                 </button>
 
                                 {status === 'success' && <div className="success-message">{t('contact.form.success')}</div>}
-                                {status === 'error' && <div className="error-message" style={{ color: 'red', marginTop: '10px' }}>Failed to send message. Please try again.</div>}
+                                {status === 'error' && <div className="error-message" style={{ color: 'red', marginTop: '10px' }}>{t('contact.form.error')}</div>}
                             </form>
                         </div>
 
@@ -116,18 +139,22 @@ const Contact = () => {
                                 <h3>{t('contact.hours.title')}</h3>
                             </div>
                             <div className="hours-list">
-                                <div className="hour-row">
-                                    <span>{t('contact.hours.weekdays')}</span>
-                                    <span className="time-badge">{t('contact.hours.weekdaysTime')}</span>
-                                </div>
-                                <div className="hour-row">
-                                    <span>{t('contact.hours.saturday')}</span>
-                                    <span className="time-badge">{t('contact.hours.saturdayTime')}</span>
-                                </div>
-                                <div className="hour-row closed">
-                                    <span>{t('contact.hours.sunday')}</span>
-                                    <span className="status-closed">Closed</span>
-                                </div>
+                                {loadingSchedule ? (
+                                    <div className="loading-small">{t('contact.hours.loading')}</div>
+                                ) : (
+                                    schedule.map((slot) => (
+                                        <div key={slot._id || slot.dayOfWeek} className={`hour-row ${!slot.isOpen ? 'closed' : ''}`}>
+                                            <span>{t(`contact.hours.days.${slot.dayOfWeek}`)}</span>
+                                            {!slot.isOpen ? (
+                                                <span className="status-closed">{t('contact.hours.closed')}</span>
+                                            ) : (
+                                                <span className="time-badge">
+                                                    {formatTime(slot.openTime)} - {formatTime(slot.closeTime)}
+                                                </span>
+                                            )}
+                                        </div>
+                                    ))
+                                )}
                             </div>
                         </div>
 
@@ -155,22 +182,22 @@ const Contact = () => {
                                 <div className="info-item">
                                     <div className="icon-circle"><Phone size={20} /></div>
                                     <div>
-                                        <p className="label">Phone</p>
+                                        <p className="label">{t('contact.info.phone')}</p>
                                         <p className="value">+213 555 123 456</p>
                                     </div>
                                 </div>
                                 <div className="info-item">
                                     <div className="icon-circle"><Mail size={20} /></div>
                                     <div>
-                                        <p className="label">Email</p>
+                                        <p className="label">{t('contact.info.email')}</p>
                                         <p className="value">contact@samylocks.com</p>
                                     </div>
                                 </div>
                                 <div className="info-item">
                                     <div className="icon-circle"><MapPin size={20} /></div>
                                     <div>
-                                        <p className="label">Address</p>
-                                        <p className="value">Algiers, Algeria</p>
+                                        <p className="label">{t('contact.info.address')}</p>
+                                        <p className="value">{t('contact.info.addressValue')}</p>
                                     </div>
                                 </div>
                             </div>

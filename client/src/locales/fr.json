@@ -1,8 +1,27 @@
 {
+    "metadata": {
+        "services": {
+            "title": "Services de Dreadlocks Professionnels | Samy Locks",
+            "description": "Découvrez nos services de dreadlocks haut de gamme, y compris les locs traditionnelles, les retwists, l'interlocking et les extensions. Stylisme et soins experts pour vos cheveux."
+        },
+        "booking": {
+            "title": "Prenez Rendez-vous pour vos Dreadlocks | Samy Locks",
+            "description": "Planifiez votre prochaine séance d'entretien ou de coiffure de dreadlocks en ligne. Réservation facile pour les locs traditionnelles, les retwists et plus encore."
+        },
+        "gallery": {
+            "title": "Galerie de Styles de Dreadlocks | Portfolio Samy Locks",
+            "description": "Consultez notre galerie de superbes styles de dreadlocks, de tresses et d'art capillaire. Inspirez-vous du travail de nos stylistes professionnels de dreadlocks."
+        },
+        "products": {
+            "title": "Produits de Soins Capillaires Premium | Boutique Samy Locks",
+            "description": "Achetez notre sélection de soins capillaires biologiques, de gels de fixation et d'accessoires conçus spécifiquement pour l'entretien et la santé des dreadlocks."
+        }
+    },
     "navbar": {
         "home": "Accueil",
         "services": "Services",
         "gallery": "Galerie",
+        "products": "Produits",
         "contact": "Contact",
         "bookBtn": "Réserver"
     },
@@ -24,52 +43,108 @@
         "phone": "Téléphone",
         "email": "Email",
         "followUs": "Suivez-nous",
-        "copyright": "Tous droits réservés."
+        "copyright": "Tous droits réservés.",
+        "salonName": "Salon de Dreadlocks"
     },
     "services": {
         "title": "Nos Services",
         "subtitle": "Choisissez le style parfait pour vous",
         "price": "Prix",
-        "duration": "Durée"
+        "duration": "Durée",
+        "bookThisService": "Réserver ce Service"
+    },
+    "products": {
+        "title": "Nos Produits",
+        "subtitle": "Explorez nos produits de soins capillaires et accessoires haut de gamme.",
+        "allCategories": "Tout",
+        "outOfStock": "Rupture de Stock",
+        "addToCart": "Ajouter au Panier",
+        "added": "Ajouté !",
+        "noProducts": "Aucun produit disponible pour le moment."
     },
     "gallery": {
         "title": "Notre Travail",
-        "subtitle": "Parcourez nos dernières transformations"
+        "subtitle": "Parcourez nos dernières transformations",
+        "itemAlt": "Élément de la galerie"
     },
     "booking": {
         "title": "Réservez Votre Rendez-vous",
         "subtitle": "Sélectionnez un service et une date",
+        "formTitle": "Réservez Votre Séance",
         "name": "Nom Complet",
         "email": "Adresse Email",
         "phone": "Numéro de Téléphone",
         "service": "Service",
+        "selectService": "Sélectionnez un Service",
         "date": "Date et Heure",
+        "selectDateTime": "Sélectionnez Date et Heure",
         "notes": "Notes Supplémentaires",
-        "submit": "Confirmer la Réservation",
+        "availableTimes": "Horaires Disponibles",
+        "noSlots": "Aucun créneau disponible ce jour.",
+        "submit": "Confirmer le Rendez-vous",
         "success": "Demande de réservation envoyée avec succès !",
-        "error": "Erreur lors de l'envoi de la réservation."
+        "confirmed": "Réservation Confirmée !",
+        "bookAnother": "Réserver un Autre",
+        "error": "Erreur lors de l'envoi de la réservation.",
+        "expertStylists": "Stylistes Experts",
+        "expertStylistsDesc": "Notre équipe de professionnels est dédiée à vous offrir le meilleur look.",
+        "premiumProducts": "Produits Premium",
+        "premiumProductsDesc": "Nous utilisons uniquement des produits naturels de haute qualité pour vos cheveux."
+    },
+    "checkout": {
+        "title": "Paiement",
+        "emptyCart": "Votre Panier est Vide",
+        "continueShopping": "Continuer vos Achats",
+        "summary": "Résumé de la Commande",
+        "total": "Total",
+        "shippingDetails": "Détails d'Expédition",
+        "name": "Nom Complet",
+        "phone": "Numéro de Téléphone",
+        "address": "Adresse d'Expédition",
+        "placeOrder": "Passer la Commande",
+        "processing": "Traitement en cours...",
+        "orderSuccess": "Commande passée avec succès !",
+        "cartEmptyError": "Votre Panier est Vide",
+        "placeOrderError": "Échec de la commande"
     },
     "contact": {
         "title": "Contactez-nous",
-        "subtitle": "Prenez contact avec nous",
+        "subtitle": "Restez en contact avec nous",
         "form": {
             "name": "Nom",
             "email": "Email",
+            "phone": "Numéro de Téléphone",
             "subject": "Sujet",
             "message": "Message",
             "submit": "Envoyer le message",
             "success": "Message envoyé avec succès !",
-            "error": "Échec de l'envoi du message."
+            "error": "Échec de l'envoi du message. Veuillez réessayer."
         },
         "map": "Trouvez-nous",
+        "info": {
+            "phone": "Téléphone",
+            "email": "Email",
+            "address": "Adresse",
+            "addressValue": "Alger, Algérie"
+        },
         "hours": {
             "title": "Heures d'ouverture",
-            "weekdays": "Lundi - Vendredi",
-            "weekdaysTime": "09h00 - 20h00",
-            "saturday": "Samedi",
-            "saturdayTime": "10h00 - 18h00",
-            "sunday": "Dimanche",
-            "sundayTime": "Fermé"
+            "loading": "Chargement des horaires...",
+            "closed": "Fermé",
+            "days": {
+                "0": "Dimanche",
+                "1": "Lundi",
+                "2": "Mardi",
+                "3": "Mercredi",
+                "4": "Jeudi",
+                "5": "Vendredi",
+                "6": "Samedi"
+            }
         }
+    },
+    "notFound": {
+        "title": "Page Non Trouvée",
+        "message": "Oups ! La page que vous recherchez a peut-être été supprimée ou est temporairement indisponible.",
+        "backHome": "Retour à l'Accueil"
     }
 }

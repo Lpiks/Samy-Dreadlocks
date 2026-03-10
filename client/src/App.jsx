@@ -20,6 +20,7 @@ import AdminProducts from './pages/admin/Products';
 import AdminOrders from './pages/admin/Orders';
 import AdminCategories from './pages/admin/Categories';
 import AdminMessages from './pages/admin/Messages';
+import AdminSettings from './pages/admin/Settings';
 import Contact from './pages/Contact';
 import Checkout from './pages/Checkout';
 import ScrollToTop from './components/ScrollToTop';
@@ -62,6 +63,7 @@ function AppContent() {
                 <Route path={`${ADMIN_PATH}/orders`} element={<ProtectedRoute adminPath={ADMIN_PATH}><AdminOrders /></ProtectedRoute>} />
                 <Route path={`${ADMIN_PATH}/categories`} element={<ProtectedRoute adminPath={ADMIN_PATH}><AdminCategories /></ProtectedRoute>} />
                 <Route path={`${ADMIN_PATH}/messages`} element={<ProtectedRoute adminPath={ADMIN_PATH}><AdminMessages /></ProtectedRoute>} />
+                <Route path={`${ADMIN_PATH}/settings`} element={<ProtectedRoute adminPath={ADMIN_PATH}><AdminSettings /></ProtectedRoute>} />
 
                 {/* 404 Route - Must be last */}
                 <Route path="*" element={<NotFound />} />
