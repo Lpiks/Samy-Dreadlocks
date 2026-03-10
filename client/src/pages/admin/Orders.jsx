@@ -80,16 +80,16 @@ const AdminOrders = () => {
                         <tbody>
                             {orders.map(order => (
                                 <tr key={order._id} onClick={() => setSelectedOrder(order)} className="order-row-clickable">
-                                    <td>
+                                    <td data-label="Date">
                                         {new Date(order.createdAt).toLocaleDateString()}
                                     </td>
-                                    <td>
+                                    <td data-label="Customer">
                                         <div className="customer-info">
                                             <strong>{order.customerName}</strong>
                                             <p>{order.phone}</p>
                                         </div>
                                     </td>
-                                    <td>
+                                    <td data-label="Items">
                                         <div className="order-items-mini-list">
                                             {order.items.slice(0, 2).map((item, idx) => (
                                                 <span key={idx} className="item-badge">
@@ -99,13 +99,13 @@ const AdminOrders = () => {
                                             {order.items.length > 2 && <span className="item-more">+{order.items.length - 2} more</span>}
                                         </div>
                                     </td>
-                                    <td>{(order.totalAmount || 0).toFixed(2)} DZD</td>
-                                    <td>
+                                    <td data-label="Total">{(order.totalAmount || 0).toFixed(2)} DZD</td>
+                                    <td data-label="Status">
                                         <span className={`status-badge ${order.status}`}>
                                             {order.status}
                                         </span>
                                     </td>
-                                    <td>
+                                    <td data-label="Actions">
                                         {order.status === 'pending' && (
                                             <div className="order-actions">
                                                 <button
