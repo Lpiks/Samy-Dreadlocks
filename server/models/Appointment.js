@@ -7,9 +7,19 @@ const appointmentSchema = new mongoose.Schema({
         required: false
     },
     guest: {
-        name: String,
-        email: String,
-        phone: String
+        name: { type: String, trim: true, maxlength: 100 },
+        email: { 
+            type: String, 
+            trim: true, 
+            match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Please provide a valid email address'],
+            maxlength: 100 
+        },
+        phone: { 
+            type: String, 
+            trim: true, 
+            match: [/^(?:\+213|0)[567]\d{8}$/, 'Please provide a valid Algerian phone number (+213 or 0 followed by 5, 6, or 7 and 8 digits)'],
+            maxlength: 50 
+        }
     },
     service: {
         type: mongoose.Schema.Types.ObjectId,

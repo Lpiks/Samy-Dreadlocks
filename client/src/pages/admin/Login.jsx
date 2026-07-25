@@ -14,8 +14,8 @@ const AdminLogin = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const res = await api.post('/api/user/login', credentials);
-            localStorage.setItem('auth-token', res.data.token);
+            await api.post('/api/user/login', credentials);
+            // The backend sets the HttpOnly cookie automatically now.
             navigate(`${import.meta.env.VITE_ADMIN_PATH}/dashboard`);
         } catch (err) {
             setError('Invalid Credentials');

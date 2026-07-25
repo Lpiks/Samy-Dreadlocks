@@ -14,12 +14,16 @@ const SettingSchema = new mongoose.Schema({
         default: true
     },
     openTime: {
-        type: String, // Format: "HH:mm" (24-hour)
-        default: '08:00'
+        type: String, // format HH:mm
+        default: '09:00',
+        trim: true,
+        maxlength: 10
     },
     closeTime: {
-        type: String, // Format: "HH:mm" (24-hour)
-        default: '23:00'
+        type: String, // format HH:mm
+        default: '17:00',
+        trim: true,
+        maxlength: 10
     }
 });
 

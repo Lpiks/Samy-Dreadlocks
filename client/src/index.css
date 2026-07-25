@@ -315,6 +315,31 @@ button {
     font-size: 0.9rem;
 }
 
+.built-with-passion {
+    color: #737373;
+    font-size: 0.75rem;
+    letter-spacing: 0.025em;
+    margin-top: 1rem;
+}
+
+.built-with-passion .portfolio-link {
+    color: #C5A880;
+    font-weight: 500;
+    margin-left: 0.25rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    font-size: 0.75rem;
+}
+
+.built-with-passion .portfolio-link:hover {
+    color: #ffffff;
+    filter: drop-shadow(0 0 8px rgba(197,168,128,0.8));
+}
+
+.built-with-passion .dot-accent {
+    color: #C5A880;
+}
+
 /* Home Page Styles */
 /* Home Page Styles */
 .hero {

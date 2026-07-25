@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const gallerySchema = new mongoose.Schema({
     imageUrl: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
+        maxlength: 1000
     },
     createdAt: {
         type: Date,

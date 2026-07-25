@@ -15,7 +15,9 @@ const orderLimiter = rateLimit({
 const orderSchema = Joi.object({
     customerName: Joi.string().min(2).max(50).required(),
 
-    phone: Joi.string().pattern(/^[0-9+\s-]{8,20}$/).required(),
+    phone: Joi.string().pattern(/^(?:\+213|0)[567]\d{8}$/).required().messages({
+        'string.pattern.base': 'Please provide a valid Algerian phone number (+213 or 0 followed by 5, 6, or 7 and 8 digits)'
+    }),
     address: Joi.string().min(5).max(200).required(),
     items: Joi.array().items(
         Joi.object({

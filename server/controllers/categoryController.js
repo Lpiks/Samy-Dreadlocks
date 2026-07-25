@@ -19,7 +19,7 @@ exports.createCategory = async (req, res) => {
         const savedCategory = await category.save();
         res.json(savedCategory);
     } catch (err) {
-        res.status(400).send(err); // Keeping original error format for now, or standardize?
+        res.status(400).json({ message: "Failed to create category" });
     }
 };
 
@@ -30,6 +30,6 @@ exports.deleteCategory = async (req, res) => {
         if (!removedCategory) return res.status(404).send("Category not found");
         res.json(removedCategory);
     } catch (err) {
-        res.status(400).send(err);
+        res.status(500).json({ message: "Failed to delete category" });
     }
 };

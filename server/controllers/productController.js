@@ -68,9 +68,19 @@ exports.updateProduct = async (req, res) => {
     // For now, I'll only add validation to CREATE. I'll comment on UPDATE.
 
     try {
+        const { name, price, description, image, category, inStock } = req.body;
+        const updateData = {};
+        
+        if (name !== undefined) updateData.name = name;
+        if (price !== undefined) updateData.price = price;
+        if (description !== undefined) updateData.description = description;
+        if (image !== undefined) updateData.image = image;
+        if (category !== undefined) updateData.category = category;
+        if (inStock !== undefined) updateData.inStock = inStock;
+
         const updatedProduct = await Product.findByIdAndUpdate(
             req.params.id,
-            { $set: req.body },
+            { $set: updateData },
             { new: true }
         );
         res.json(updatedProduct);

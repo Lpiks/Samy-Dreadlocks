@@ -20,8 +20,21 @@ exports.login = async (req, res) => {
         if (!validPass) return res.status(400).json({ message: 'Invalid password' });
 
         // Create token
-        const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET);
-        res.header('auth-token', token).json({ token, user: { _id: user._id, username: user.username, role: user.role } });
+        const token = jwt.sign(
+            { _id: user._id, role: user.role }, 
+            process.env.JWT_SECRET,
+            { expiresIn: '1d' } // Critical: Token expires in 1 day
+        );
+        
+        // Send token as HttpOnly cookie
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            maxAge: 24 * 60 * 60 * 1000 // 1 day
+        });
+
+        res.json({ user: { _id: user._id, username: user.username, role: user.role } });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

@@ -3,16 +3,23 @@ const mongoose = require('mongoose');
 const OrderSchema = new mongoose.Schema({
     customerName: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
+        maxlength: 100
     },
 
     phone: {
         type: String,
-        required: true
+        required: [true, 'Phone number is required'],
+        trim: true,
+        match: [/^(?:\+213|0)[567]\d{8}$/, 'Please provide a valid Algerian phone number (+213 or 0 followed by 5, 6, or 7 and 8 digits)'],
+        maxlength: 50
     },
     address: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
+        maxlength: 500
     },
     items: [{
         product: {

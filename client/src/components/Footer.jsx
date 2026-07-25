@@ -31,6 +31,11 @@ const Footer = () => {
             </div>
             <div className="copyright">
                 <p>&copy; {new Date().getFullYear()} {t('footer.salonName')}. {t('footer.copyright')}</p>
+                <p className="built-with-passion">
+                    {t('footer.built_with_passion')}
+                    <a href="https://abdelhadi-hammaz.netlify.app/" target="_blank" rel="noopener noreferrer" className="portfolio-link">AbdelhadiHammaz</a>
+                    <span className="dot-accent">.</span>
+                </p>
             </div>
         </footer>
     );

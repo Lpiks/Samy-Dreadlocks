@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const ProductSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
+        maxlength: 100
     },
     price: {
         type: Number,
@@ -11,15 +13,21 @@ const ProductSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
+        maxlength: 2000
     },
     image: {
         type: String, // URL to the image
-        required: true
+        required: true,
+        trim: true,
+        maxlength: 1000
     },
     category: {
         type: String,
-        default: 'General'
+        default: 'General',
+        trim: true,
+        maxlength: 100
     },
     inStock: {
         type: Boolean,

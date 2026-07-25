@@ -31,9 +31,18 @@ exports.createService = async (req, res) => {
 // Update service (Admin only)
 exports.updateService = async (req, res) => {
     try {
+        const { name, description, price, duration, imageUrl } = req.body;
+        const updateData = {};
+        
+        if (name !== undefined) updateData.name = name;
+        if (description !== undefined) updateData.description = description;
+        if (price !== undefined) updateData.price = price;
+        if (duration !== undefined) updateData.duration = duration;
+        if (imageUrl !== undefined) updateData.imageUrl = imageUrl;
+
         const updatedService = await Service.findByIdAndUpdate(
             req.params.id,
-            req.body,
+            { $set: updateData },
             { new: true } // Return the updated document
         );
         if (!updatedService) return res.status(404).json({ message: 'Service not found' });

@@ -4,6 +4,9 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+const mongoSanitize = require('express-mongo-sanitize');
+const hpp = require('hpp');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -22,18 +25,16 @@ app.use(cors({
   ], // Allow env var + deployed client + local dev
   credentials: true
 }));
-app.use(express.json());
+app.use(express.json({ limit: '10kb' })); // Limit body size to 10kb to prevent DoS
+app.use(cookieParser());
+app.use(mongoSanitize()); // Prevent NoSQL Injection
+app.use(hpp()); // Prevent HTTP Parameter Pollution
 
 // Logging
 app.use(morgan('dev')); // Log HTTP requests
 
-// Rate Limiting
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per windowMs
-  message: 'Too many requests from this IP, please try again later.'
-});
-app.use(limiter);
+// General security middleware handles headers and CORS.
+// Specific routes (like auth, appointments) will have their own strict rate limits.
 
 // Database Connection
 const connectDB = require('./config/db');

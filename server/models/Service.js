@@ -4,11 +4,14 @@ const serviceSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        maxlength: 100
     },
     description: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
+        maxlength: 2000
     },
     price: {
         type: Number,
@@ -16,10 +19,14 @@ const serviceSchema = new mongoose.Schema({
     },
     duration: {
         type: String, // e.g., "2 hours"
-        required: true
+        required: true,
+        trim: true,
+        maxlength: 50
     },
     imageUrl: {
-        type: String
+        type: String,
+        trim: true,
+        maxlength: 1000
     },
     createdAt: {
         type: Date,

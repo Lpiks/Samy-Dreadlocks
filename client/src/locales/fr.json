@@ -44,7 +44,8 @@
         "email": "Email",
         "followUs": "Suivez-nous",
         "copyright": "Tous droits réservés.",
-        "salonName": "Salon de Dreadlocks"
+        "salonName": "Salon de Dreadlocks",
+        "built_with_passion": "Fait avec passion par"
     },
     "services": {
         "title": "Nos Services",
