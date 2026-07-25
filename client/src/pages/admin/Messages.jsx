@@ -115,6 +115,7 @@ const AdminMessages = () => {
                                                     onClick={() => toggleStatus(msg._id, msg.status || 'pending')}
                                                     className="btn-check"
                                                     title="Mark as Responded"
+                                                    aria-label="Mark message as responded"
                                                 >
                                                     <Check size={16} />
                                                 </button>
@@ -123,6 +124,7 @@ const AdminMessages = () => {
                                                 onClick={() => deleteMessage(msg._id)}
                                                 className="btn-delete"
                                                 title="Delete Message"
+                                                aria-label="Delete message"
                                             >
                                                 <Trash2 size={16} />
                                             </button>

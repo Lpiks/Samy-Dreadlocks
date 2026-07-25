@@ -188,10 +188,11 @@ const Products = () => {
     if (loading) return <div className="loading-container"><div className="loader"></div></div>;
 
     return (
-        <div className="products-page-root">
+        <main className="products-page-root">
             <Helmet>
                 <title>{t('metadata.products.title')}</title>
                 <meta name="description" content={t('metadata.products.description')} />
+                <link rel="canonical" href="https://www.yourdomain.com/products" />
             </Helmet>
             <div className="page-header">
                 <h1>{t('products.title')}</h1>
@@ -236,7 +237,7 @@ const Products = () => {
                 )}
             </div>
 
-        </div>
+        </main>
     );
 };
 

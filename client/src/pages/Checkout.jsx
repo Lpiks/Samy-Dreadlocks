@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../utils/api';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet-async';
 import './Checkout.css';
 
 const Checkout = () => {
@@ -86,8 +87,13 @@ const Checkout = () => {
     }
 
     return (
-        <div className="checkout-container">
-            <h1 className="checkout-title">{t('checkout.title')}</h1>
+        <main className="checkout-page-root fade-in">
+            <Helmet>
+                <title>Checkout | Samy Locks</title>
+                <meta name="robots" content="noindex, nofollow" />
+            </Helmet>
+            <div className="checkout-container container">
+                <h1 className="checkout-title">{t('checkout.title')}</h1>
 
             <div className="checkout-content">
                 <div className="checkout-summary">
@@ -99,6 +105,7 @@ const Checkout = () => {
                                     src={item.image} 
                                     alt={item.name} 
                                     className="item-image" 
+                                    loading="lazy"
                                     onError={(e) => { e.target.onerror = null; e.target.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="%23666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>'; }}
                                 />
                                 <div className="item-details">
@@ -169,7 +176,8 @@ const Checkout = () => {
                     </form>
                 </div>
             </div>
-        </div>
+            </div>
+        </main>
     );
 };
 

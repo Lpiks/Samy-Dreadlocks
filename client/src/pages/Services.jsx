@@ -46,10 +46,11 @@ const Services = () => {
     }, []);
 
     return (
-        <div className="page-container container">
+        <main className="page-container container">
             <Helmet>
                 <title>{t('metadata.services.title')}</title>
                 <meta name="description" content={t('metadata.services.description')} />
+                <link rel="canonical" href="https://www.yourdomain.com/services" />
             </Helmet>
             <header className="page-header">
                 <h1>{t('services.title')}</h1>
@@ -111,7 +112,7 @@ const Services = () => {
                     </div>
                 </div>
             )}
-        </div>
+        </main>
     );
 };
 

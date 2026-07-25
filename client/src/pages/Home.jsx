@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet-async';
 
 import heroImage from '../assets/hero-main.png';
 
@@ -8,7 +9,12 @@ const Home = () => {
     const { t } = useTranslation();
 
     return (
-        <div className="home-page">
+        <main className="home-page">
+            <Helmet>
+                <title>Samy Locks | Professional Dreadlocks Styling & Maintenance</title>
+                <meta name="description" content="Discover premium dreadlocks services, natural hair care products, and expert styling at Samy Locks in Algeria." />
+                <link rel="canonical" href="https://www.yourdomain.com/" />
+            </Helmet>
             <header className="hero">
                 <div className="hero-container container">
                     <div className="hero-content">
@@ -39,7 +45,7 @@ const Home = () => {
                     </div>
                 </div>
             </section>
-        </div>
+        </main>
     );
 };
 

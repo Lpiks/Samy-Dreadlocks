@@ -44,10 +44,11 @@ const Gallery = () => {
     }, []);
 
     return (
-        <div className="page-container container">
+        <main className="gallery-page container">
             <Helmet>
                 <title>{t('metadata.gallery.title')}</title>
                 <meta name="description" content={t('metadata.gallery.description')} />
+                <link rel="canonical" href="https://www.yourdomain.com/gallery" />
             </Helmet>
             <header className="page-header">
                 <h1>{t('gallery.title')}</h1>
@@ -68,7 +69,7 @@ const Gallery = () => {
                     ))}
                 </div>
             )}
-        </div>
+        </main>
     );
 };
 

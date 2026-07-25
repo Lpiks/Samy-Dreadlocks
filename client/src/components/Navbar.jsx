@@ -92,7 +92,7 @@ const Navbar = () => {
                     </div>
 
                     <div className="nav-actions">
-                        <Link to="/checkout" className="nav-cart-link">
+                        <Link to="/checkout" className="nav-cart-link" aria-label="Shopping Cart">
                             <ShoppingCart size={22} />
                             {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
                         </Link>
@@ -101,6 +101,7 @@ const Navbar = () => {
                             <button 
                                 className={`lang-btn ${showLang ? 'active' : ''}`}
                                 onClick={() => setShowLang(!showLang)}
+                                aria-label="Change Language"
                             >
                                 <Globe size={18} />
                                 <span>{i18n.language.substring(0, 2).toUpperCase()}</span>
@@ -113,9 +114,9 @@ const Navbar = () => {
                         </div>
                     </div>
 
-                    <div className="mobile-menu-btn" onClick={toggleMenu}>
+                    <button className="mobile-menu-btn" onClick={toggleMenu} aria-label="Toggle Menu">
                         {isOpen ? <X /> : <Menu />}
-                    </div>
+                    </button>
                 </div>
             </div>
             {isOpen && (

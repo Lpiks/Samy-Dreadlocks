@@ -170,10 +170,11 @@ const Booking = () => {
     };
 
     return (
-        <div className="page-container container">
+        <main className="page-container container">
             <Helmet>
                 <title>{t('metadata.booking.title')}</title>
                 <meta name="description" content={t('metadata.booking.description')} />
+                <link rel="canonical" href="https://www.yourdomain.com/booking" />
             </Helmet>
             <div className="booking-layout">
                 <div className="booking-info">
@@ -349,7 +350,7 @@ const Booking = () => {
                     )}
                 </div>
             </div>
-        </div>
+        </main>
     );
 };
 

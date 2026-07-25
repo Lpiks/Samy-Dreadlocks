@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Mail, Phone, MapPin, Send, Clock, Calendar } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import api from '../utils/api';
 
 const Contact = () => {
@@ -57,7 +58,12 @@ const Contact = () => {
     };
 
     return (
-        <div className="contact-page-root">
+        <main className="contact-page-root">
+            <Helmet>
+                <title>Contact Us | Samy Locks</title>
+                <meta name="description" content="Get in touch with Samy Locks for any questions about our dreadlocks services, products, or booking an appointment." />
+                <link rel="canonical" href="https://www.yourdomain.com/contact" />
+            </Helmet>
             {/* Header Section */}
             <div className="page-header">
                 <h1>{t('contact.title')}</h1>
@@ -207,7 +213,7 @@ const Contact = () => {
 
                 </div>
             </div>
-        </div>
+        </main>
     );
 };
 
