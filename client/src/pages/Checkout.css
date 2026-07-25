@@ -8,8 +8,9 @@
 .checkout-title {
     text-align: center;
     margin-bottom: 40px;
-    color: var(--text-primary, #333);
+    color: var(--primary-color, #d4af37);
     font-size: 2.5rem;
+    font-family: var(--font-heading, serif);
 }
 
 .checkout-content {
@@ -20,15 +21,24 @@
 
 /* Order Summary */
 .checkout-summary {
-    background: #f9f9f9;
+    background: rgba(20, 20, 20, 0.6);
+    backdrop-filter: blur(12px);
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.checkout-summary h2 {
+    color: var(--primary-color, #d4af37);
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-family: var(--font-heading, serif);
 }
 
 .checkout-items {
     margin: 20px 0;
-    border-bottom: 2px solid #eee;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .checkout-item {
@@ -36,7 +46,7 @@
     align-items: center;
     margin-bottom: 20px;
     padding-bottom: 20px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .checkout-item:last-child {
@@ -49,6 +59,7 @@
     object-fit: cover;
     border-radius: 8px;
     margin-right: 15px;
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .item-details {
@@ -58,26 +69,26 @@
 .item-details h3 {
     margin: 0 0 5px 0;
     font-size: 1.1rem;
-    color: #333;
+    color: #fff;
 }
 
 .item-details p {
     margin: 0;
-    color: #666;
+    color: #aaa;
     font-size: 0.9rem;
 }
 
 .item-total {
     font-weight: bold;
     font-size: 1.1rem;
-    color: #333;
+    color: var(--primary-color, #d4af37);
     margin: 0 15px;
 }
 
 .btn-remove {
     background: none;
     border: none;
-    color: #999;
+    color: #666;
     font-size: 1.5rem;
     cursor: pointer;
     transition: color 0.3s;
@@ -93,12 +104,18 @@
     font-size: 1.5rem;
     font-weight: bold;
     margin-top: 20px;
-    color: #333;
+    color: #fff;
+}
+
+.checkout-total span:last-child {
+    color: var(--primary-color, #d4af37);
 }
 
 /* Form Section */
 .checkout-form-section h2 {
     margin-bottom: 25px;
+    color: var(--primary-color, #d4af37);
+    font-family: var(--font-heading, serif);
 }
 
 .form-group {
@@ -109,45 +126,58 @@
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
-    color: #555;
+    color: #ddd;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid #ddd;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
     border-radius: 8px;
     font-size: 1rem;
-    transition: border-color 0.3s;
+    transition: all 0.3s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #666;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: #007bff;
+    border-color: var(--primary-color, #d4af37);
+    background: rgba(255, 255, 255, 0.08);
     outline: none;
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
 }
 
 .btn-place-order {
     width: 100%;
     padding: 15px;
-    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-    color: white;
+    background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
+    color: #111;
     border: none;
     border-radius: 8px;
     font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
+    font-family: var(--font-heading, sans-serif);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .btn-place-order:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
 }
 
 .btn-place-order:disabled {
-    background: #ccc;
+    background: #333;
+    color: #666;
     cursor: not-allowed;
     transform: none;
     box-shadow: none;

@@ -154,6 +154,7 @@ const Booking = () => {
         try {
             await api.post('/api/appointments', formData);
             setStatus('success');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             setFormData({
                 name: '',
                 email: '',

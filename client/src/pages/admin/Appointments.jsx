@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import api from "../../utils/api";
 import toast from "react-hot-toast";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import "./Appointments.css";
 
 const AdminAppointments = () => {
@@ -11,15 +13,7 @@ const AdminAppointments = () => {
   const [filterType, setFilterType] = useState('today'); // 'all', 'today', 'tomorrow', 'custom'
   const [filterMode, setFilterMode] = useState('scheduled'); // 'scheduled' or 'created'
   
-  const getTodayString = () => {
-      const today = new Date();
-      const yyyy = today.getFullYear();
-      const mm = String(today.getMonth() + 1).padStart(2, '0');
-      const dd = String(today.getDate()).padStart(2, '0');
-      return `${yyyy}-${mm}-${dd}`;
-  };
-
-  const [dateFilter, setDateFilter] = useState(getTodayString());
+  const [dateFilter, setDateFilter] = useState(new Date());
   const [selectedAppointment, setSelectedAppointment] = useState(null);
 
   useEffect(() => {
@@ -92,11 +86,10 @@ const AdminAppointments = () => {
 
     if (filterType === 'custom') {
       if (!dateFilter) return true;
-      const [year, month, day] = dateFilter.split("-");
       return (
-        aptDate.getFullYear() === parseInt(year) &&
-        aptDate.getMonth() === parseInt(month) - 1 &&
-        aptDate.getDate() === parseInt(day)
+        aptDate.getFullYear() === dateFilter.getFullYear() &&
+        aptDate.getMonth() === dateFilter.getMonth() &&
+        aptDate.getDate() === dateFilter.getDate()
       );
     }
     
@@ -170,12 +163,12 @@ const AdminAppointments = () => {
 
         {filterType === 'custom' && (
           <div className="custom-date-picker">
-            <label htmlFor="date-filter">Select Date:</label>
-            <input
-              type="date"
-              id="date-filter"
-              value={dateFilter}
-              onChange={(e) => setDateFilter(e.target.value)}
+            <label>Select Date:</label>
+            <DatePicker
+              selected={dateFilter}
+              onChange={(date) => setDateFilter(date)}
+              dateFormat="dd/MM/yyyy"
+              className="admin-date-input"
             />
           </div>
         )}

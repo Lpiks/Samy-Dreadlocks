@@ -16,39 +16,28 @@ const Services = () => {
     const [loading, setLoading] = useState(true);
     const [selectedService, setSelectedService] = useState(null);
 
-    // Fallback data if API is empty (for demo "wow" factor)
-    const demoServices = [
-        { _id: '1', name: 'Traditional Locs', description: 'Classic starter locs using comb coil or palm roll method.', price: 150, duration: '3-4 hours', imageUrl: serviceTraditional },
-        { _id: '2', name: 'Loc Retwist', description: 'Clean up new growth and maintain neat parts.', price: 85, duration: '2 hours', imageUrl: serviceRetwist },
-        { _id: '3', name: 'Interlocking', description: 'Maintenance method using a tool for longer lasting results.', price: 120, duration: '3 hours', imageUrl: serviceInterlocking },
-        { _id: '4', name: 'Loc Extensions', description: 'Instant length using 100% human hair.', price: 500, duration: '6-8 hours', imageUrl: serviceExtensions },
-    ];
-
-
     useEffect(() => {
         const fetchServices = async () => {
             try {
                 const res = await api.get('/api/services');
-                if (res.data.length > 0) {
-                    // Merge backend data with local high-quality images
-                    const localImages = {
-                        'Traditional Locs': serviceTraditional,
-                        'Loc Retwist': serviceRetwist,
-                        'Interlocking': serviceInterlocking,
-                        'Loc Extensions': serviceExtensions
-                    };
+                
+                // Merge backend data with local high-quality images
+                const localImages = {
+                    'Traditional Locs': serviceTraditional,
+                    'Loc Retwist': serviceRetwist,
+                    'Interlocking': serviceInterlocking,
+                    'Loc Extensions': serviceExtensions
+                };
 
-                    const updatedServices = res.data.map(service => ({
-                        ...service,
-                        imageUrl: localImages[service.name] || service.imageUrl
-                    }));
-                    setServices(updatedServices);
-                } else {
-                    setServices(demoServices);
-                }
+                const updatedServices = res.data.map(service => ({
+                    ...service,
+                    imageUrl: localImages[service.name] || service.imageUrl
+                }));
+                
+                setServices(updatedServices);
             } catch (err) {
-                console.error("Failed to fetch services, using demo data", err);
-                setServices(demoServices);
+                console.error("Failed to fetch services", err);
+                setServices([]);
             } finally {
                 setLoading(false);
             }

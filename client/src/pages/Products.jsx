@@ -134,21 +134,55 @@ const Products = () => {
         localStorage.setItem('cartItems', JSON.stringify(currentCart));
         window.dispatchEvent(new Event('cartUpdated')); // Trigger update
 
-        // Visual feedback
+        // Visual feedback - Crossing Strands
         const btn = document.getElementById(`btn-${product._id}`);
-        if (btn) {
+        const cartIcon = document.querySelector('.nav-cart-link');
+        
+        if (btn && cartIcon) {
+            const btnRect = btn.getBoundingClientRect();
+            const cartRect = cartIcon.getBoundingClientRect();
+            
+            const strandsAnim = document.createElement('div');
+            strandsAnim.className = 'crossing-strands-anim';
+            strandsAnim.innerHTML = `<div class="strand strand-left"></div><div class="strand strand-right"></div>`;
+            document.body.appendChild(strandsAnim);
+            
+            const startX = btnRect.left + (btnRect.width / 2);
+            const startY = btnRect.top + (btnRect.height / 2);
+            const endX = cartRect.left + (cartRect.width / 2);
+            const endY = cartRect.top + (cartRect.height / 2);
+            
+            strandsAnim.style.left = `${startX}px`;
+            strandsAnim.style.top = `${startY}px`;
+            strandsAnim.style.setProperty('--tx', `${endX - startX}px`);
+            strandsAnim.style.setProperty('--ty', `${endY - startY}px`);
+            
+            requestAnimationFrame(() => {
+                strandsAnim.classList.add('fly-to-cart');
+            });
+            
+            setTimeout(() => {
+                strandsAnim.remove();
+                cartIcon.classList.add('cart-bounce');
+                setTimeout(() => {
+                    cartIcon.classList.remove('cart-bounce');
+                }, 300);
+            }, 1600);
+            
             const originalText = btn.innerText;
-            btn.innerText = t('products.added');
-            btn.style.background = "var(--success-color, #28a745)";
+            btn.innerText = 'LOCKED IN!';
+            btn.style.background = "var(--primary-color, #d4af37)";
+            btn.style.color = "#000";
             setTimeout(() => {
                 btn.innerText = originalText;
                 btn.style.background = "";
-            }, 1000);
+                btn.style.color = "";
+            }, 1800);
         }
     };
 
-    const filteredProducts = activeCategory === 'All' 
-        ? products 
+    const filteredProducts = activeCategory === 'All'
+        ? products
         : products.filter(p => p.category === activeCategory);
 
     if (loading) return <div className="loading-container"><div className="loader"></div></div>;
@@ -166,14 +200,14 @@ const Products = () => {
 
             <div className="container">
                 <div className="category-filters">
-                    <button 
+                    <button
                         className={`filter-btn ${activeCategory === 'All' ? 'active' : ''}`}
                         onClick={() => setActiveCategory('All')}
                     >
                         {t('products.allCategories')}
                     </button>
                     {categories.map(cat => (
-                        <button 
+                        <button
                             key={cat._id}
                             className={`filter-btn ${activeCategory === cat.name ? 'active' : ''}`}
                             onClick={() => setActiveCategory(cat.name)}
@@ -201,7 +235,7 @@ const Products = () => {
                     </div>
                 )}
             </div>
-            
+
         </div>
     );
 };

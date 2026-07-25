@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react';
 import api from '../../utils/api';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { Check, X, Eye, Package, Clock, DollarSign } from 'lucide-react';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 import './Orders.css';
 
 const AdminOrders = () => {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedOrder, setSelectedOrder] = useState(null);
+    const [dateFilter, setDateFilter] = useState(null);
     const navigate = useNavigate();
     const ADMIN_PATH = import.meta.env.VITE_ADMIN_PATH;
 
@@ -56,11 +60,65 @@ const AdminOrders = () => {
         }
     };
 
+    const filteredOrders = dateFilter
+        ? orders.filter(order => {
+              const orderDate = new Date(order.createdAt);
+              return (
+                  orderDate.getFullYear() === dateFilter.getFullYear() &&
+                  orderDate.getMonth() === dateFilter.getMonth() &&
+                  orderDate.getDate() === dateFilter.getDate()
+              );
+          })
+        : orders;
+
+    const totalOrders = filteredOrders.length;
+    const pendingOrders = filteredOrders.filter(o => o.status === 'pending').length;
+    const currentRevenue = filteredOrders
+        .filter(o => o.status !== 'cancelled')
+        .reduce((sum, o) => sum + (o.totalAmount || 0), 0);
+
     if (loading) return <div className="admin-loading">Loading orders...</div>;
 
     return (
         <div className="admin-orders-container">
-            <h1 className="admin-orders-title">Manage Orders</h1>
+            <div className="admin-orders-header">
+                <h1 className="admin-orders-title">Manage Orders</h1>
+                <div className="orders-filter-container">
+                    <label>Filter Date:</label>
+                    <DatePicker
+                        selected={dateFilter}
+                        onChange={(date) => setDateFilter(date)}
+                        dateFormat="dd/MM/yyyy"
+                        className="admin-date-input"
+                        placeholderText="All Orders"
+                        isClearable
+                    />
+                </div>
+            </div>
+
+            <div className="orders-metrics">
+                <div className="metric-card">
+                    <div className="metric-icon"><Package size={24} /></div>
+                    <div className="metric-info">
+                        <h3>Total Orders</h3>
+                        <p>{totalOrders}</p>
+                    </div>
+                </div>
+                <div className="metric-card">
+                    <div className="metric-icon pending"><Clock size={24} /></div>
+                    <div className="metric-info">
+                        <h3>Pending</h3>
+                        <p>{pendingOrders}</p>
+                    </div>
+                </div>
+                <div className="metric-card">
+                    <div className="metric-icon revenue"><DollarSign size={24} /></div>
+                    <div className="metric-info">
+                        <h3>Revenue</h3>
+                        <p>{currentRevenue.toFixed(2)} DZD</p>
+                    </div>
+                </div>
+            </div>
 
             {orders.length === 0 ? (
                 <div className="no-orders">No orders found.</div>
@@ -78,15 +136,20 @@ const AdminOrders = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {orders.map(order => (
+                            {filteredOrders.map(order => (
                                 <tr key={order._id} onClick={() => setSelectedOrder(order)} className="order-row-clickable">
                                     <td data-label="Date">
                                         {new Date(order.createdAt).toLocaleDateString()}
                                     </td>
                                     <td data-label="Customer">
-                                        <div className="customer-info">
-                                            <strong>{order.customerName}</strong>
-                                            <p>{order.phone}</p>
+                                        <div className="customer-info-wrapper">
+                                            <div className="customer-avatar">
+                                                {order.customerName.charAt(0).toUpperCase()}
+                                            </div>
+                                            <div className="customer-info">
+                                                <strong>{order.customerName}</strong>
+                                                <p>{order.phone}</p>
+                                            </div>
                                         </div>
                                     </td>
                                     <td data-label="Items">
@@ -106,26 +169,36 @@ const AdminOrders = () => {
                                         </span>
                                     </td>
                                     <td data-label="Actions">
-                                        {order.status === 'pending' && (
-                                            <div className="order-actions">
-                                                <button
-                                                    className="btn-action btn-accept"
-                                                    onClick={(e) => updateStatus(e, order._id, 'confirmed')}
-                                                >
-                                                    Accept
-                                                </button>
-                                                <button
-                                                    className="btn-action btn-decline"
-                                                    onClick={(e) => updateStatus(e, order._id, 'cancelled')}
-                                                >
-                                                    Decline
-                                                </button>
-                                            </div>
-                                        )}
-                                        <button className="btn-action btn-view" onClick={(e) => {
-                                            e.stopPropagation();
-                                            setSelectedOrder(order);
-                                        }}>View</button>
+                                        <div className="order-actions">
+                                            {order.status === 'pending' && (
+                                                <>
+                                                    <button
+                                                        className="btn-action-icon btn-accept"
+                                                        onClick={(e) => updateStatus(e, order._id, 'confirmed')}
+                                                        title="Accept"
+                                                    >
+                                                        <Check size={18} />
+                                                    </button>
+                                                    <button
+                                                        className="btn-action-icon btn-decline"
+                                                        onClick={(e) => updateStatus(e, order._id, 'cancelled')}
+                                                        title="Decline"
+                                                    >
+                                                        <X size={18} />
+                                                    </button>
+                                                </>
+                                            )}
+                                            <button 
+                                                className="btn-action-icon btn-view" 
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    setSelectedOrder(order);
+                                                }}
+                                                title="View Details"
+                                            >
+                                                <Eye size={18} />
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
@@ -159,7 +232,7 @@ const AdminOrders = () => {
                                     <label>Phone:</label>
                                     <p>{selectedOrder.phone}</p>
                                 </div>
-                                <div className="info-group">
+                                <div className="info-group address-group">
                                     <label>Address:</label>
                                     <p className="address-text">{selectedOrder.address}</p>
                                 </div>
@@ -174,8 +247,10 @@ const AdminOrders = () => {
                                 <div className="modal-items-list">
                                     {selectedOrder.items.map((item, idx) => (
                                         <div key={idx} className="modal-item">
-                                            {item.product && (
-                                                <img src={item.product.image} alt={item.product.name} />
+                                            {item.product ? (
+                                                <img src={item.product.image} alt={item.product.name} onError={(e) => { e.target.style.display = 'none' }} />
+                                            ) : (
+                                                <div className="broken-img-placeholder"><Package size={24} /></div>
                                             )}
                                             <div className="modal-item-details">
                                                 <h4>{item.product?.name || 'Product unavailable'}</h4>
@@ -198,24 +273,24 @@ const AdminOrders = () => {
                             {selectedOrder.status === 'pending' && (
                                 <>
                                     <button
-                                        className="btn-action btn-accept large"
+                                        className="modal-btn modal-btn-accept"
                                         onClick={(e) => {
                                             updateStatus(e, selectedOrder._id, 'confirmed');
                                         }}
                                     >
-                                        Accept Order
+                                        <Check size={18} /> Accept Order
                                     </button>
                                     <button
-                                        className="btn-action btn-decline large"
+                                        className="modal-btn modal-btn-decline"
                                         onClick={(e) => {
                                             updateStatus(e, selectedOrder._id, 'cancelled');
                                         }}
                                     >
-                                        Decline Order
+                                        <X size={18} /> Decline Order
                                     </button>
                                 </>
                             )}
-                            <button className="btn-close-modal" onClick={() => setSelectedOrder(null)}>Close</button>
+                            <button className="modal-btn modal-btn-close" onClick={() => setSelectedOrder(null)}>Close</button>
                         </div>
                     </div>
                 </div>
